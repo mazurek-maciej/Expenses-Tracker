@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const InputsWraper = styled.div`
   display: flex;
@@ -12,6 +14,7 @@ class Inputs extends React.Component {
     description: '',
     amountOfMoney: null,
     date: '',
+    newDate: new Date(),
     id: null,
   };
   handleSubmit = e => {
@@ -25,7 +28,14 @@ class Inputs extends React.Component {
       id: date,
     });
   };
+  handleChangeDate = date => {
+    this.setState({
+      date: date.toLocaleString(),
+      newDate: date,
+    });
+  };
   render() {
+    const {description, amountOfMonet, date, id} = this.state;
     return (
       <>
         <h1 className="title" style={{textAlign: 'center'}}>
@@ -52,14 +62,10 @@ class Inputs extends React.Component {
               />
             </div>
             <div className="field">
-              <input
-                className="input"
-                onChange={this.handleInput}
-                type="date"
-                id="date"
-                placeholder="2019-07-22"
-                min="2019-01-01"
-                max="2019-12-31"
+              <DatePicker
+                selected={this.state.newDate}
+                onChange={this.handleChangeDate}
+                dateFormat="MMMM d, yyyy"
               />
             </div>
             <input className="button" type="submit" value="submit" />

@@ -2,12 +2,14 @@ import React from 'react';
 import Inputs from './inputs';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+
 import {addBillAction} from '../../actions/addBillAction';
 
 class Index extends React.Component {
   handleSubmit = bill => {
     this.props.addBillAction(bill);
   };
+
   render() {
     return (
       <div>
@@ -19,7 +21,7 @@ class Index extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    addBill: state.addBill,
+    bills: state.addBill,
   };
 };
 const mapDispatchToProps = dispatch => {

@@ -16,6 +16,7 @@ class Inputs extends React.Component {
     date: '',
     newDate: new Date(),
     id: null,
+    editable: false,
   };
   handleSubmit = e => {
     e.preventDefault();

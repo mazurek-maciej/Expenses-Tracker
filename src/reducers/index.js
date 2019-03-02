@@ -8,6 +8,23 @@ const billsReducers = (state = initialState, action) => {
       return [...state, action.payload];
     case 'REMOVE_BILL':
       return state.filter(bill => bill.id !== action.payload);
+    case 'EDIT_BILL':
+      return state.map(bill =>
+        bill.id === action.payload ? {...bill, editable: !bill.editable} : bill,
+      );
+    case 'UPDATE_BILL':
+      console.log(action);
+      return state.map(bill => {
+        if (bill.id === action.payload) {
+          return {
+            ...bill,
+            description: action.description,
+            date: action.date,
+            amountOfMoney: action.amountOfMoney,
+            editable: !bill.editable,
+          };
+        } else return state;
+      });
     default:
       return state;
   }

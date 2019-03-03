@@ -13,18 +13,19 @@ const billsReducers = (state = initialState, action) => {
         bill.id === action.payload ? {...bill, editable: !bill.editable} : bill,
       );
     case 'UPDATE_BILL':
-      console.log(action);
-      return state.map(bill => {
+      const newBillsArray = state.map(bill => {
         if (bill.id === action.payload) {
-          return {
+          bill = {
             ...bill,
             description: action.description,
             date: action.date,
             amountOfMoney: action.amountOfMoney,
             editable: !bill.editable,
           };
-        } else return state;
+        }
+        return bill;
       });
+      return newBillsArray;
     default:
       return state;
   }

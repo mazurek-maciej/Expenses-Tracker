@@ -13,7 +13,6 @@ class Index extends React.Component {
       if (bill.length !== 0) {
         return (
           <div className="content box" key={bill.id}>
-            {console.log(bill)}
             <p className="subtitle">{index}</p>
             <p>Bill description: {bill.description}</p>
             <p>Amount of money: {bill.amountOfMoney}</p>
@@ -40,6 +39,7 @@ class Index extends React.Component {
 
   render() {
     const {bills} = this.props;
+    console.log(bills);
     if (bills.length === 0) return <div>Add new bill to your list</div>;
 
     return <div className="section">{this.displayBills()}</div>;

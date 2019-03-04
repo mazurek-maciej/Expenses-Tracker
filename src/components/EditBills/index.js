@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import DatePicker from 'react-datepicker';
 
 import EditComponent from './EditComponent';
 import {updateBillAction} from '../../actions/updateBillAction';
@@ -32,9 +31,13 @@ class EditBills extends React.Component {
     );
   };
   handleChangeDate = date => {
+    let month = date.getUTCMonth() + 1;
+    let year = date.getFullYear();
+    let day = date.getUTCDate();
+    let newDate = `${day}/${month}/${year}`;
     this.setState({
       date: date,
-      newDate: date.toLocaleString(),
+      newDate: newDate,
     });
   };
 

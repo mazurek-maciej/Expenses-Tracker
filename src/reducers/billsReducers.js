@@ -20,6 +20,7 @@ export const billsReducers = (state = initialState, action) => {
         bill.id === action.payload ? {...bill, editable: !bill.editable} : bill,
       );
     case 'UPDATE_BILL':
+      console.log(action);
       console.log('bill updated successfuly');
       const newBillsArray = state.map(bill => {
         if (bill.id === action.payload) {

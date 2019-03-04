@@ -6,8 +6,11 @@ import ListOfBills from '../components/ListOfBills';
 const MainWraper = styled.div`
   background-color: #1a1a1a;
   display: flex;
+  margin: 0 auto;
   flex-direction: column;
   height: 100vh;
+  max-width: 900px;
+  width: 100%;
 `;
 const TitleWraper = styled.div`
   flex: 1;
@@ -18,10 +21,23 @@ const PageTitle = styled.h1`
   font-size: 32px;
   margin-left: 32px;
   color: #f9f9f9;
+  position: relative;
+  &::after {
+    position: absolute;
+    content: '';
+    height: 1px;
+    background-color: #f9f9f9;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+  }
 `;
 const ListWraper = styled.div`
   flex: 3;
   display: flex;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
   flex-direction: column;
   justify-content: flex-start;
 `;

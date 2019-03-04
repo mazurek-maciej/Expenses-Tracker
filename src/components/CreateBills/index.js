@@ -1,11 +1,11 @@
 import React from 'react';
-import Inputs from './inputs';
+import FormContainer from './FormContainer';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import {addBillAction} from '../../actions/addBillAction';
 
-class Index extends React.Component {
+class CreateBills extends React.Component {
   handleSubmit = bill => {
     this.props.addBillAction(bill);
   };
@@ -13,7 +13,7 @@ class Index extends React.Component {
   render() {
     return (
       <div>
-        <Inputs handleBill={this.handleSubmit} />
+        <FormContainer handleBill={this.handleSubmit} />
       </div>
     );
   }
@@ -31,4 +31,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Index);
+)(CreateBills);

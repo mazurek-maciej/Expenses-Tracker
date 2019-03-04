@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import {Edit} from 'styled-icons/material/Edit';
+import {Close} from 'styled-icons/material/Close';
 import EditBills from '../EditBills';
 
 const BillWraper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${props => (props.editable ? 'column' : 'row')};
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -19,7 +21,16 @@ const BillWraper = styled.div`
     bottom: 0;
   }
 `;
-const TopWraper = styled.div`
+const StyledEditIcon = styled(Edit)`
+  width: 32px;
+  color: #f9f9f9;
+`;
+const StyledCloseIcon = styled(Close)`
+  width: 32px;
+  color: #f9f9f9;
+`;
+const LeftWraper = styled.div`
+  flex: ${props => (props.editable ? null : '2')};
   display: flex;
   justify-content: space-around;
   width: 100%;
@@ -28,23 +39,26 @@ const TopWraper = styled.div`
     padding: 0 8px;
   }
 `;
-const BottomWraper = styled.div`
+const RightWrapper = styled.div`
+  flex: ${props => (props.editable ? null : '1')};
   display: flex;
-  flex-direction: column;
   width: 100%;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 `;
-const ButtonWraper = styled.button`
-  color: #f9f9f9;
+const ButtonsWraper = styled.div`
+  display: flex;
+  flex-direction: ${props => (props.editable ? 'column' : 'row')};
+`;
+const ButtonWraper = styled.a`
   padding: 8px 16px;
-  background-color: hsla(0, 0%, 25%, 1);
   border-radius: 4px;
-  margin: 0 8px;
   width: 100px;
 `;
 const Button = ({children, handleClick}) => (
-  <ButtonWraper onClick={handleClick}>{children}</ButtonWraper>
+  <ButtonWraper type="button" onClick={handleClick}>
+    {children}
+  </ButtonWraper>
 );
 
 const BillTile = ({
@@ -58,19 +72,23 @@ const BillTile = ({
   handleEdit,
 }) => {
   return (
-    <BillWraper key={id}>
-      <TopWraper>
+    <BillWraper key={id} editable={editable}>
+      <LeftWraper editable={editable}>
         <p>{description}</p>
-        <p>{amountOfMoney}</p>
+        <p>{amountOfMoney}zł</p>
         <p>{date}</p>
-      </TopWraper>
-      <BottomWraper>
+      </LeftWraper>
+      <RightWrapper>
         {editable ? <EditBills id={id} date={newDate} /> : null}
-        <div>
-          <Button handleClick={() => handleDelete(id)}>R</Button>
-          <Button handleClick={() => handleEdit(id)}>E</Button>
-        </div>
-      </BottomWraper>
+        <ButtonsWraper editable={editable}>
+          <Button handleClick={() => handleEdit(id)}>
+            <StyledEditIcon />
+          </Button>
+          <Button shandleClick={() => handleDelete(id)}>
+            <StyledCloseIcon />
+          </Button>
+        </ButtonsWraper>
+      </RightWrapper>
     </BillWraper>
   );
 };

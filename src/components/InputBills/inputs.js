@@ -25,15 +25,18 @@ class Inputs extends React.Component {
   };
   handleInput = e => {
     const date = Date.now();
-
     this.setState({
       [e.target.id]: e.target.value,
       id: date,
     });
   };
   handleChangeDate = date => {
+    let month = date.getMonth();
+    let year = date.getFullYear();
+    let day = date.getDay();
+    let newDate = `${day}/${month}/${year}`;
     this.setState({
-      date: date.toLocaleString(),
+      date: newDate,
       newDate: date,
     });
   };

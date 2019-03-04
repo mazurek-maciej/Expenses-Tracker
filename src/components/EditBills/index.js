@@ -2,21 +2,28 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import DatePicker from 'react-datepicker';
+
+import EditComponent from './EditComponent';
 import {updateBillAction} from '../../actions/updateBillAction';
+
 import 'react-datepicker/dist/react-datepicker.css';
 
 class EditBills extends React.Component {
-  state = {
-    date: new Date(),
-    newDate: '',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      date: new Date(),
+      newDate: '',
+    };
+    this.getDesc = React.createRef();
+    this.getMoney = React.createRef();
+  }
 
   handleSubmit = e => {
     e.preventDefault();
-    const newDescription = this.getDesc.value;
+    const newDescription = this.getDesc.current.value;
+    const newAmountOfMoney = this.getMoney.current.value;
     const newDate = this.state.newDate;
-    console.log(newDate);
-    const newAmountOfMoney = this.getMoney.value;
     this.props.updateBillAction(
       this.props.id,
       newDescription,
@@ -33,27 +40,16 @@ class EditBills extends React.Component {
 
   render() {
     const {bills} = this.props;
+    const {date} = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          defaultValue={bills.description}
-          type="text"
-          placeholder="Enter new description"
-          ref={input => (this.getDesc = input)}
-        />
-        <input
-          defaultValue={bills.amountOfMoney}
-          type="text"
-          placeholder="Enter new amount of money"
-          ref={input => (this.getMoney = input)}
-        />
-        <DatePicker
-          selected={this.state.date}
-          onChange={this.handleChangeDate}
-          dateFormat="MMMM d, yyyy"
-        />
-        <input type="submit" placeholder="Update bill" />
-      </form>
+      <EditComponent
+        handleSubmit={this.handleSubmit}
+        handleChangeDate={this.handleChangeDate}
+        getDesc={this.getDesc}
+        getMoney={this.getMoney}
+        bills={bills}
+        date={date}
+      />
     );
   }
 }

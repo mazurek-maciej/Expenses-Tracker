@@ -1,0 +1,63 @@
+import React from 'react';
+import styled from 'styled-components';
+import {Link} from 'react-router-dom';
+import ListOfBills from '../components/ListOfBills';
+
+const MainWraper = styled.div`
+  background-color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`;
+const TitleWraper = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+`;
+const PageTitle = styled.h1`
+  font-size: 32px;
+  margin-left: 32px;
+  color: #f9f9f9;
+`;
+const ListWraper = styled.div`
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+`;
+const BottomWraper = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+`;
+const AddButton = styled.button`
+  width: 200px;
+  padding: 8px 16px;
+  border: 1px solid teal;
+  border-radius: 8px;
+  background-color: hsla(0, 0%, 25%, 1);
+  font-size: 16px;
+  a {
+    color: #f9f9f9;
+  }
+`;
+
+const MainPage = () => {
+  return (
+    <MainWraper>
+      <TitleWraper>
+        <PageTitle>Your account</PageTitle>
+      </TitleWraper>
+      <ListWraper>
+        <ListOfBills />
+      </ListWraper>
+      <BottomWraper>
+        <AddButton>
+          <Link to="/add">Add</Link>
+        </AddButton>
+      </BottomWraper>
+    </MainWraper>
+  );
+};
+export default MainPage;

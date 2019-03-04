@@ -37,7 +37,7 @@ class Index extends React.Component {
   render() {
     const {bills} = this.props;
     if (bills.length === 0) return <div>Add new bill to your list</div>;
-    return <div className="section">{this.displayBills()}</div>;
+    return <>{this.displayBills()}</>;
   }
 }
 

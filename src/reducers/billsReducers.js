@@ -1,4 +1,11 @@
-const initialState = [];
+const initialState = [
+  {
+    description: 'test',
+    amountOfMoney: '20',
+    date: '1/2/2019',
+    editable: false,
+  },
+];
 export const billsReducers = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_BILL':

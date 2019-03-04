@@ -14,6 +14,7 @@ class CategoriesIndex extends React.Component {
     this.state = {
       id: '',
       category: '',
+      selectedCategory: null,
     };
     this.inputRef = React.createRef();
   }
@@ -32,9 +33,13 @@ class CategoriesIndex extends React.Component {
     });
     console.log(this.state);
   };
+  handleSelectCategory = selectedCategory => {
+    this.setState({selectedCategory: selectedCategory});
+    console.log(`Category selected:`, selectedCategory.value);
+  };
 
   render() {
-    const {category} = this.state;
+    const {category, selectedCategory} = this.state;
     return (
       <div>
         <AddComponent
@@ -44,7 +49,11 @@ class CategoriesIndex extends React.Component {
           inputRef={this.inputRef}
           category={category}
         />
-        <CategoriesList categories={this.props.categories} />
+        <CategoriesList
+          selectedCategory={selectedCategory}
+          handleSelectCategory={this.handleSelectCategory}
+          categories={this.props.categories}
+        />
       </div>
     );
   }

@@ -7,7 +7,9 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
     font-size: 16px;
+    line-height: 1.5;
     font-family: Source Sans Pro;
+    background-color: #1A1A1A;
     *, *::before, *::after {
       box-sizing: border-box;
     }

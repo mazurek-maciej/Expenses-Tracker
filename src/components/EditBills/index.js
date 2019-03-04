@@ -33,7 +33,6 @@ class EditBills extends React.Component {
 
   render() {
     const {bills} = this.props;
-    console.log(this.state);
     return (
       <form onSubmit={this.handleSubmit}>
         <input

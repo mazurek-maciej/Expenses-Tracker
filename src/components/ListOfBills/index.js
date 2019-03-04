@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import EditBills from '../EditBills';
+import BillTile from './BillTile';
 
 import {removeBillAction} from '../../actions/removeBillAction';
 import {editBillAction} from '../../actions/editBillAction';
@@ -12,19 +12,16 @@ class Index extends React.Component {
     return this.props.bills.map((bill, index) => {
       if (bill.length !== 0) {
         return (
-          <div className="content box" key={bill.id}>
-            <p className="subtitle">{index}</p>
-            <p>Bill description: {bill.description}</p>
-            <p>Amount of money: {bill.amountOfMoney}</p>
-            <p>Bill date: {bill.date}</p>
-            {bill.editable ? (
-              <EditBills id={bill.id} date={bill.newDate} />
-            ) : null}
-            <button onClick={() => this.handleDelete(bill.id)}>
-              Remove bill
-            </button>
-            <button onClick={() => this.handleEdit(bill.id)}>Edit bill</button>
-          </div>
+          <BillTile
+            id={bill.id}
+            description={bill.description}
+            amountOfMoney={bill.amountOfMoney}
+            date={bill.date}
+            newDate={bill.newDate}
+            editable={bill.editable}
+            handleDelete={this.handleDelete}
+            handleEdit={this.handleEdit}
+          />
         );
       }
     });
@@ -39,9 +36,7 @@ class Index extends React.Component {
 
   render() {
     const {bills} = this.props;
-    console.log(bills);
     if (bills.length === 0) return <div>Add new bill to your list</div>;
-
     return <div className="section">{this.displayBills()}</div>;
   }
 }

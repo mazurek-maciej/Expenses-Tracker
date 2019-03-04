@@ -12,7 +12,7 @@ const InputsWraper = styled.div`
 class Inputs extends React.Component {
   state = {
     description: '',
-    amountOfMoney: null,
+    amountOfMoney: '',
     date: '',
     newDate: new Date(),
     id: null,
@@ -21,9 +21,11 @@ class Inputs extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.handleBill(this.state);
+    this.setState({description: '', amountOfMoney: ''});
   };
   handleInput = e => {
     const date = Date.now();
+
     this.setState({
       [e.target.id]: e.target.value,
       id: date,
@@ -36,7 +38,7 @@ class Inputs extends React.Component {
     });
   };
   render() {
-    const {description, amountOfMonet, date, id} = this.state;
+    const {description, amountOfMoney} = this.state;
     return (
       <>
         <h1 className="title" style={{textAlign: 'center'}}>
@@ -49,6 +51,7 @@ class Inputs extends React.Component {
                 className="input"
                 onChange={this.handleInput}
                 type="text"
+                value={description}
                 placeholder="Description"
                 id="description"
               />
@@ -58,6 +61,7 @@ class Inputs extends React.Component {
                 className="input"
                 onChange={this.handleInput}
                 type="text"
+                value={amountOfMoney}
                 placeholder="Amount of money"
                 id="amountOfMoney"
               />

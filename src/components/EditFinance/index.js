@@ -4,15 +4,18 @@ import {bindActionCreators} from 'redux';
 
 import EditComponent from './EditComponent';
 import {updateBillAction} from '../../actions/updateBillAction';
+import {editBillAction} from '../../actions/editBillAction';
+import {removeBillAction} from '../../actions/removeBillAction';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-class EditBills extends React.Component {
+class EditFinance extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       date: new Date(),
       newDate: '',
+      category: '',
     };
     this.getDesc = React.createRef();
     this.getMoney = React.createRef();
@@ -28,6 +31,7 @@ class EditBills extends React.Component {
       newDescription,
       newDate,
       newAmountOfMoney,
+      this.state.category.value,
     );
   };
   handleChangeDate = date => {
@@ -40,18 +44,34 @@ class EditBills extends React.Component {
       newDate: newDate,
     });
   };
+  handleCategories = category => {
+    this.setState({category});
+  };
+  handleDeleteEditable = id => {
+    console.log(id);
+    this.props.removeBillAction(id);
+  };
+  handleEditEditable = id => {
+    this.props.editBillAction(id);
+  };
 
   render() {
-    const {bills} = this.props;
+    const {bills, categories, id} = this.props;
     const {date} = this.state;
+    console.log(id);
     return (
       <EditComponent
         handleSubmit={this.handleSubmit}
         handleChangeDate={this.handleChangeDate}
+        handleDeleteEditable={this.handleDeleteEditable}
+        handleEditEditable={this.handleEditEditable}
+        handleCategories={this.handleCategories}
         getDesc={this.getDesc}
         getMoney={this.getMoney}
         bills={bills}
+        categoriesList={categories}
         date={date}
+        billId={id}
       />
     );
   }
@@ -60,13 +80,17 @@ class EditBills extends React.Component {
 const mapStateToProps = state => {
   return {
     bills: state.bills,
+    categories: state.categories,
   };
 };
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({updateBillAction}, dispatch);
+  return bindActionCreators(
+    {updateBillAction, editBillAction, removeBillAction},
+    dispatch,
+  );
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(EditBills);
+)(EditFinance);

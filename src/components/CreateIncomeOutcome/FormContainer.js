@@ -14,7 +14,7 @@ class FormContainer extends React.Component {
         id: null,
         editable: false,
         category: '',
-        type: '',
+        incomeType: '',
       },
       newDate: new Date(),
       selectedType: '',
@@ -24,7 +24,7 @@ class FormContainer extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.handleBill(this.state.content);
-    this.setState({description: '', amountOfMoney: ''});
+    this.setState({content: {description: '', amountOfMoney: ''}});
   };
   handleInput = () => {
     const date = Date.now();
@@ -58,18 +58,18 @@ class FormContainer extends React.Component {
       selectedCategory: category,
     });
   };
-  handleTypeChange = type => {
+  handleIncomeTypeChange = incomeType => {
     this.setState({
       content: {
         ...this.state.content,
-        type: type.value,
+        incomeType: incomeType.value,
       },
-      selectedType: type,
+      selectedType: incomeType,
     });
   };
 
   render() {
-    const {description, amountOfMoney} = this.state.content;
+    const {content} = this.state;
     const {selectedType, newDate, selectedCategory} = this.state;
     const {categoriesList} = this.props;
     return (
@@ -78,10 +78,9 @@ class FormContainer extends React.Component {
           handleSubmit={this.handleSubmit}
           handleInput={this.handleInput}
           handleChangeDate={this.handleChangeDate}
-          handleTypeChange={this.handleTypeChange}
+          handleIncomeTypeChange={this.handleIncomeTypeChange}
           handleCategories={this.handleCategories}
-          amountOfMoney={amountOfMoney}
-          description={description}
+          content={content}
           newDate={newDate}
           selectedType={selectedType}
           selectedCategory={selectedCategory}

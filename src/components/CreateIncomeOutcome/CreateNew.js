@@ -19,18 +19,17 @@ const CreateBillForm = ({
   handleChangeDate,
   handleInput,
   handleSubmit,
-  handleTypeChange,
+  handleIncomeTypeChange,
   handleCategories,
-  description,
   newDate,
-  amountOfMoney,
-  selectedType,
+  content,
+  selectedTypes,
   selectedCategory,
   categoriesList,
   moneyRef,
   descRef,
 }) => {
-  const types = [
+  const incomeTypes = [
     {value: 'Income', label: 'Income'},
     {value: 'Outcome', label: 'Outcome'},
   ];
@@ -46,7 +45,7 @@ const CreateBillForm = ({
             className="input"
             onChange={handleInput}
             type="text"
-            value={description}
+            value={content.description}
             placeholder="Description"
             ref={descRef}
           />
@@ -56,15 +55,15 @@ const CreateBillForm = ({
             className="input"
             onChange={handleInput}
             type="text"
-            value={amountOfMoney}
+            value={content.amountOfMoney}
             placeholder="Amount of money"
             ref={moneyRef}
           />
         </div>
         <Select
-          options={types}
-          value={selectedType}
-          onChange={handleTypeChange}
+          options={incomeTypes}
+          value={selectedTypes}
+          onChange={handleIncomeTypeChange}
         />
         <Select
           options={categoriesSelect}

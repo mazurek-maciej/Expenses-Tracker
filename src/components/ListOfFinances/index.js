@@ -13,6 +13,7 @@ class Index extends React.Component {
       if (bill.length !== 0) {
         return (
           <IncomeOutcomeTile
+            key={index}
             id={bill.id}
             description={bill.description}
             amountOfMoney={bill.amountOfMoney}

@@ -47,7 +47,7 @@ const RightWrapper = styled.div`
   align-items: center;
 `;
 const ButtonsWraper = styled.div`
-  display: flex;
+  display: ${props => (props.editable ? 'none' : 'flex')};
   flex-direction: ${props => (props.editable ? 'column' : 'row')};
 `;
 const ButtonWraper = styled.a`

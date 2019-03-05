@@ -5,7 +5,8 @@ const initialState = [
     date: '1/2/2019',
     editable: false,
     category: '',
-    type: '',
+    incomeType: 'Income',
+    id: 1,
   },
 ];
 export const incomeOutcomeReducers = (state = initialState, action) => {
@@ -31,6 +32,8 @@ export const incomeOutcomeReducers = (state = initialState, action) => {
             description: action.description,
             date: action.date,
             amountOfMoney: action.amountOfMoney,
+            category: action.category,
+            incomeType: bill.incomeType,
             editable: !bill.editable,
           };
         }

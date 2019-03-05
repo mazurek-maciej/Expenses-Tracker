@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {Edit} from 'styled-icons/material/Edit';
 import {Close} from 'styled-icons/material/Close';
 import EditFinance from '../EditFinance';
+import ListActionsButton from '../Buttons/ListActionsButton';
 
 const BillWraper = styled.div`
   display: flex;
@@ -50,16 +51,6 @@ const ButtonsWraper = styled.div`
   display: ${props => (props.editable ? 'none' : 'flex')};
   flex-direction: ${props => (props.editable ? 'column' : 'row')};
 `;
-const ButtonWraper = styled.a`
-  padding: 8px 16px;
-  border-radius: 4px;
-  width: 100px;
-`;
-const Button = ({children, handleClick}) => (
-  <ButtonWraper type="button" onClick={handleClick}>
-    {children}
-  </ButtonWraper>
-);
 
 const BillTile = ({
   id,
@@ -81,12 +72,12 @@ const BillTile = ({
       <RightWrapper>
         {editable ? <EditFinance id={id} date={newDate} /> : null}
         <ButtonsWraper editable={editable}>
-          <Button handleClick={() => handleEdit(id)}>
+          <ListActionsButton handleClick={() => handleEdit(id)}>
             <StyledEditIcon />
-          </Button>
-          <Button handleClick={() => handleDelete(id)}>
+          </ListActionsButton>
+          <ListActionsButton handleClick={() => handleDelete(id)}>
             <StyledCloseIcon />
-          </Button>
+          </ListActionsButton>
         </ButtonsWraper>
       </RightWrapper>
     </BillWraper>

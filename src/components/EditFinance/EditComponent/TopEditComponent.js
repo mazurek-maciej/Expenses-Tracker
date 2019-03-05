@@ -8,11 +8,10 @@ const TopWraper = styled.div`
   width: 100%;
 `;
 const InputsWraper = styled.div`
+  flex: 1;
   display: flex;
-  width: 100%;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
 `;
 const InputValue = styled.input`
   padding: 4px 8px;
@@ -25,6 +24,18 @@ const InputValue = styled.input`
   :focus {
     border: 1px solid #f9f9f9;
   }
+`;
+const StyledSelect = styled(Select)`
+  width: 80%;
+  margin: 8px;
+  font-size: 16px;
+  color: black;
+`;
+const StyledDatePicker = styled(DatePicker)`
+  font-size: 16px;
+  padding: 8px;
+  border-radius: 4px;
+  margin: 8px;
 `;
 
 const TopEditComponent = ({
@@ -53,12 +64,12 @@ const TopEditComponent = ({
         />
       </InputsWraper>
       <InputsWraper>
-        <DatePicker
+        <StyledDatePicker
           selected={date}
           onChange={handleChangeDate}
           dateFormat="MMMM d, yyyy"
         />
-        <Select options={categoriesSelect} onChange={handleCategories} />
+        <StyledSelect options={categoriesSelect} onChange={handleCategories} />
       </InputsWraper>
     </TopWraper>
   );

@@ -58,7 +58,6 @@ class EditFinance extends React.Component {
   render() {
     const {bills, categories, id} = this.props;
     const {date} = this.state;
-    console.log(id);
     return (
       <EditComponent
         handleSubmit={this.handleSubmit}

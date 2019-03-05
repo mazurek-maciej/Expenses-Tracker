@@ -3,12 +3,15 @@ import styled from 'styled-components';
 import {Done} from 'styled-icons/material/Done';
 import {Edit} from 'styled-icons/material/Edit';
 import {Close} from 'styled-icons/material/Close';
+import ListActionsButton from '../../Buttons/ListActionsButton';
 
 const SubmitButton = styled.button`
   color: #f9f9f9;
   background-color: transparent;
   padding: 4px 8px;
-  border-radius: 4px;
+  border: 1px solid teal;
+  border-radius: 8px;
+  background-color: hsla(0, 0%, 25%, 1);
   width: 80px;
   margin: 4px;
 `;
@@ -24,11 +27,7 @@ const StyledDone = styled(Done)`
 `;
 const ButtonsWraper = styled.div`
   align-self: center;
-`;
-const ButtonWraper = styled.a`
-  padding: 8px 16px;
-  border-radius: 4px;
-  width: 100px;
+  display: flex;
 `;
 const StyledEditIcon = styled(Edit)`
   width: 32px;
@@ -44,23 +43,18 @@ const BottomEditComponent = ({
   handleEditEditable,
   billId,
 }) => {
-  const Button = ({children, handleClick}) => (
-    <ButtonWraper type="button" onClick={handleClick}>
-      {children}
-    </ButtonWraper>
-  );
   return (
     <BottomWraper>
       <SubmitButton type="submit">
         <StyledDone />
       </SubmitButton>
       <ButtonsWraper>
-        <Button handleClick={() => handleEditEditable(billId)}>
+        <ListActionsButton handleClick={() => handleEditEditable(billId)}>
           <StyledEditIcon />
-        </Button>
-        <Button handleClick={() => handleDeleteEditable(billId)}>
+        </ListActionsButton>
+        <ListActionsButton handleClick={() => handleDeleteEditable(billId)}>
           <StyledCloseIcon />
-        </Button>
+        </ListActionsButton>
       </ButtonsWraper>
     </BottomWraper>
   );

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Layout from './layout';
 import MainPage from './pages/MainPage';
-import AddBillsPage from './pages/AddBillsPage';
+import AddFinancePage from './pages/AddFinancePage';
 
 class App extends Component {
   render() {
@@ -11,7 +11,7 @@ class App extends Component {
         <Router>
           <>
             <Route path="/" exact component={MainPage} />
-            <Route path="/add" exact component={AddBillsPage} />
+            <Route path="/add" exact component={AddFinancePage} />
           </>
         </Router>
       </Layout>

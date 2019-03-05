@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
-import ListOfBills from '../components/ListOfBills';
+import ListOfFinances from '../components/ListOfFinances';
 
 const MainWraper = styled.div`
   background-color: #1a1a1a;
@@ -66,7 +66,7 @@ const MainPage = () => {
         <PageTitle>Your account</PageTitle>
       </TitleWraper>
       <ListWraper>
-        <ListOfBills />
+        <ListOfFinances />
       </ListWraper>
       <BottomWraper>
         <AddButton>

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import Categories from '../components/Categories';
-import CreateBills from '../components/CreateBills';
+import CreateNew from '../components/CreateIncomeOutcome';
 
 const AddBillsWraper = styled.div`
   background-color: #1a1a1a;
@@ -44,9 +44,9 @@ const AddBillsPage = () => {
     <AddBillsWraper>
       <TopWraper>
         <div style={{display: 'flex'}}>
-          <PageTitle>Add new bill</PageTitle>
+          <PageTitle>Add expense or income</PageTitle>
         </div>
-        <CreateBills />
+        <CreateNew />
       </TopWraper>
       <MainWraper>
         <div style={{display: 'flex'}}>

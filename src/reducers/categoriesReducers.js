@@ -13,10 +13,10 @@ export const categoriesReducers = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_CATEGORY':
       console.log('category added successfuly');
-      return [...state, action.payload];
+      return [...state, action.category];
     case 'REMOVE_CATEGORY':
       console.log('category removed successfuly');
-      return state.filter(category => category.id !== action.payload);
+      return state.filter(category => category.id !== action.id);
     default:
       return state;
   }

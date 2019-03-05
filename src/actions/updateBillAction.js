@@ -1,7 +1,7 @@
 export const updateBillAction = (id, description, date, amountOfMoney) => {
   return {
     type: 'UPDATE_BILL',
-    payload: id,
+    id,
     description,
     date,
     amountOfMoney,

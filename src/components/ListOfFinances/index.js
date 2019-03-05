@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import BillTile from './BillTile';
+import IncomeOutcomeTile from './IncomeOutcomeTile';
 
 import {removeBillAction} from '../../actions/removeBillAction';
 import {editBillAction} from '../../actions/editBillAction';
@@ -12,7 +12,7 @@ class Index extends React.Component {
     return this.props.bills.map((bill, index) => {
       if (bill.length !== 0) {
         return (
-          <BillTile
+          <IncomeOutcomeTile
             id={bill.id}
             description={bill.description}
             amountOfMoney={bill.amountOfMoney}

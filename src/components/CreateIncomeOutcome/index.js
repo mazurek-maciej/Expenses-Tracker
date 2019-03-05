@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 
 import {addBillAction} from '../../actions/addBillAction';
 
-class CreateBills extends React.Component {
+class CreateIncomeOutcome extends React.Component {
   handleSubmit = bill => {
     this.props.addBillAction(bill);
   };
@@ -13,7 +13,10 @@ class CreateBills extends React.Component {
   render() {
     return (
       <div>
-        <FormContainer handleBill={this.handleSubmit} />
+        <FormContainer
+          handleBill={this.handleSubmit}
+          categoriesList={this.props.categories}
+        />
       </div>
     );
   }
@@ -22,6 +25,7 @@ class CreateBills extends React.Component {
 const mapStateToProps = state => {
   return {
     bills: state.addBill,
+    categories: state.categories,
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -31,4 +35,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(CreateBills);
+)(CreateIncomeOutcome);

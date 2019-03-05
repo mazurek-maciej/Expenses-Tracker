@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
+import Select from 'react-select';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const InputsWraper = styled.div`
@@ -18,10 +19,25 @@ const CreateBillForm = ({
   handleChangeDate,
   handleInput,
   handleSubmit,
+  handleTypeChange,
+  handleCategories,
   description,
   newDate,
   amountOfMoney,
+  selectedType,
+  selectedCategory,
+  categoriesList,
+  moneyRef,
+  descRef,
 }) => {
+  const types = [
+    {value: 'Income', label: 'Income'},
+    {value: 'Outcome', label: 'Outcome'},
+  ];
+  const categoriesSelect = [];
+  categoriesList.map(cat =>
+    categoriesSelect.push({value: cat.category, label: cat.category}),
+  );
   return (
     <InputsWraper>
       <FormWraper onSubmit={handleSubmit}>
@@ -32,7 +48,7 @@ const CreateBillForm = ({
             type="text"
             value={description}
             placeholder="Description"
-            id="description"
+            ref={descRef}
           />
         </div>
         <div className="field">
@@ -42,9 +58,19 @@ const CreateBillForm = ({
             type="text"
             value={amountOfMoney}
             placeholder="Amount of money"
-            id="amountOfMoney"
+            ref={moneyRef}
           />
         </div>
+        <Select
+          options={types}
+          value={selectedType}
+          onChange={handleTypeChange}
+        />
+        <Select
+          options={categoriesSelect}
+          value={selectedCategory}
+          onChange={handleCategories}
+        />
         <div className="field">
           <DatePicker
             selected={newDate}

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {Edit} from 'styled-icons/material/Edit';
 import {Close} from 'styled-icons/material/Close';
-import EditBills from '../EditBills';
+import EditFinance from '../EditFinance';
 
 const BillWraper = styled.div`
   display: flex;
@@ -79,12 +79,12 @@ const BillTile = ({
         <p>{date}</p>
       </LeftWraper>
       <RightWrapper>
-        {editable ? <EditBills id={id} date={newDate} /> : null}
+        {editable ? <EditFinance id={id} date={newDate} /> : null}
         <ButtonsWraper editable={editable}>
           <Button handleClick={() => handleEdit(id)}>
             <StyledEditIcon />
           </Button>
-          <Button shandleClick={() => handleDelete(id)}>
+          <Button handleClick={() => handleDelete(id)}>
             <StyledCloseIcon />
           </Button>
         </ButtonsWraper>

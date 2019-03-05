@@ -1,9 +1,9 @@
 import {combineReducers} from 'redux';
-import {billsReducers} from './billsReducers';
+import {incomeOutcomeReducers} from './incomeOutcomeReducers';
 import {categoriesReducers} from './categoriesReducers';
 
 const reducers = combineReducers({
-  bills: billsReducers,
+  bills: incomeOutcomeReducers,
   categories: categoriesReducers,
 });
 

@@ -1,7 +1,11 @@
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 import DatePicker from 'react-datepicker';
 import Select from 'react-select';
+
+import {addBillAction} from '../../actions/addBillAction';
 import 'react-datepicker/dist/react-datepicker.css';
 
 class AddForm extends React.Component {
@@ -57,7 +61,22 @@ class AddForm extends React.Component {
   };
 
   handleSubmitForm = propsValues => {
-    console.log(propsValues);
+    let month = propsValues.date.getUTCMonth() + 1;
+    let year = propsValues.date.getFullYear();
+    let day = propsValues.date.getUTCDate();
+    let date = `${day}/${month}/${year}`;
+    let incomeType = propsValues.typeOfAccount.value;
+    let category = propsValues.category.value;
+    let editable = false;
+    let id = Date.now();
+    this.props.addBillAction({
+      ...propsValues,
+      date,
+      incomeType,
+      category,
+      editable,
+      id,
+    });
   };
   render() {
     const {handleSubmit} = this.props;
@@ -97,6 +116,14 @@ class AddForm extends React.Component {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({addBillAction}, dispatch);
+};
+
+AddForm = connect(
+  null,
+  mapDispatchToProps,
+)(AddForm);
 export default reduxForm({
   form: 'account',
 })(AddForm);

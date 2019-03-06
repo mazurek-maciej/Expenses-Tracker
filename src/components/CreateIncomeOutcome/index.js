@@ -1,5 +1,4 @@
 import React from 'react';
-import FormContainer from './FormContainer';
 import AddForm from './AddForm';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';

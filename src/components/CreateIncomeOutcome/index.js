@@ -1,5 +1,6 @@
 import React from 'react';
 import FormContainer from './FormContainer';
+import AddForm from './AddForm';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -13,10 +14,7 @@ class CreateIncomeOutcome extends React.Component {
   render() {
     return (
       <div>
-        <FormContainer
-          handleBill={this.handleSubmit}
-          categoriesList={this.props.categories}
-        />
+        <AddForm categoriesList={this.props.categories} />
       </div>
     );
   }

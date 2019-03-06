@@ -1,5 +1,4 @@
 import React from 'react';
-import CreateNew from './CreateNew';
 
 class FormContainer extends React.Component {
   constructor(props) {
@@ -72,24 +71,7 @@ class FormContainer extends React.Component {
     const {content} = this.state;
     const {selectedType, newDate, selectedCategory} = this.state;
     const {categoriesList} = this.props;
-    return (
-      <>
-        <CreateNew
-          handleSubmit={this.handleSubmit}
-          handleInput={this.handleInput}
-          handleChangeDate={this.handleChangeDate}
-          handleIncomeTypeChange={this.handleIncomeTypeChange}
-          handleCategories={this.handleCategories}
-          content={content}
-          newDate={newDate}
-          selectedType={selectedType}
-          selectedCategory={selectedCategory}
-          moneyRef={this.moneyRef}
-          descRef={this.descRef}
-          categoriesList={categoriesList}
-        />
-      </>
-    );
+    return <></>;
   }
 }
 export default FormContainer;

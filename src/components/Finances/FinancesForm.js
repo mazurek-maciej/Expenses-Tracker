@@ -1,26 +1,26 @@
-import React from 'react';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-import {Field, reduxForm} from 'redux-form';
-import DatePicker from 'react-datepicker';
-import Select from 'react-select';
+import React from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { Field, reduxForm } from "redux-form";
+import DatePicker from "react-datepicker";
+import Select from "react-select";
 
-import {addFinanceAction} from '../../actions/addFinanceAction';
-import 'react-datepicker/dist/react-datepicker.css';
+import { addFinanceAction } from "../../actions/addFinanceAction";
+import "react-datepicker/dist/react-datepicker.css";
 
 class FinancesForm extends React.Component {
   state = {
     presentDate: new Date(),
     financeType: [
-      {value: 'Income', label: 'Income'},
-      {value: 'Outcome', label: 'Outcome'},
-    ],
+      { value: "Income", label: "Income" },
+      { value: "Outcome", label: "Outcome" }
+    ]
   };
-
-  renderInputField = ({input, label}) => {
+  renderInputField = ({ input, label, meta: { error, touched } }) => {
     return (
       <div className="field">
         <label className="label">{label}</label>
+        {touched && error && <label className="help is-danger">{error}</label>}
         <input {...input} />;
       </div>
     );
@@ -32,10 +32,11 @@ class FinancesForm extends React.Component {
       this.props.categories.map(category =>
         selectedCategory.push({
           value: category.category,
-          label: category.category,
-        }),
+          label: category.category
+        })
       );
     }
+    console.log(props);
     return (
       <div className="field">
         <label className="label">{props.label}</label>
@@ -43,6 +44,7 @@ class FinancesForm extends React.Component {
           options={props.types ? this.state.financeType : selectedCategory}
           value={props.input.value}
           onChange={props.input.onChange}
+          onBlur={value => props.input.onBlur(value)}
           {...props}
         />
       </div>
@@ -50,6 +52,7 @@ class FinancesForm extends React.Component {
   };
 
   renderDatePicker = props => {
+    console.log(props);
     return (
       <div className="field">
         <label className="label">{props.label}</label>
@@ -63,26 +66,27 @@ class FinancesForm extends React.Component {
     );
   };
 
-  handleSubmitForm = propsValues => {
-    let month = propsValues.date.getUTCMonth() + 1;
-    let year = propsValues.date.getFullYear();
-    let day = propsValues.date.getUTCDate();
+  handleSubmitForm = formValues => {
+    let month = formValues.date.getUTCMonth() + 1;
+    let year = formValues.date.getFullYear();
+    let day = formValues.date.getUTCDate();
     let date = `${day}/${month}/${year}`;
-    let financeType = propsValues.financeTypes.value;
-    let category = propsValues.category.value;
+    let financeType = formValues.financeTypes.value;
+    let category = formValues.category.value;
     let editable = false;
     let id = Date.now();
     this.props.addFinanceAction({
-      ...propsValues,
+      ...formValues,
       date,
       financeType,
       category,
       editable,
-      id,
+      id
     });
   };
   render() {
-    const {handleSubmit} = this.props;
+    const { handleSubmit } = this.props;
+
     return (
       <div>
         <form onSubmit={handleSubmit(this.handleSubmitForm)}>
@@ -106,6 +110,14 @@ class FinancesForm extends React.Component {
             name="category"
             label="Select category"
             component={this.renderSelect}
+            validateOn="change"
+            validators={{
+              required: val => val && val.length
+            }}
+            mapProps={{
+              value: props => props.modelValue,
+              onChange: props => props.onChange
+            }}
           />
           <Field
             name="date"
@@ -119,15 +131,36 @@ class FinancesForm extends React.Component {
   }
 }
 
+const validate = formValues => {
+  const errors = [];
+  if (!formValues.description) {
+    errors.description = "You must enter description!";
+  }
+  if (isNaN(formValues.money)) {
+    errors.money = "You must enter a number";
+  }
+  if (!formValues.category) {
+    errors.category = "Select category!";
+  }
+  if (!formValues.financeTypes) {
+    errors.financeTypes = "Select type!";
+  }
+  if (!formValues.date) {
+    errors.date = "Select date!";
+  }
+  return errors;
+};
+
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({addFinanceAction}, dispatch);
+  return bindActionCreators({ addFinanceAction }, dispatch);
 };
 
 FinancesForm = connect(
   null,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(FinancesForm);
 
 export default reduxForm({
-  form: 'account',
+  form: "account",
+  validate
 })(FinancesForm);

@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 
-const CategoriesList = ({
+const SelectCategory = ({
   categories,
   selectedCategory,
   handleSelectCategory,
@@ -26,4 +26,4 @@ const CategoriesList = ({
   );
 };
 
-export default CategoriesList;
+export default SelectCategory;

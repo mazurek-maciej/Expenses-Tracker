@@ -52,7 +52,7 @@ const ButtonsWraper = styled.div`
   flex-direction: ${props => (props.editable ? 'column' : 'row')};
 `;
 
-const BillTile = ({
+const FinanceTile = ({
   id,
   description,
   money,
@@ -83,4 +83,4 @@ const BillTile = ({
     </BillWraper>
   );
 };
-export default BillTile;
+export default FinanceTile;

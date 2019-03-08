@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import AddComponent from './AddComponent';
-import CategoriesList from './CategoriesList';
+import AppendCategory from './AppendCategory';
+import SelectCategory from './SelectCategory';
 
 import {addCategoryAction} from '../../actions/addCategoryAction';
 import {removeCategoryAction} from '../../actions/removeCategoryAction';
@@ -42,14 +42,14 @@ class CategoriesIndex extends React.Component {
     const {category, selectedCategory} = this.state;
     return (
       <div>
-        <AddComponent
+        <AppendCategory
           category={category}
           handleInput={this.handleInput}
           handleSubmit={this.handleSubmit}
           inputRef={this.inputRef}
           category={category}
         />
-        <CategoriesList
+        <SelectCategory
           selectedCategory={selectedCategory}
           handleSelectCategory={this.handleSelectCategory}
           categories={this.props.categories}

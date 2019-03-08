@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const AddComponent = ({inputRef, handleInput, handleSubmit, category}) => {
+const AppendCategory = ({ inputRef, handleInput, handleSubmit, category }) => {
   return (
     <div>
       <form onSubmit={handleSubmit} className="form">
@@ -19,4 +19,4 @@ const AddComponent = ({inputRef, handleInput, handleSubmit, category}) => {
   );
 };
 
-export default AddComponent;
+export default AppendCategory;

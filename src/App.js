@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Layout from './layout';
-import MainPage from './pages/MainPage';
-import AddFinancePage from './pages/AddFinancePage';
+import Main from './pages/Main';
+import FinanceOperations from './pages/FinanceOperations';
 
 class App extends Component {
   render() {
@@ -10,8 +10,8 @@ class App extends Component {
       <Layout>
         <Router>
           <>
-            <Route path="/" exact component={MainPage} />
-            <Route path="/add" exact component={AddFinancePage} />
+            <Route path="/" exact component={Main} />
+            <Route path="/add" exact component={FinanceOperations} />
           </>
         </Router>
       </Layout>

@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import IncomeOutcomeTile from './IncomeOutcomeTile';
+import FinanceTile from './FinanceTile';
 
 import {removeBillAction} from '../../actions/removeBillAction';
 import {editBillAction} from '../../actions/editBillAction';
@@ -12,7 +12,7 @@ class Index extends React.Component {
     return this.props.finances.map((singleFinance, index) => {
       if (singleFinance.length !== 0) {
         return (
-          <IncomeOutcomeTile
+          <FinanceTile
             key={index}
             id={singleFinance.id}
             description={singleFinance.description}

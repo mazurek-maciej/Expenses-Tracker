@@ -55,7 +55,7 @@ const ButtonsWraper = styled.div`
 const BillTile = ({
   id,
   description,
-  amountOfMoney,
+  money,
   date,
   newDate,
   editable,
@@ -66,7 +66,7 @@ const BillTile = ({
     <BillWraper key={id} editable={editable}>
       <LeftWraper editable={editable}>
         <p>{description}</p>
-        <p>{amountOfMoney}zł</p>
+        <p>{money}zł</p>
         <p>{date}</p>
       </LeftWraper>
       <RightWrapper>

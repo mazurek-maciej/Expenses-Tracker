@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import EditComponent from './EditComponent';
+import EditFinanceField from './EditFinanceField';
 import {updateBillAction} from '../../actions/updateBillAction';
 import {editBillAction} from '../../actions/editBillAction';
 import {removeBillAction} from '../../actions/removeBillAction';
@@ -56,21 +56,13 @@ class EditFinance extends React.Component {
   };
 
   render() {
-    const {bills, categories, id} = this.props;
+    const {finances, categories, id} = this.props;
     const {date} = this.state;
     return (
-      <EditComponent
-        handleSubmit={this.handleSubmit}
-        handleChangeDate={this.handleChangeDate}
-        handleDeleteEditable={this.handleDeleteEditable}
-        handleEditEditable={this.handleEditEditable}
-        handleCategories={this.handleCategories}
-        getDesc={this.getDesc}
-        getMoney={this.getMoney}
-        bills={bills}
-        categoriesList={categories}
-        date={date}
-        billId={id}
+      <EditFinanceField
+        id={id}
+        prevFinance={finances}
+        categories={categories}
       />
     );
   }
@@ -78,7 +70,7 @@ class EditFinance extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    bills: state.bills,
+    finances: state.finances,
     categories: state.categories,
   };
 };

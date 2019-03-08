@@ -4,7 +4,7 @@ import {categoriesReducers} from './categoriesReducers';
 import {reducer as formReducer} from 'redux-form';
 
 const reducers = combineReducers({
-  bills: incomeOutcomeReducers,
+  finances: incomeOutcomeReducers,
   categories: categoriesReducers,
   form: formReducer,
 });

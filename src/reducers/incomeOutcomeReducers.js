@@ -1,19 +1,19 @@
 const initialState = [
   {
+    id: 1,
     description: 'test',
-    amountOfMoney: '20',
+    money: '20',
+    category: '',
+    financeType: 'Income',
     date: '1/2/2019',
     editable: false,
-    category: '',
-    incomeType: 'Income',
-    id: 1,
   },
 ];
 export const incomeOutcomeReducers = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_BILL':
+    case 'ADD_FINANCE':
       console.log('bill added successfuly');
-      return [...state, action.bill];
+      return [...state, action.finance];
     case 'REMOVE_BILL':
       console.log('bill removed successfuly');
       return state.filter(bill => bill.id !== action.id);
@@ -26,14 +26,14 @@ export const incomeOutcomeReducers = (state = initialState, action) => {
       console.log(action);
       console.log('bill updated successfuly');
       const newBillsArray = state.map(bill => {
-        if (bill.id === action.id) {
+        if (bill.id === action.updatedFinance.id) {
           bill = {
             ...bill,
-            description: action.description,
-            date: action.date,
-            amountOfMoney: action.amountOfMoney,
-            category: action.category,
-            incomeType: bill.incomeType,
+            description: action.updatedFinance.description,
+            date: action.updatedFinance.date,
+            money: action.updatedFinance.money,
+            category: action.updatedFinance.category,
+            financeType: bill.financeType,
             editable: !bill.editable,
           };
         }

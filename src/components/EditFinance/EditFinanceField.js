@@ -5,39 +5,37 @@ import {Field, reduxForm} from 'redux-form';
 import DatePicker from 'react-datepicker';
 import Select from 'react-select';
 
-import {addBillAction} from '../../actions/addBillAction';
-import 'react-datepicker/dist/react-datepicker.css';
+import {updateBillAction} from '../../actions/updateBillAction';
 
-class AddForm extends React.Component {
+class EditFinanceField extends React.Component {
   state = {
-    currentDate: new Date(),
-    incomeTypes: [
-      {value: 'Income', label: 'Income'},
-      {value: 'Outcome', label: 'Outcome'},
-    ],
+    presentDate: new Date(),
   };
-
-  renderInput = ({input, label}) => {
+  ////
+  renderInputField = ({input, label}) => {
     return (
       <div className="field">
         <label className="label">{label}</label>
-        <input {...input} />;
+        <input {...input} />
       </div>
     );
   };
-
+  ////
   renderSelect = props => {
-    const categoriesSelect = [];
-    if (this.props.categoriesList) {
-      this.props.categoriesList.map(cat =>
-        categoriesSelect.push({value: cat.category, label: cat.category}),
+    const selectedCategory = [];
+    if (this.props.categories) {
+      this.props.categories.map(category =>
+        selectedCategory.push({
+          value: category.category,
+          label: category.category,
+        }),
       );
     }
     return (
       <div className="field">
         <label className="label">{props.label}</label>
         <Select
-          options={props.types ? this.state.incomeTypes : categoriesSelect}
+          options={selectedCategory}
           value={props.input.value}
           onChange={props.input.onChange}
           {...props}
@@ -45,13 +43,13 @@ class AddForm extends React.Component {
       </div>
     );
   };
-
+  ////
   renderDatePicker = props => {
     return (
       <div className="field">
         <label className="label">{props.label}</label>
         <DatePicker
-          selected={props.input.value || this.state.currentDate}
+          selected={props.input.value || this.state.presentDate}
           onChange={props.input.onChange}
           dateFormat="MMMM d, yyyy"
           {...props}
@@ -59,25 +57,22 @@ class AddForm extends React.Component {
       </div>
     );
   };
-
+  ////
   handleSubmitForm = propsValues => {
     let month = propsValues.date.getUTCMonth() + 1;
     let year = propsValues.date.getFullYear();
     let day = propsValues.date.getUTCDate();
-    let date = `${day}/${month}/${year}`;
-    let incomeType = propsValues.typeOfAccount.value;
+    let date = `${day}/${month}/${year}` || this.props.preVinance[0].date;
     let category = propsValues.category.value;
-    let editable = false;
-    let id = Date.now();
-    this.props.addBillAction({
+    let id = this.props.id;
+    this.props.updateBillAction({
       ...propsValues,
       date,
-      incomeType,
       category,
-      editable,
       id,
     });
   };
+  ////
   render() {
     const {handleSubmit} = this.props;
     return (
@@ -85,29 +80,23 @@ class AddForm extends React.Component {
         <form onSubmit={handleSubmit(this.handleSubmitForm)}>
           <Field
             name="description"
-            component={this.renderInput}
-            label="Enter description"
+            label="Enter new description"
+            component={this.renderInputField}
           />
           <Field
-            name="amountOfMoney"
-            component={this.renderInput}
-            label="Enter value"
-          />
-          <Field
-            name="typeOfAccount"
-            label="Select type"
-            types
-            component={this.renderSelect}
-          />
-          <Field
-            name="category"
-            label="Select category"
-            component={this.renderSelect}
+            name="money"
+            label="Enter new amount of money"
+            component={this.renderInputField}
           />
           <Field
             name="date"
-            label="Select date"
+            label="Select new date"
             component={this.renderDatePicker}
+          />
+          <Field
+            name="category"
+            label="Select new category"
+            component={this.renderSelect}
           />
           <button type="submit">Submit</button>
         </form>
@@ -117,13 +106,14 @@ class AddForm extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({addBillAction}, dispatch);
+  return bindActionCreators({updateBillAction}, dispatch);
 };
 
-AddForm = connect(
+EditFinanceField = connect(
   null,
   mapDispatchToProps,
-)(AddForm);
+)(EditFinanceField);
+
 export default reduxForm({
   form: 'account',
-})(AddForm);
+})(EditFinanceField);

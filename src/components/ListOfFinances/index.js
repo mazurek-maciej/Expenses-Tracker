@@ -9,17 +9,17 @@ import {editBillAction} from '../../actions/editBillAction';
 
 class Index extends React.Component {
   displayBills() {
-    return this.props.bills.map((bill, index) => {
-      if (bill.length !== 0) {
+    return this.props.finances.map((singleFinance, index) => {
+      if (singleFinance.length !== 0) {
         return (
           <IncomeOutcomeTile
             key={index}
-            id={bill.id}
-            description={bill.description}
-            amountOfMoney={bill.amountOfMoney}
-            date={bill.date}
-            newDate={bill.newDate}
-            editable={bill.editable}
+            id={singleFinance.id}
+            description={singleFinance.description}
+            money={singleFinance.money}
+            date={singleFinance.date}
+            newDate={singleFinance.newDate}
+            editable={singleFinance.editable}
             handleDelete={this.handleDelete}
             handleEdit={this.handleEdit}
           />
@@ -36,15 +36,15 @@ class Index extends React.Component {
   };
 
   render() {
-    const {bills} = this.props;
-    if (bills.length === 0) return <div>Add new bill to your list</div>;
+    const {finances} = this.props;
+    if (finances.length === 0) return <div>Add new bill to your list</div>;
     return <>{this.displayBills()}</>;
   }
 }
 
 const mapStateToProps = state => {
   return {
-    bills: state.bills,
+    finances: state.finances,
   };
 };
 const mapDispatchToProps = dispatch => {

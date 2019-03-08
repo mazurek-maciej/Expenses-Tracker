@@ -1,16 +1,6 @@
-export const updateBillAction = (
-  id,
-  description,
-  date,
-  amountOfMoney,
-  category,
-) => {
+export const updateBillAction = updatedFinance => {
   return {
     type: 'UPDATE_BILL',
-    id,
-    description,
-    date,
-    amountOfMoney,
-    category,
+    updatedFinance,
   };
 };

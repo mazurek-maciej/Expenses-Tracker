@@ -9,7 +9,7 @@ import SelectComponent from "../Forms/Select";
 import DatePickerComponent from "../Forms/DatePicker";
 import InputComponent from "../Forms/Input";
 
-import { addFinanceAction } from "../../actions/addFinanceAction";
+import { createFinance } from "../../actions/financeActions";
 import "react-datepicker/dist/react-datepicker.css";
 
 class FinancesForm extends React.Component {
@@ -58,21 +58,18 @@ class FinancesForm extends React.Component {
     let category = formValues.category.value;
     let editable = false;
     let id = Date.now();
-    this.props.addFinanceAction({
-      ...formValues,
-      date,
-      financeType,
-      category,
-      editable,
-      id
-    });
   };
+
+  handleOnSubmit = formValues => {
+    this.props.createFinance(formValues);
+  };
+
   render() {
     const { handleSubmit } = this.props;
 
     return (
       <div>
-        <form onSubmit={handleSubmit(this.handleSubmitForm)}>
+        <form onSubmit={handleSubmit(this.handleOnSubmit)}>
           <Field
             name="description"
             component={this.renderInputField}
@@ -135,7 +132,7 @@ const validate = formValues => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ addFinanceAction }, dispatch);
+  return bindActionCreators({ createFinance }, dispatch);
 };
 
 FinancesForm = connect(

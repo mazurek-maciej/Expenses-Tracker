@@ -1,12 +1,12 @@
-import {combineReducers} from 'redux';
-import {incomeOutcomeReducers} from './incomeOutcomeReducers';
-import {categoriesReducers} from './categoriesReducers';
-import {reducer as formReducer} from 'redux-form';
+import { combineReducers } from "redux";
+import { reducer as formReducer } from "redux-form";
+import financeReducer from "./financeReducer";
+import { categoriesReducers } from "./categoriesReducers";
 
 const reducers = combineReducers({
-  finances: incomeOutcomeReducers,
+  finances: financeReducer,
   categories: categoriesReducers,
-  form: formReducer,
+  form: formReducer
 });
 
 export default reducers;

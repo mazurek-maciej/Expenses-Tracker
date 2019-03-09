@@ -1,10 +1,8 @@
-import React from 'react';
-import FinancesForm from './FinancesForm';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import styled from 'styled-components';
-
-import {addFinanceAction} from '../../actions/addFinanceAction';
+import React from "react";
+import FinancesForm from "./FinancesForm";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import styled from "styled-components";
 
 const AddFormWraper = styled.div`
   display: flex;
@@ -15,10 +13,6 @@ const AddFormWraper = styled.div`
 `;
 
 class Finances extends React.Component {
-  handleSubmit = finance => {
-    this.props.addFinanceAction(finance);
-  };
-
   render() {
     return (
       <AddFormWraper>
@@ -30,15 +24,14 @@ class Finances extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    finances: state.finances,
-    categories: state.categories,
+    categories: state.categories
   };
 };
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({addFinanceAction}, dispatch);
+  return bindActionCreators({}, dispatch);
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Finances);

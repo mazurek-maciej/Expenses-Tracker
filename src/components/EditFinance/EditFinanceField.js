@@ -9,8 +9,6 @@ import SelectComponent from "../Forms/Select";
 import DatePickerComponent from "../Forms/DatePicker";
 import InputComponent from "../Forms/Input";
 
-import { updateBillAction } from "../../actions/updateBillAction";
-
 class EditFinanceField extends React.Component {
   state = {
     presentDate: new Date()
@@ -46,12 +44,6 @@ class EditFinanceField extends React.Component {
     let date = `${day}/${month}/${year}` || this.props.preVinance[0].date;
     let category = propsValues.category.value;
     let id = this.props.id;
-    this.props.updateBillAction({
-      ...propsValues,
-      date,
-      category,
-      id
-    });
   };
   ////
   render() {
@@ -104,7 +96,7 @@ const validate = formValues => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ updateBillAction }, dispatch);
+  return bindActionCreators({}, dispatch);
 };
 
 EditFinanceField = connect(

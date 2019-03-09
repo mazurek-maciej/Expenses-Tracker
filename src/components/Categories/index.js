@@ -2,9 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import AppendCategory from "./AppendCategory";
-import SelectCategory from "./SelectCategory";
-
 import CategoryForm from "./CategoryForm";
 
 import { addCategoryAction } from "../../actions/addCategoryAction";
@@ -27,17 +24,6 @@ class CategoriesIndex extends React.Component {
     this.setState({
       category: ""
     });
-  };
-  handleInput = () => {
-    this.setState({
-      id: Date.now(),
-      category: this.inputRef.current.value
-    });
-    console.log(this.state);
-  };
-  handleSelectCategory = selectedCategory => {
-    this.setState({ selectedCategory: selectedCategory });
-    console.log(`Category selected:`, selectedCategory.value);
   };
 
   render() {

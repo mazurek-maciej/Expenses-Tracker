@@ -1,57 +1,26 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-import FinanceTile from './FinanceTile';
-
-import {removeBillAction} from '../../actions/removeBillAction';
-import {editBillAction} from '../../actions/editBillAction';
+import FinanceTile from "./FinanceTile";
 
 class Index extends React.Component {
-  displayBills() {
-    return this.props.finances.map((singleFinance, index) => {
-      if (singleFinance.length !== 0) {
-        return (
-          <FinanceTile
-            key={index}
-            id={singleFinance.id}
-            description={singleFinance.description}
-            money={singleFinance.money}
-            date={singleFinance.date}
-            newDate={singleFinance.newDate}
-            editable={singleFinance.editable}
-            handleDelete={this.handleDelete}
-            handleEdit={this.handleEdit}
-          />
-        );
-      }
-    });
-  }
-
-  handleDelete = id => {
-    this.props.removeBillAction(id);
-  };
-  handleEdit = id => {
-    this.props.editBillAction(id);
-  };
-
   render() {
-    const {finances} = this.props;
     if (finances.length === 0) return <div>Add new bill to your list</div>;
-    return <>{this.displayBills()}</>;
+    return (
+      <>
+        <div>list of finances</div>
+      </>
+    );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    finances: state.finances,
-  };
-};
+const mapStateToProps = state => {};
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({removeBillAction, editBillAction}, dispatch);
+  return bindActionCreators({}, dispatch);
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Index);

@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import {Link} from 'react-router-dom';
-import ListOfFinances from '../components/ListOfFinances';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import FinancesList from "../components/ListOfFinances/FinancesList";
 
 const MainWraper = styled.div`
   background-color: #1a1a1a;
@@ -24,7 +24,7 @@ const PageTitle = styled.h1`
   position: relative;
   &::after {
     position: absolute;
-    content: '';
+    content: "";
     height: 1px;
     background-color: #f9f9f9;
     width: 100%;
@@ -66,7 +66,7 @@ const MainPage = () => {
         <PageTitle>Your account</PageTitle>
       </TitleWraper>
       <ListWraper>
-        <ListOfFinances />
+        <FinancesList />
       </ListWraper>
       <BottomWraper>
         <AddButton>

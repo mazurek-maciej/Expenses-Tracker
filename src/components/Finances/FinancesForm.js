@@ -5,6 +5,10 @@ import { Field, reduxForm } from "redux-form";
 import DatePicker from "react-datepicker";
 import Select from "react-select";
 
+import SelectComponent from "../Forms/Select";
+import DatePickerComponent from "../Forms/DatePicker";
+import InputComponent from "../Forms/Input";
+
 import { addFinanceAction } from "../../actions/addFinanceAction";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -16,14 +20,8 @@ class FinancesForm extends React.Component {
       { value: "Outcome", label: "Outcome" }
     ]
   };
-  renderInputField = ({ input, label, meta: { error, touched } }) => {
-    return (
-      <div className="field">
-        <label className="label">{label}</label>
-        {touched && error && <label className="help is-danger">{error}</label>}
-        <input {...input} />;
-      </div>
-    );
+  renderInputField = ({ input, label, meta }) => {
+    return <InputComponent input={input} meta={meta} label={label} />;
   };
 
   renderSelect = props => {
@@ -36,33 +34,18 @@ class FinancesForm extends React.Component {
         })
       );
     }
-    console.log(props);
     return (
-      <div className="field">
-        <label className="label">{props.label}</label>
-        <Select
-          options={props.types ? this.state.financeType : selectedCategory}
-          value={props.input.value}
-          onChange={props.input.onChange}
-          onBlur={value => props.input.onBlur(value)}
-          {...props}
-        />
-      </div>
+      <SelectComponent
+        props={props}
+        options={props.types ? this.state.financeType : selectedCategory}
+      />
     );
   };
 
   renderDatePicker = props => {
     console.log(props);
     return (
-      <div className="field">
-        <label className="label">{props.label}</label>
-        <DatePicker
-          selected={props.input.value || this.state.presentDate}
-          onChange={props.input.onChange}
-          dateFormat="MMMM d, yyyy"
-          {...props}
-        />
-      </div>
+      <DatePickerComponent props={props} presentDate={this.state.presentDate} />
     );
   };
 

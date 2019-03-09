@@ -1,24 +1,23 @@
-import React from 'react';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-import {Field, reduxForm} from 'redux-form';
-import DatePicker from 'react-datepicker';
-import Select from 'react-select';
+import React from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { Field, reduxForm } from "redux-form";
+import DatePicker from "react-datepicker";
+import Select from "react-select";
 
-import {updateBillAction} from '../../actions/updateBillAction';
+import SelectComponent from "../Forms/Select";
+import DatePickerComponent from "../Forms/DatePicker";
+import InputComponent from "../Forms/Input";
+
+import { updateBillAction } from "../../actions/updateBillAction";
 
 class EditFinanceField extends React.Component {
   state = {
-    presentDate: new Date(),
+    presentDate: new Date()
   };
   ////
-  renderInputField = ({input, label}) => {
-    return (
-      <div className="field">
-        <label className="label">{label}</label>
-        <input {...input} />
-      </div>
-    );
+  renderInputField = ({ input, label, meta }) => {
+    return <InputComponent input={input} meta={meta} label={label} />;
   };
   ////
   renderSelect = props => {
@@ -27,34 +26,16 @@ class EditFinanceField extends React.Component {
       this.props.categories.map(category =>
         selectedCategory.push({
           value: category.category,
-          label: category.category,
-        }),
+          label: category.category
+        })
       );
     }
-    return (
-      <div className="field">
-        <label className="label">{props.label}</label>
-        <Select
-          options={selectedCategory}
-          value={props.input.value}
-          onChange={props.input.onChange}
-          {...props}
-        />
-      </div>
-    );
+    return <SelectComponent props={props} options={selectedCategory} />;
   };
   ////
   renderDatePicker = props => {
     return (
-      <div className="field">
-        <label className="label">{props.label}</label>
-        <DatePicker
-          selected={props.input.value || this.state.presentDate}
-          onChange={props.input.onChange}
-          dateFormat="MMMM d, yyyy"
-          {...props}
-        />
-      </div>
+      <DatePickerComponent props={props} presentDate={this.state.presentDate} />
     );
   };
   ////
@@ -69,12 +50,12 @@ class EditFinanceField extends React.Component {
       ...propsValues,
       date,
       category,
-      id,
+      id
     });
   };
   ////
   render() {
-    const {handleSubmit} = this.props;
+    const { handleSubmit } = this.props;
     return (
       <div>
         <form onSubmit={handleSubmit(this.handleSubmitForm)}>
@@ -105,15 +86,33 @@ class EditFinanceField extends React.Component {
   }
 }
 
+const validate = formValues => {
+  const errors = [];
+  if (!formValues.description) {
+    errors.description = "You must enter description!";
+  }
+  if (isNaN(formValues.money)) {
+    errors.money = "You must enter a number";
+  }
+  if (!formValues.category) {
+    errors.category = "Select category!";
+  }
+  if (!formValues.date) {
+    errors.date = "Select date!";
+  }
+  return errors;
+};
+
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({updateBillAction}, dispatch);
+  return bindActionCreators({ updateBillAction }, dispatch);
 };
 
 EditFinanceField = connect(
   null,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(EditFinanceField);
 
 export default reduxForm({
-  form: 'account',
+  form: "account",
+  validate
 })(EditFinanceField);

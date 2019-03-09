@@ -1,20 +1,22 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-import AppendCategory from './AppendCategory';
-import SelectCategory from './SelectCategory';
+import AppendCategory from "./AppendCategory";
+import SelectCategory from "./SelectCategory";
 
-import {addCategoryAction} from '../../actions/addCategoryAction';
-import {removeCategoryAction} from '../../actions/removeCategoryAction';
+import CategoryForm from "./CategoryForm";
+
+import { addCategoryAction } from "../../actions/addCategoryAction";
+import { removeCategoryAction } from "../../actions/removeCategoryAction";
 
 class CategoriesIndex extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: '',
-      category: '',
-      selectedCategory: null,
+      id: "",
+      category: "",
+      selectedCategory: null
     };
     this.inputRef = React.createRef();
   }
@@ -23,37 +25,26 @@ class CategoriesIndex extends React.Component {
     e.preventDefault();
     this.props.addCategoryAction(this.state);
     this.setState({
-      category: '',
+      category: ""
     });
   };
   handleInput = () => {
     this.setState({
       id: Date.now(),
-      category: this.inputRef.current.value,
+      category: this.inputRef.current.value
     });
     console.log(this.state);
   };
   handleSelectCategory = selectedCategory => {
-    this.setState({selectedCategory: selectedCategory});
+    this.setState({ selectedCategory: selectedCategory });
     console.log(`Category selected:`, selectedCategory.value);
   };
 
   render() {
-    const {category, selectedCategory} = this.state;
+    const { category, selectedCategory } = this.state;
     return (
       <div>
-        <AppendCategory
-          category={category}
-          handleInput={this.handleInput}
-          handleSubmit={this.handleSubmit}
-          inputRef={this.inputRef}
-          category={category}
-        />
-        <SelectCategory
-          selectedCategory={selectedCategory}
-          handleSelectCategory={this.handleSelectCategory}
-          categories={this.props.categories}
-        />
+        <CategoryForm />
       </div>
     );
   }
@@ -61,17 +52,17 @@ class CategoriesIndex extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    categories: state.categories,
+    categories: state.categories
   };
 };
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
-    {addCategoryAction, removeCategoryAction},
-    dispatch,
+    { addCategoryAction, removeCategoryAction },
+    dispatch
   );
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(CategoriesIndex);

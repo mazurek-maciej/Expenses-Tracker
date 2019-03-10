@@ -22,7 +22,6 @@ class FinancesList extends React.Component {
     ));
   };
   render() {
-    console.log(this.props);
     if (!this.props.finances) return <div>You have empty list</div>;
     return <>{this.renderFinancesList()}</>;
   }

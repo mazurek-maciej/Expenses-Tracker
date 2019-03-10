@@ -1,6 +1,6 @@
 export const SIGN_IN = "SING_IN";
-export const SING_OUT = "SIGN_OUT";
-export const SING_UP = "SIGN_UP";
+export const SIGN_OUT = "SIGN_OUT";
+export const SIGN_UP = "SIGN_UP";
 export const LOGIN_ERROR = "LOGIN_ERROR";
 
 export const CREATE_FINANCE = "CREATE_FINANCE";

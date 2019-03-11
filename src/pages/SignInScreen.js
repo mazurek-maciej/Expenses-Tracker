@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import GoogleAuth from "../components/Authentication/GoogleAuth";
 
 const SignInWraper = styled.div`
@@ -10,14 +12,23 @@ const SignInWraper = styled.div`
   align-items: center;
 `;
 
-const SignInScreen = props => {
-  return (
-    <SignInWraper>
-      <GoogleAuth />
-    </SignInWraper>
-  );
+class SignInScreen extends React.Component {
+  render() {
+    if (this.props.isSignedIn) return <Redirect to="/main" />;
+    return (
+      <SignInWraper>
+        <GoogleAuth />
+      </SignInWraper>
+    );
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    isSignedIn: state.auth.isSignedIn
+  };
 };
 
 SignInScreen.propTypes = {};
 
-export default SignInScreen;
+export default connect(mapStateToProps)(SignInScreen);

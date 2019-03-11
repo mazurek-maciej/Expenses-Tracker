@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Link, Redirect } from "react-router-dom";
 import { signIn, signOut } from "../../actions/authActions";
+import AuthButton from "./AuthButton";
 
 const GoogleAuthWraper = styled.div`
   display: flex;
@@ -34,23 +35,9 @@ export class GoogleAuth extends Component {
     if (this.props.isSignedIn === null) {
       return <div>Can't get authentication status</div>;
     } else if (this.props.isSignedIn) {
-      return (
-        <div>
-          <button onClick={this.onSignOutClick} className="is-dark button">
-            <i className="fab fa-google" />
-            Sign Out
-          </button>
-        </div>
-      );
+      return <AuthButton onClick={this.onSignOutClick} />;
     } else {
-      return (
-        <div>
-          <button onClick={this.onSignInClick} className="is-dark button">
-            <i className="fab fa-google" />
-            Sign In
-          </button>
-        </div>
-      );
+      return <AuthButton title="Sign In" icon onClick={this.onSignInClick} />;
     }
   };
 

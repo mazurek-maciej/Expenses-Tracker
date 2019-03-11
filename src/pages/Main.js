@@ -48,10 +48,9 @@ const BottomWraper = styled.div`
   align-items: flex-start;
 `;
 const AddButton = styled.button`
-  width: 200px;
-  padding: 8px 16px;
-  border: 1px solid teal;
-  border-radius: 8px;
+  padding: 8px 24px;
+  border: 1px solid hsla(0, 0%, 10%, 1);
+  border-radius: 4px;
   background-color: hsla(0, 0%, 25%, 1);
   font-size: 16px;
   a {
@@ -59,21 +58,19 @@ const AddButton = styled.button`
   }
 `;
 
-const MainPage = () => {
-  return (
-    <MainWraper>
-      <TitleWraper>
-        <PageTitle>Your account</PageTitle>
-      </TitleWraper>
-      <ListWraper>
-        <FinancesList />
-      </ListWraper>
-      <BottomWraper>
-        <AddButton>
-          <Link to="/add">Add</Link>
-        </AddButton>
-      </BottomWraper>
-    </MainWraper>
-  );
-};
+class MainPage extends React.Component {
+  render() {
+    return (
+      <MainWraper>
+        <TitleWraper>
+          <PageTitle>Your account</PageTitle>
+        </TitleWraper>
+        <ListWraper>
+          <FinancesList />
+        </ListWraper>
+      </MainWraper>
+    );
+  }
+}
+
 export default MainPage;

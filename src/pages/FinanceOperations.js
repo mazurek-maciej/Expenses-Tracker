@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import {Link} from 'react-router-dom';
-import Categories from '../components/Categories';
-import Finances from '../components/Finances';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import Categories from "../components/Categories";
+import Finances from "../components/Finances";
 
 const AddBillsWraper = styled.div`
   background-color: #1a1a1a;
@@ -21,7 +21,7 @@ const PageTitle = styled.h1`
   position: relative;
   &::after {
     position: absolute;
-    content: '';
+    content: "";
     height: 1px;
     background-color: #f9f9f9;
     width: 100%;
@@ -43,20 +43,17 @@ const AddBillsPage = () => {
   return (
     <AddBillsWraper>
       <TopWraper>
-        <div style={{display: 'flex'}}>
+        <div style={{ display: "flex" }}>
           <PageTitle>Add expense or income</PageTitle>
         </div>
         <Finances />
       </TopWraper>
       <MainWraper>
-        <div style={{display: 'flex'}}>
+        <div style={{ display: "flex" }}>
           <PageTitle>Add new category</PageTitle>
         </div>
         <Categories />
       </MainWraper>
-      <BottomWraper>
-        <Link to="/">Back</Link>
-      </BottomWraper>
     </AddBillsWraper>
   );
 };

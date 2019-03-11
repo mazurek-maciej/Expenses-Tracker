@@ -1,6 +1,7 @@
-import {ThemeProvider, createGlobalStyle} from 'styled-components';
-import React from 'react';
-import {theme} from '../theme/theme';
+import React from "react";
+import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
+import { theme } from "../theme/theme";
+import Navigation from "../components/Navigation";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -15,8 +16,14 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 `;
+const NavWraper = styled.div`
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+`;
 
-const Layout = ({children}) => (
+const Layout = ({ children }) => (
   <ThemeProvider theme={theme}>
     <>
       <GlobalStyle />

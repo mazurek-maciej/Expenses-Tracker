@@ -12,16 +12,14 @@ const SignInWraper = styled.div`
   align-items: center;
 `;
 
-class SignInScreen extends React.Component {
-  render() {
-    if (this.props.isSignedIn) return <Redirect to="/main" />;
-    return (
-      <SignInWraper>
-        <GoogleAuth />
-      </SignInWraper>
-    );
-  }
-}
+const SignInScreen = props => {
+  if (props.isSignedIn) return <Redirect to="/main" />;
+  return (
+    <SignInWraper>
+      <GoogleAuth />
+    </SignInWraper>
+  );
+};
 
 const mapStateToProps = state => {
   return {

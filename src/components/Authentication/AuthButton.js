@@ -6,7 +6,7 @@ const StyledAuthButton = styled.button`
   margin: 0 4px;
   border: 1px solid hsla(0, 0%, 10%, 1);
   border-radius: 4px;
-  background-color: hsla(0, 0%, 25%, 1);
+  background-color: ${({ theme }) => theme.colors.$D5};
   font-size: 16px;
   color: #f9f9f9;
 `;
@@ -18,7 +18,7 @@ const AuthButton = ({ onClick, icon, title }) => {
         {icon ? (
           <i style={{ marginRight: "4px" }} className="fab fa-google" />
         ) : (
-          <i class="fas fa-sign-out-alt" />
+          <i className="fas fa-sign-out-alt" />
         )}
         {title}
       </StyledAuthButton>

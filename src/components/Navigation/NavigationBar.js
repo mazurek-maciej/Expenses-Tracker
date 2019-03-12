@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 
 const NavMainWraper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   height: 80px;
   position: relative;
-  box-shadow: 0 -4px 25px hsla(0, 0%, 90%, 0.1);
+  box-shadow: 0 -2px 25px hsla(0, 0%, 90%, 0.1);
   overflow: hidden;
   ::before {
+    /* content: ""; */
     position: absolute;
     height: 2px;
     width: 80%;
@@ -19,12 +20,12 @@ const NavMainWraper = styled.div`
     border-radius: 50%;
   }
 `;
-const AddButton = styled.button`
+const StyledButton = styled.button`
   padding: 8px 16px;
   margin: 0 4px;
   border: 1px solid hsla(0, 0%, 10%, 1);
   border-radius: 4px;
-  background-color: hsla(0, 0%, 25%, 1);
+  background-color: ${({ theme }) => theme.colors.$D5};
   font-size: 16px;
   a {
     color: #f9f9f9;
@@ -34,16 +35,16 @@ const AddButton = styled.button`
 const NavigationBar = ({ children }) => {
   return (
     <NavMainWraper>
-      <AddButton>
+      <StyledButton>
         <Link to="/main">
-          <i class="fas fa-home" />
+          <i className="fas fa-home" />
         </Link>
-      </AddButton>
-      <AddButton>
+      </StyledButton>
+      <StyledButton>
         <Link to="/add">
-          <i class="fas fa-plus" />
+          <i className="fas fa-plus" />
         </Link>
-      </AddButton>
+      </StyledButton>
       {children}
     </NavMainWraper>
   );

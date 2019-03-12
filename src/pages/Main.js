@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import FinancesList from "../components/ListOfFinances/FinancesList";
 
 const MainWraper = styled.div`
@@ -58,19 +59,23 @@ const AddButton = styled.button`
   }
 `;
 
-class MainPage extends React.Component {
-  render() {
-    return (
-      <MainWraper>
-        <TitleWraper>
-          <PageTitle>Your account</PageTitle>
-        </TitleWraper>
-        <ListWraper>
-          <FinancesList />
-        </ListWraper>
-      </MainWraper>
-    );
-  }
-}
+const MainPage = props => {
+  return (
+    <MainWraper>
+      <TitleWraper>
+        <PageTitle>Your account</PageTitle>
+      </TitleWraper>
+      <ListWraper>
+        <FinancesList />
+      </ListWraper>
+    </MainWraper>
+  );
+};
 
-export default MainPage;
+const mapStateToProps = state => {
+  return {
+    isSignedIn: state.auth.isSignedIn
+  };
+};
+
+export default connect(mapStateToProps)(MainPage);

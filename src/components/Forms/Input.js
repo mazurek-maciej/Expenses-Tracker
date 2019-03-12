@@ -18,10 +18,10 @@ const InputComponent = ({ input, label, meta }) => {
   return (
     <StyledInputField className="field">
       <StyledInputLabel className="label">{label}</StyledInputLabel>
+      <StyledInput {...input} />
       {meta.touched && meta.error && (
         <label className="help is-danger">{meta.error}</label>
       )}
-      <StyledInput {...input} />
     </StyledInputField>
   );
 };

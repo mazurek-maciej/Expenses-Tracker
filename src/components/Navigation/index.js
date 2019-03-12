@@ -4,18 +4,16 @@ import { Link, Redirect } from "react-router-dom";
 import GoogleAuth from "../Authentication/GoogleAuth";
 import NavigationBar from "./NavigationBar";
 
-class Index extends Component {
-  render() {
-    if (!this.props.isSignedIn) return <Redirect to="/" />;
-    return (
-      <div>
-        <NavigationBar>
-          <GoogleAuth />
-        </NavigationBar>
-      </div>
-    );
-  }
-}
+const Index = props => {
+  if (!props.isSignedIn) return <Redirect to="/" />;
+  return (
+    <div>
+      <NavigationBar>
+        <GoogleAuth />
+      </NavigationBar>
+    </div>
+  );
+};
 
 const mapStateToProps = state => {
   return {

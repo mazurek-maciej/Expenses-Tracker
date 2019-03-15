@@ -1,26 +1,26 @@
-import React from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import EditFinanceField from "./EditFinanceField";
+import EditFinanceField from './EditFinanceField';
 
-import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker.css';
 
 class EditFinance extends React.Component {
   render() {
     const { categories } = this.props;
-    const { date } = this.state;
     return <EditFinanceField categories={categories} />;
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    categories: state.categories
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({}, dispatch);
+const mapStateToProps = state => ({
+  categories: state.categories,
+});
+const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
+
+EditFinance.propTypes = {
+  categories: PropTypes.array,
 };
 
 export default connect(

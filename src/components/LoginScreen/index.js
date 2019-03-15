@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { signIn } from '../../actions/authActions';
@@ -54,7 +55,9 @@ class LoginScreen extends React.Component {
                 />
               </div>
               <div className="field">
-                <button className="button is-success">Zaloguj</button>
+                <button type="submit" className="button is-success">
+                  Zaloguj
+                </button>
               </div>
             </form>
           </div>
@@ -67,6 +70,10 @@ class LoginScreen extends React.Component {
 const mapStateToProps = state => ({
   userAuth: state.firebase.auth,
 });
+
+LoginScreen.propTypes = {
+  userAuth: PropTypes.object.isRequired,
+};
 
 export default connect(
   mapStateToProps,

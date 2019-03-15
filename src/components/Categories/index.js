@@ -1,51 +1,56 @@
-import React from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import CategoryForm from "./CategoryForm";
+import {
+  createCategory,
+  fetchCategories,
+} from '../../actions/categoriesActions';
 
-import { addCategoryAction } from "../../actions/addCategoryAction";
-import { removeCategoryAction } from "../../actions/removeCategoryAction";
+import CategoriesForm from '../Forms/CategoriesForm';
+
+const CategoriesWraper = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 class CategoriesIndex extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      id: "",
-      category: "",
-      selectedCategory: null
-    };
-    this.inputRef = React.createRef();
+  componentDidMount() {
+    this.props.fetchCategories();
   }
 
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.addCategoryAction(this.state);
-    this.setState({
-      category: ""
-    });
+  onSubmit = formValues => {
+    this.props.createCategory(formValues);
   };
 
   render() {
-    const { category, selectedCategory } = this.state;
+    const { categories } = this.props;
     return (
-      <div>
-        <CategoryForm />
-      </div>
+      <CategoriesWraper>
+        <CategoriesForm
+          handleOnSubmit={this.onSubmit}
+          categories={categories}
+        />
+      </CategoriesWraper>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    categories: state.categories
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(
-    { addCategoryAction, removeCategoryAction },
-    dispatch
-  );
+const mapStateToProps = state => ({
+  categories: state.categories,
+});
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ createCategory, fetchCategories }, dispatch);
+
+CategoriesIndex.propTypes = {
+  categories: PropTypes.object.isRequired,
+  fetchCategories: PropTypes.func.isRequired,
+  createCategory: PropTypes.func.isRequired,
 };
 
 export default connect(

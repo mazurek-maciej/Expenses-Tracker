@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import NavigationBar from './NavigationBar';
 
-const Index = props => <NavigationBar />;
+const Index = () => <NavigationBar />;
 
 const mapStateToProps = state => ({
   userId: state.auth.userId,

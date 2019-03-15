@@ -43,8 +43,6 @@ export const signUp = newUser => (
         .set({
           name: newUser.name,
           surname: newUser.surname,
-          favourites: [],
-          userRatings: [],
         })
     )
     .then(() => {

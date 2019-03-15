@@ -1,19 +1,19 @@
-import account from "../apis/account";
+import account from '../apis/account';
 import {
   CREATE_FINANCE,
   EDIT_FINANCE,
   FETCH_FINANCES,
   FETCH_FINANCE,
-  DELETE_FINANCE
-} from "./types";
-import history from "../routes/history";
+  DELETE_FINANCE,
+} from './types';
+import history from '../routes/history';
 
 export const createFinance = formValues => async (dispatch, getState) => {
   const { userId } = getState().auth;
-  const response = await account.post("/finances", { ...formValues, userId });
+  const response = await account.post('/finances', { ...formValues, userId });
 
   dispatch({ type: CREATE_FINANCE, payload: response.data });
-  history.push("/main");
+  history.push('/main');
 };
 
 export const fetchFinance = id => async dispatch => {
@@ -23,7 +23,7 @@ export const fetchFinance = id => async dispatch => {
 };
 
 export const fetchFinances = () => async dispatch => {
-  const response = await account.get("/finances");
+  const response = await account.get('/finances');
 
   dispatch({ type: FETCH_FINANCES, payload: response.data });
 };

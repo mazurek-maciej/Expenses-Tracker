@@ -1,22 +1,21 @@
-const initialState = [
-  {
-    id: 0,
-    category: 'Expenses',
-  },
-  {
-    id: 1,
-    category: 'Car',
-  },
-];
+import _ from 'lodash';
+import {
+  CREATE_CATEGORY,
+  FETCH_CATEGORIES,
+  FETCH_CATEGORY,
+  DELETE_CATEGORY,
+} from '../actions/types';
 
-export const categoriesReducers = (state = initialState, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
-    case 'ADD_CATEGORY':
-      console.log('category added successfuly');
-      return [...state, action.category];
-    case 'REMOVE_CATEGORY':
-      console.log('category removed successfuly');
-      return state.filter(category => category.id !== action.id);
+    case FETCH_CATEGORIES:
+      return { ...state, ..._.mapKeys(action.payload, 'id') };
+    case FETCH_CATEGORY:
+      return { ...state, [action.payload.id]: action.payload };
+    case CREATE_CATEGORY:
+      return { ...state, [action.payload.id]: action.payload };
+    case DELETE_CATEGORY:
+      return _.omit(state, action.payload);
     default:
       return state;
   }

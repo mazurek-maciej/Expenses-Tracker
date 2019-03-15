@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signOut } from '../../actions/authActions';
@@ -26,18 +27,24 @@ const NavMainWraper = styled.div`
 `;
 const StyledButton = styled.li`
   list-style: none;
-  padding: 8px 16px;
+  padding: 16px;
   margin: 0 4px;
   border: 1px solid hsla(0, 0%, 10%, 1);
-  border-radius: 4px;
-  background-color: ${({ theme }) => theme.colors.$D5};
+  border-radius: 50%;
+  background-color: #1f2f33;
   font-size: 16px;
   a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: #f9f9f9;
+    width: 20px;
+    height: 18px;
   }
 `;
 
-const NavigationBar = props => props.userAuth.uid ? (
+const NavigationBar = ({ userAuth, signOut }) =>
+  userAuth.uid ? (
     <NavMainWraper>
       <>
         <StyledButton>
@@ -46,12 +53,12 @@ const NavigationBar = props => props.userAuth.uid ? (
           </Link>
         </StyledButton>
         <StyledButton>
-          <Link to="/newFinance">
+          <Link to="/new-finance">
             <i className="fas fa-plus" />
           </Link>
         </StyledButton>
-        <StyledButton onClick={props.signOut}>
-          <Link to="/signIn">SignOut</Link>
+        <StyledButton onClick={signOut}>
+          <Link to="/signIn">Out</Link>
         </StyledButton>
       </>
     </NavMainWraper>
@@ -71,6 +78,11 @@ const NavigationBar = props => props.userAuth.uid ? (
 const mapStateToProps = state => ({
   userAuth: state.firebase.auth,
 });
+
+NavigationBar.propTypes = {
+  userAuth: PropTypes.object.isRequired,
+  signOut: PropTypes.func.isRequired,
+};
 
 export default connect(
   mapStateToProps,

@@ -3,7 +3,7 @@ import { reducer as formReducer } from 'redux-form';
 import { firebaseReducer } from 'react-redux-firebase';
 import { firestoreReducer } from 'redux-firestore';
 import financeReducer from './financeReducer';
-import { categoriesReducers } from './categoriesReducers';
+import categoriesReducers from './categoriesReducers';
 import authReducer from './authReducer';
 
 const reducers = combineReducers({

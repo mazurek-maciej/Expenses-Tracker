@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { theme } from '../theme/theme';
 
@@ -9,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 16px;
     line-height: 1.5;
     font-family: Source Sans Pro;
-    background-color: #1A1A1A;
+    background-color: ${theme.colors.$D2};
     *, *::before, *::after {
       box-sizing: border-box;
     }
@@ -30,4 +31,9 @@ const Layout = ({ children }) => (
     </>
   </ThemeProvider>
 );
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
 export default Layout;

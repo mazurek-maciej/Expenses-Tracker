@@ -1,5 +1,6 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const StyledInputField = styled.div`
   max-width: 300px;
@@ -17,16 +18,20 @@ const StyledInput = styled.input`
   border-radius: 8px;
   border: 1px solid lightgray;
 `;
-const InputComponent = ({ input, label, meta }) => {
-  return (
-    <StyledInputField className="field">
-      <StyledInputLabel className="label">{label}</StyledInputLabel>
-      <StyledInput placeholder="temporary content" {...input} />
-      {meta.touched && meta.error && (
-        <label className="help is-danger">{meta.error}</label>
-      )}
-    </StyledInputField>
-  );
+const InputComponent = ({ input, label, meta }) => (
+  <StyledInputField className="field">
+    <StyledInputLabel>{label}</StyledInputLabel>
+    <StyledInput {...input} />
+    {meta.touched && meta.error && (
+      <label className="help is-danger">{meta.error}</label>
+    )}
+  </StyledInputField>
+);
+
+InputComponent.propTypes = {
+  input: PropTypes.object,
+  meta: PropTypes.object,
+  label: PropTypes.string,
 };
 
 export default InputComponent;

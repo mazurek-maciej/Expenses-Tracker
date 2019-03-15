@@ -1,10 +1,15 @@
-export const SIGN_IN = "SING_IN";
-export const SIGN_OUT = "SIGN_OUT";
-export const SIGN_UP = "SIGN_UP";
-export const LOGIN_ERROR = "LOGIN_ERROR";
+export const SIGN_IN = 'SING_IN';
+export const SIGN_OUT = 'SIGN_OUT';
+export const SIGN_UP = 'SIGN_UP';
+export const LOGIN_ERROR = 'LOGIN_ERROR';
 
-export const CREATE_FINANCE = "CREATE_FINANCE";
-export const FETCH_FINANCES = "FETCH_FINANCES";
-export const FETCH_FINANCE = "FETCH_FINANCE";
-export const DELETE_FINANCE = "DELETE_FINANCE";
-export const EDIT_FINANCE = "EDIT_FINANCE";
+export const CREATE_FINANCE = 'CREATE_FINANCE';
+export const FETCH_FINANCES = 'FETCH_FINANCES';
+export const FETCH_FINANCE = 'FETCH_FINANCE';
+export const DELETE_FINANCE = 'DELETE_FINANCE';
+export const EDIT_FINANCE = 'EDIT_FINANCE';
+
+export const CREATE_CATEGORY = 'CREATE_CATEGORY';
+export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
+export const FETCH_CATEGORY = 'FETCH_CATEGORY';
+export const DELETE_CATEGORY = 'DELETE_CATEGORY';

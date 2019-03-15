@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -96,7 +97,9 @@ class SignUp extends Component {
                   </div>
                   <div className="field" />
                   <div className="field">
-                    <button className="button is-success">Rejestracja</button>
+                    <button type="submit" className="button is-success">
+                      Rejestracja
+                    </button>
                   </div>
                 </form>
               </div>
@@ -111,6 +114,11 @@ class SignUp extends Component {
 const mapStateToProps = state => ({
   userAuth: state.firebase.auth,
 });
+
+SignUp.propTypes = {
+  signUp: PropTypes.func,
+  userAuth: PropTypes.object,
+};
 
 export default connect(
   mapStateToProps,

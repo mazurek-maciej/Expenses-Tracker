@@ -1,11 +1,11 @@
-import React from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import DatePicker from "react-datepicker";
-import FinancesFormComponent from "../Forms/Form";
+import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import DatePicker from 'react-datepicker';
+import FinancesFormComponent from '../Forms/Form';
 
-import { createFinance } from "../../actions/financeActions";
-import "react-datepicker/dist/react-datepicker.css";
+import { createFinance } from '../../actions/financeActions';
+import 'react-datepicker/dist/react-datepicker.css';
 
 class FinancesForm extends React.Component {
   handleOnSubmit = formValues => {
@@ -18,9 +18,7 @@ class FinancesForm extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ createFinance }, dispatch);
-};
+const mapDispatchToProps = dispatch => bindActionCreators({ createFinance }, dispatch);
 
 export default connect(
   null,

@@ -1,34 +1,53 @@
-import React from "react";
-import styled from "styled-components";
-import { Field, reduxForm } from "redux-form";
-import Select from "react-select";
+import React from 'react';
+import styled from 'styled-components';
+import { Field, reduxForm } from 'redux-form';
+import Select from 'react-select';
 
-import SelectComponent from "../Forms/Select";
-import DatePickerComponent from "../Forms/DatePicker";
-import InputComponent from "../Forms/Input";
+import SelectComponent from './Select';
+import DatePickerComponent from './DatePicker';
+import InputComponent from './Input';
+import { device } from '../../theme/theme';
 
 const FinancesForm = styled.form`
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 800px;
   width: 100%;
-  max-width: 600px;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 100px;
-  align-items: stretch;
-  grid-gap: 32px;
+  @media ${device.mobileM} {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 8px;
+  }
+`;
+const CategoriesWraper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  padding: 16px 24px;
+  border-radius: 16px;
+  background-color: rgba(51, 51, 51, 0.3);
+`;
+const DescriptionWraper = styled(CategoriesWraper)`
+  flex-direction: column;
+  margin: 16px 0;
 `;
 
 class Form extends React.Component {
   state = {
     presentDate: new Date(),
     financeType: [
-      { value: "Income", label: "Income" },
-      { value: "Outcome", label: "Outcome" }
-    ]
+      { value: 'Income', label: 'Income' },
+      { value: 'Outcome', label: 'Outcome' },
+    ],
   };
 
-  renderInputField = ({ input, label, meta }) => {
-    return <InputComponent input={input} meta={meta} label={label} />;
-  };
+  renderInputField = ({ input, label, meta }) => (
+    <InputComponent input={input} meta={meta} label={label} />
+  );
 
   renderSelect = props => {
     const selectedCategory = [];
@@ -36,7 +55,7 @@ class Form extends React.Component {
       this.props.categories.map(category =>
         selectedCategory.push({
           value: category.category,
-          label: category.category
+          label: category.category,
         })
       );
     }
@@ -48,12 +67,9 @@ class Form extends React.Component {
     );
   };
 
-  renderDatePicker = props => {
-    console.log(props);
-    return (
-      <DatePickerComponent props={props} presentDate={this.state.presentDate} />
-    );
-  };
+  renderDatePicker = props => (
+    <DatePickerComponent props={props} presentDate={this.state.presentDate} />
+  );
 
   onSubmit = formValues => {
     this.props.handleSubmit(formValues);
@@ -61,41 +77,45 @@ class Form extends React.Component {
 
   render() {
     return (
-      <FinancesForm onSubmit={this.props.handleSubmit(this.onSubmit)}>
-        <Field
-          name="description"
-          component={this.renderInputField}
-          label="Enter description"
-        />
-        <Field
-          name="money"
-          component={this.renderInputField}
-          label="Enter value"
-        />
-        <Field
-          name="financeTypes"
-          label="Select finance type"
-          types
-          component={this.renderSelect}
-        />
-        <Field
-          name="category"
-          label="Select category"
-          component={this.renderSelect}
-          validateOn="change"
-          validators={{
-            required: val => val && val.length
-          }}
-          mapProps={{
-            value: props => props.modelValue,
-            onChange: props => props.onChange
-          }}
-        />
-        <Field
-          name="date"
-          label="Select date"
-          component={this.renderDatePicker}
-        />
+      <FinancesForm onSubmit={this.onSubmit}>
+        <CategoriesWraper>
+          <Field
+            name="category"
+            label="Select category"
+            component={this.renderSelect}
+            validateOn="change"
+            validators={{
+              required: val => val && val.length,
+            }}
+            mapProps={{
+              value: props => props.modelValue,
+              onChange: props => props.onChange,
+            }}
+          />
+        </CategoriesWraper>
+        <DescriptionWraper>
+          <Field
+            name="description"
+            component={this.renderInputField}
+            label="Enter description"
+          />
+          <Field
+            name="money"
+            component={this.renderInputField}
+            label="Enter value"
+          />
+          <Field
+            name="financeTypes"
+            label="Select finance type"
+            types
+            component={this.renderSelect}
+          />
+          <Field
+            name="date"
+            label="Select date"
+            component={this.renderDatePicker}
+          />
+        </DescriptionWraper>
         <button className="button is-dark" type="submit">
           Submit
         </button>
@@ -107,24 +127,24 @@ class Form extends React.Component {
 const validate = formValues => {
   const errors = [];
   if (!formValues.description) {
-    errors.description = "You must enter description!";
+    errors.description = 'You must enter description!';
   }
   if (isNaN(formValues.money)) {
-    errors.money = "You must enter a number";
+    errors.money = 'You must enter a number';
   }
   if (!formValues.category) {
-    errors.category = "Select category!";
+    errors.category = 'Select category!';
   }
   if (!formValues.financeTypes) {
-    errors.financeTypes = "Select type!";
+    errors.financeTypes = 'Select type!';
   }
   if (!formValues.date) {
-    errors.date = "Select date!";
+    errors.date = 'Select date!';
   }
   return errors;
 };
 
 export default reduxForm({
-  form: "account",
-  validate
+  form: 'account',
+  validate,
 })(Form);

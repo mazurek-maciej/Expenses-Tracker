@@ -1,6 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { signOut } from '../../actions/authActions';
+import * as ROUTES from '../../constants/routes';
 
 const NavMainWraper = styled.div`
   display: flex;
@@ -10,6 +13,7 @@ const NavMainWraper = styled.div`
   position: relative;
   box-shadow: 0 -2px 25px hsla(0, 0%, 90%, 0.1);
   overflow: hidden;
+  z-index: 3;
   ::before {
     /* content: ""; */
     position: absolute;
@@ -20,7 +24,8 @@ const NavMainWraper = styled.div`
     border-radius: 50%;
   }
 `;
-const StyledButton = styled.button`
+const StyledButton = styled.li`
+  list-style: none;
   padding: 8px 16px;
   margin: 0 4px;
   border: 1px solid hsla(0, 0%, 10%, 1);
@@ -32,22 +37,42 @@ const StyledButton = styled.button`
   }
 `;
 
-const NavigationBar = ({ children }) => {
-  return (
+const NavigationBar = props => props.userAuth.uid ? (
     <NavMainWraper>
-      <StyledButton>
-        <Link to="/main">
-          <i className="fas fa-home" />
-        </Link>
-      </StyledButton>
-      <StyledButton>
-        <Link to="/add">
-          <i className="fas fa-plus" />
-        </Link>
-      </StyledButton>
-      {children}
+      <>
+        <StyledButton>
+          <Link to="/">
+            <i className="fas fa-home" />
+          </Link>
+        </StyledButton>
+        <StyledButton>
+          <Link to="/newFinance">
+            <i className="fas fa-plus" />
+          </Link>
+        </StyledButton>
+        <StyledButton onClick={props.signOut}>
+          <Link to="/signIn">SignOut</Link>
+        </StyledButton>
+      </>
+    </NavMainWraper>
+  ) : (
+    <NavMainWraper>
+      <>
+        <StyledButton>
+          <Link to="signIn">SignIn</Link>
+        </StyledButton>
+        <StyledButton>
+          <Link to="/signUp">SignUp</Link>
+        </StyledButton>
+      </>
     </NavMainWraper>
   );
-};
 
-export default NavigationBar;
+const mapStateToProps = state => ({
+  userAuth: state.firebase.auth,
+});
+
+export default connect(
+  mapStateToProps,
+  { signOut }
+)(NavigationBar);

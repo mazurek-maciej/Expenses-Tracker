@@ -1,25 +1,13 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
-import GoogleAuth from "../Authentication/GoogleAuth";
-import NavigationBar from "./NavigationBar";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
+import NavigationBar from './NavigationBar';
 
-const Index = props => {
-  if (!props.isSignedIn) return <Redirect to="/" />;
-  return (
-    <div>
-      <NavigationBar>
-        <GoogleAuth />
-      </NavigationBar>
-    </div>
-  );
-};
+const Index = props => <NavigationBar />;
 
-const mapStateToProps = state => {
-  return {
-    userId: state.auth.userId,
-    isSignedIn: state.auth.isSignedIn
-  };
-};
+const mapStateToProps = state => ({
+  userId: state.auth.userId,
+  isSignedIn: state.auth.isSignedIn,
+});
 
 export default connect(mapStateToProps)(Index);

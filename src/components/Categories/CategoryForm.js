@@ -1,15 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { Field, reduxForm } from "redux-form";
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Field, reduxForm } from 'redux-form';
 
-import InputComponent from "../Forms/Input";
-import { addCategoryAction } from "../../actions/addCategoryAction";
+import InputComponent from '../Forms/Input';
+import { addCategoryAction } from '../../actions/addCategoryAction';
 
 class CategoryForm extends React.Component {
-  renderInputCategory = ({ input, meta, label }) => {
-    return <InputComponent input={input} meta={meta} label={label} />;
-  };
+  renderInputCategory = ({ input, meta, label }) => (
+    <InputComponent input={input} meta={meta} label={label} />
+  );
 
   render() {
     const { handleSubmit } = this.props;
@@ -27,9 +27,8 @@ class CategoryForm extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ addCategoryAction }, dispatch);
-};
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ addCategoryAction }, dispatch);
 
 CategoryForm = connect(
   null,
@@ -37,5 +36,5 @@ CategoryForm = connect(
 )(CategoryForm);
 
 export default reduxForm({
-  form: "categories"
+  form: 'categories',
 })(CategoryForm);

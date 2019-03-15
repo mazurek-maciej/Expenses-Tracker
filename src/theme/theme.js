@@ -9,27 +9,26 @@ const size = {
   laptopL: 1440,
   desktop: 2560
 };
-const device = Object.keys(size).reduce((acc, cur) => {
-  acc[cur] = `(min-width: ${size[cur]}px)`;
+export const device = Object.keys(size).reduce((acc, cur) => {
+  acc[cur] = `(max-width: ${size[cur]}px)`;
   return acc;
 }, {});
 
 export const theme = {
   colors,
-  device,
   weight: {
     thin: 400,
     normal: 600,
     bold: 800
   },
   size: {
-    $14: "14px",
-    $16: "16px",
-    $18: "18px",
-    $20: "20px",
-    $22: "22px",
-    $24: "24px",
-    $26: "26px",
-    $32: "32px"
+    $small: "14px",
+    $normal: "16px",
+    $h6: "18px",
+    $h5: "20px",
+    $h3: "22px",
+    $h3: "24px",
+    $h2: "26px",
+    $h1: "32px"
   }
 };

@@ -1,17 +1,24 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import { Router, Route, Switch, Redirect, Link } from "react-router-dom";
-import posed, { PoseGroup } from "react-pose";
-import { connect } from "react-redux";
-import history from "./routes/history";
-import SignInScreen from "./pages/SignInScreen";
-import Main from "./pages/Main";
-import FinanceOperations from "./pages/FinanceOperations";
-import Navigation from "./components/Navigation";
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+  Link,
+} from 'react-router-dom';
+import posed, { PoseGroup } from 'react-pose';
+import { connect } from 'react-redux';
+import history from './routes/history';
+import LoginScreen from './components/LoginScreen';
+import SignUpScreen from './components/SignUpScreen';
+import Finances from './components/Finances';
+import FinancesList from './components/ListOfFinances';
+import Navigation from './components/Navigation';
 
 const RouteContainer = posed.div({
   enter: { opacity: 1, beforeChildren: true },
-  exit: { opacity: 0 }
+  exit: { opacity: 0 },
 });
 const NavWraper = styled.div`
   position: absolute;
@@ -24,33 +31,22 @@ const App = props => {
   const { isSignedIn } = props;
 
   return (
-    <Router history={history}>
+    <Router>
       <>
-        <Route
-          render={({ location }) => (
-            <PoseGroup>
-              <RouteContainer key={location.pathname}>
-                <Switch location={location}>
-                  <Route path="/" exact component={SignInScreen} />
-                  <Route path="/main" component={Main} />
-                  <Route path="/add" component={FinanceOperations} />
-                </Switch>
-              </RouteContainer>
-            </PoseGroup>
-          )}
-        />
-        <NavWraper>
-          <Navigation />
-        </NavWraper>
+        <Switch>
+          <Route path="/" exact component={FinancesList} />
+          <Route path="/signIn" component={LoginScreen} />
+          <Route path="/signUp" component={SignUpScreen} />
+          <Route path="/newFinance" component={Finances} />
+        </Switch>
+        <Navigation />
       </>
     </Router>
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    isSignedIn: state.auth.isSignedIn
-  };
-};
+const mapStateToProps = state => ({
+  isSignedIn: state.auth.isSignedIn,
+});
 
 export default connect(mapStateToProps)(App);

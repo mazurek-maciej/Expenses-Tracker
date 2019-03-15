@@ -1,8 +1,9 @@
-import React from "react";
-import FinancesForm from "./FinancesForm";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import styled from "styled-components";
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import styled from 'styled-components';
+import { Redirect } from 'react-router-dom';
+import FinancesForm from './FinancesForm';
 
 const AddFormWraper = styled.div`
   display: flex;
@@ -14,6 +15,7 @@ const AddFormWraper = styled.div`
 
 class Finances extends React.Component {
   render() {
+    if (!this.props.userAuth.uid) return <Redirect to="/signIn" />;
     return (
       <AddFormWraper>
         <FinancesForm categories={this.props.categories} />
@@ -22,15 +24,11 @@ class Finances extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    categories: state.categories,
-    auth: state.auth
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({}, dispatch);
-};
+const mapStateToProps = state => ({
+  categories: state.categories,
+  userAuth: state.firebase.auth,
+});
+const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
 
 export default connect(
   mapStateToProps,

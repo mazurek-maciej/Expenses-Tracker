@@ -35,7 +35,7 @@ export const deleteFinance = id => async dispatch => {
 };
 
 export const editFinance = (id, formValues) => async dispatch => {
-  const response = await account.put(`/finances/${id}`, formValues);
+  const response = await account.patch(`/finances/${id}`, formValues);
 
   dispatch({ type: EDIT_FINANCE, payload: response.data });
 };

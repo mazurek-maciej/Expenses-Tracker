@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 
 import SelectComponent from './Select';
 import DatePickerComponent from './DatePicker';
@@ -22,7 +24,7 @@ const FinancesForm = styled.form`
     margin: 0 8px;
   }
 `;
-const DescriptionWraper = styled.div`
+const DescriptionWrapper = styled.div`
   display: flex;
   margin: 16px 0;
   flex-direction: column;
@@ -66,14 +68,21 @@ class Form extends React.Component {
   );
 
   renderSelect = props => {
-    const selectedCategory = [];
-    // Stworzyć kilka kategorii w api.
-    // Pobrać je tutaj
-    // Znaleźć jak poprawnie zmapować obiekt i zmienić go w tablicę
+    const { categories } = this.props;
+    const categoriesArray = [];
+    if (Object.keys(categories).length !== 0) {
+      const categoriesPlaceholder = _.values(categories);
+      categoriesPlaceholder.map(category =>
+        categoriesArray.push({
+          value: category.value,
+          label: category.value,
+        })
+      );
+    }
     return (
       <SelectComponent
         props={props}
-        options={props.types ? this.state.financeType : selectedCategory}
+        options={props.types ? this.state.financeType : categoriesArray}
       />
     );
   };
@@ -91,9 +100,10 @@ class Form extends React.Component {
   };
 
   render() {
+    const { categories } = this.props;
     return (
       <FinancesForm onSubmit={this.onSubmit}>
-        <DescriptionWraper>
+        <DescriptionWrapper>
           <Field
             name="description"
             component={this.renderInputField}
@@ -114,6 +124,7 @@ class Form extends React.Component {
             name="category"
             label="Select category"
             component={this.renderSelect}
+            categories={categories}
             validateOn="change"
             validators={{
               required: val => val && val.length,
@@ -128,11 +139,11 @@ class Form extends React.Component {
             label="Select date"
             component={this.renderDatePicker}
           />
-        </DescriptionWraper>
+        </DescriptionWrapper>
         <div>
           <SubmitButton type="submit">Submit</SubmitButton>
           <LinkButton>
-            <Link to="/add-category">Category</Link>
+            <Link to="/new-category">Category</Link>
           </LinkButton>
         </div>
       </FinancesForm>
@@ -158,6 +169,10 @@ const validate = formValues => {
     errors.date = 'Select date!';
   }
   return errors;
+};
+
+Form.propTypes = {
+  categories: PropTypes.object.isRequired,
 };
 
 export default reduxForm({

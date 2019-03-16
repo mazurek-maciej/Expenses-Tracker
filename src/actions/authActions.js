@@ -1,9 +1,12 @@
 import { SIGN_IN, SIGN_OUT } from './types';
 
-export const signIn = credentials => (dispatch, getState, { getFirebase }) => {
-  const firebase = getFirebase();
-
-  firebase
+export const signIn = credentials => async (
+  dispatch,
+  getState,
+  { getFirebase }
+) => {
+  const firebase = await getFirebase();
+  await firebase
     .auth()
     .signInWithEmailAndPassword(credentials.email, credentials.password)
     .then(() => {
@@ -52,13 +55,3 @@ export const signUp = newUser => (
       dispatch({ type: 'SIGNUP_ERROR', err });
     });
 };
-
-// export const signIn = userId => ({
-//   type: SIGN_IN,
-//   userId,
-// });
-
-// export const signOut = userId => ({
-//   type: SIGN_OUT,
-//   userId,
-// });

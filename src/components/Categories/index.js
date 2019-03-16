@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import _ from 'lodash';
 
 import {
   createCategory,
@@ -11,7 +12,7 @@ import {
 
 import CategoriesForm from '../Forms/CategoriesForm';
 
-const CategoriesWraper = styled.div`
+const CategoriesWrapper = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -31,12 +32,12 @@ class CategoriesIndex extends React.Component {
   render() {
     const { categories } = this.props;
     return (
-      <CategoriesWraper>
+      <CategoriesWrapper>
         <CategoriesForm
           handleOnSubmit={this.onSubmit}
           categories={categories}
         />
-      </CategoriesWraper>
+      </CategoriesWrapper>
     );
   }
 }

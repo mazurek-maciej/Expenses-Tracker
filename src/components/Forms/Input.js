@@ -14,9 +14,15 @@ const StyledInput = styled.input`
   max-width: 300px;
   width: 100%;
   padding: 4px 8px;
-  font-size: ${({ theme }) => theme.size.$normal}
-  border-radius: 8px;
-  border: 1px solid lightgray;
+  font-size: ${({ theme }) => theme.size.$normal};
+  color: ${({ theme }) => theme.colors.$D13};
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.$D13};
+  :focus {
+    border: 1px solid ${({ theme }) => theme.colors.$D13};
+    border-radius: 4px;
+  }
 `;
 const InputComponent = ({ input, label, meta }) => (
   <StyledInputField className="field">

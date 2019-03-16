@@ -9,12 +9,13 @@ import Finances from './components/Finances';
 import FinancesList from './components/ListOfFinances';
 import Navigation from './components/Navigation';
 import Categories from './components/Categories';
+import EditFinance from './components/EditFinance';
 
 const RouteContainer = posed.div({
   enter: { opacity: 1, beforeChildren: true },
   exit: { opacity: 0 },
 });
-const NavWraper = styled.div`
+const NavWrapper = styled.div`
   position: sticky;
   width: 100%;
   bottom: 0;
@@ -34,14 +35,15 @@ const App = () => (
                 <Route path="/signUp" component={SignUpScreen} />
                 <Route path="/new-finance" component={Finances} />
                 <Route path="/new-category" component={Categories} />
+                <Route path="/edit/:id" component={EditFinance} />
               </Switch>
             </RouteContainer>
           </PoseGroup>
         )}
       />
-      <NavWraper>
+      <NavWrapper>
         <Navigation />
-      </NavWraper>
+      </NavWrapper>
     </>
   </Router>
 );

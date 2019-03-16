@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Field, reduxForm } from 'redux-form';
-
+import _ from 'lodash';
 import SelectComponent from './Select';
 import InputComponent from './Input';
 import { device } from '../../theme/theme';
@@ -25,11 +25,18 @@ class CategoriesForm extends React.Component {
   );
 
   renderSelect = props => {
-    const selectedCategory = [];
-    if (this.props.categories) {
-      console.log(this.props);
+    const { categories } = this.props;
+    const categoriesArray = [];
+    if (Object.keys(categories).length !== 0) {
+      const categoriesPlaceholder = _.values(categories);
+      categoriesPlaceholder.map(category =>
+        categoriesArray.push({
+          value: category.value,
+          label: category.value,
+        })
+      );
     }
-    return <SelectComponent props={props} options={selectedCategory} />;
+    return <SelectComponent props={props} options={categoriesArray} />;
   };
 
   onSubmit = formValues => {
@@ -37,7 +44,7 @@ class CategoriesForm extends React.Component {
   };
 
   render() {
-    const { handleOnSubmit, handleSubmit } = this.props;
+    const { handleOnSubmit, handleSubmit, categories } = this.props;
     return (
       <>
         <FinancesForm onSubmit={handleSubmit(handleOnSubmit)}>
@@ -51,6 +58,7 @@ class CategoriesForm extends React.Component {
           name="categories"
           label="List of categories"
           component={this.renderSelect}
+          categories={categories}
         />
       </>
     );

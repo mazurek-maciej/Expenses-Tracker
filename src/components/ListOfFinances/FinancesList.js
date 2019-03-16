@@ -17,7 +17,7 @@ class FinancesList extends React.Component {
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <i className="fas fa-dollar-sign" />
             <p className="subtitle">{finance.description}</p>
-            <Link to="/edit">Edit</Link>
+            <Link to={`/edit/${finance.id}`}>Edit</Link>
           </div>
         </th>
       </tr>

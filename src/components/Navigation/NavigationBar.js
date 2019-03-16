@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { signOut } from '../../actions/authActions';
 import * as ROUTES from '../../constants/routes';
 
-const NavMainWraper = styled.div`
+const NavMainWrapper = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -45,7 +45,7 @@ const StyledButton = styled.li`
 
 const NavigationBar = ({ userAuth, signOut }) =>
   userAuth.uid ? (
-    <NavMainWraper>
+    <NavMainWrapper>
       <>
         <StyledButton>
           <Link to="/">
@@ -61,9 +61,9 @@ const NavigationBar = ({ userAuth, signOut }) =>
           <Link to="/signIn">Out</Link>
         </StyledButton>
       </>
-    </NavMainWraper>
+    </NavMainWrapper>
   ) : (
-    <NavMainWraper>
+    <NavMainWrapper>
       <>
         <StyledButton>
           <Link to="signIn">SignIn</Link>
@@ -72,7 +72,7 @@ const NavigationBar = ({ userAuth, signOut }) =>
           <Link to="/signUp">SignUp</Link>
         </StyledButton>
       </>
-    </NavMainWraper>
+    </NavMainWrapper>
   );
 
 const mapStateToProps = state => ({

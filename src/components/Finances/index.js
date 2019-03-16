@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
+
+import { fetchCategories } from '../../actions/categoriesActions';
 import FinancesForm from './FinancesForm';
 
-const AddFormWraper = styled.div`
+const AddFormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,7 +16,7 @@ const AddFormWraper = styled.div`
   width: 100%;
   height: 100vh;
 `;
-const TitleWraper = styled.div`
+const TitleWrapper = styled.div`
   align-self: flex-start;
   position: relative;
   margin: 32px 0 16px 16px;
@@ -34,16 +36,20 @@ const H2 = styled.h2`
 `;
 
 class Finances extends React.Component {
+  componentDidMount() {
+    this.props.fetchCategories();
+  }
+
   render() {
     const { userAuth, categories } = this.props;
     if (!userAuth.uid) return <Redirect to="/signIn" />;
     return (
-      <AddFormWraper>
-        <TitleWraper>
+      <AddFormWrapper>
+        <TitleWrapper>
           <H2>Add finance</H2>
-        </TitleWraper>
+        </TitleWrapper>
         <FinancesForm categories={categories} />
-      </AddFormWraper>
+      </AddFormWrapper>
     );
   }
 }
@@ -52,14 +58,13 @@ const mapStateToProps = state => ({
   categories: state.categories,
   userAuth: state.firebase.auth,
 });
-const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
 
 Finances.propTypes = {
   userAuth: PropTypes.object.isRequired,
-  categories: PropTypes.array,
+  categories: PropTypes.object,
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  { fetchCategories }
 )(Finances);

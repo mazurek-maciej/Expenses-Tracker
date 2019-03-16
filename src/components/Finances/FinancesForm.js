@@ -24,18 +24,14 @@ class FinancesForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  categories: state.categories,
-});
-
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ createFinance }, dispatch);
 
 FinancesForm.propTypes = {
-  categories: PropTypes.array,
+  categories: PropTypes.object,
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(FinancesForm);

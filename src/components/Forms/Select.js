@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const StyledSelectField = styled.div`
   display: flex;

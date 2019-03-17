@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchFinance } from '../../actions/financeActions';
+import { fetchFinance, editFinance } from '../../actions/financeActions';
 import { fetchCategories } from '../../actions/categoriesActions';
 import FinancesFormComponent from '../Forms/FinancesForm';
 
@@ -38,9 +38,10 @@ class EditFinance extends React.Component {
     this.props.fetchCategories();
   }
 
-  // TODO:
-  // Dodać initial values do formy
-  // Poprawić stylowanie
+  handleOnSubmit = formValues => {
+    this.props.editFinance(this.props.match.params.id, formValues);
+  };
+
   render() {
     const { finance, categories } = this.props;
     if (!finance) return <div>Loading...</div>;
@@ -49,7 +50,11 @@ class EditFinance extends React.Component {
         <TitleWrapper>
           <H2>Edit</H2>
         </TitleWrapper>
-        <FinancesFormComponent categories={categories} />
+        <FinancesFormComponent
+          initialValues={finance}
+          onSubmit={this.handleOnSubmit}
+          categories={categories}
+        />
       </EditFormWrapper>
     );
   }
@@ -59,15 +64,18 @@ const mapStateToProps = (state, ownProps) => ({
   finance: state.finances[ownProps.match.params.id],
   categories: state.categories,
 });
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ fetchFinance, fetchCategories, editFinance }, dispatch);
 
 EditFinance.propTypes = {
-  finance: PropTypes.object.isRequired,
+  finance: PropTypes.object,
   categories: PropTypes.object.isRequired,
   fetchCategories: PropTypes.func.isRequired,
   fetchFinance: PropTypes.func.isRequired,
+  editFinance: PropTypes.func.isRequired,
 };
 
 export default connect(
   mapStateToProps,
-  { fetchFinance, fetchCategories }
+  mapDispatchToProps
 )(EditFinance);

@@ -13,7 +13,6 @@ export const createFinance = formValues => async (dispatch, getState) => {
   const response = await account.post('/finances', { ...formValues, userId });
 
   dispatch({ type: CREATE_FINANCE, payload: response.data });
-  history.push('/main');
 };
 
 export const fetchFinance = id => async dispatch => {

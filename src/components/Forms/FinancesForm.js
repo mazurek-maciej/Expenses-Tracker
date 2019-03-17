@@ -96,13 +96,13 @@ class Form extends React.Component {
   );
 
   onSubmit = formValues => {
-    this.props.handleSubmit(formValues);
+    this.props.onSubmit(formValues);
   };
 
   render() {
     const { categories } = this.props;
     return (
-      <FinancesForm onSubmit={this.onSubmit}>
+      <FinancesForm onSubmit={this.props.handleSubmit(this.onSubmit)}>
         <DescriptionWrapper>
           <Field
             name="description"

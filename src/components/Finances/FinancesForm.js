@@ -17,7 +17,7 @@ class FinancesForm extends React.Component {
     const { categories } = this.props;
     return (
       <FinancesFormComponent
-        handleSubmit={this.handleOnSubmit}
+        onSubmit={this.handleOnSubmit}
         categories={categories}
       />
     );

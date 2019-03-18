@@ -29,9 +29,9 @@ const StyledButton = styled.li`
   list-style: none;
   padding: 16px;
   margin: 0 4px;
-  border: 1px solid hsla(0, 0%, 10%, 1);
+  border: 2px solid ${({ theme }) => theme.colors.$primary};
   border-radius: 50%;
-  background-color: #1f2f33;
+  background-color: transparent;
   font-size: 16px;
   a {
     display: flex;
@@ -58,7 +58,9 @@ const NavigationBar = ({ userAuth, signOut }) =>
           </Link>
         </StyledButton>
         <StyledButton onClick={signOut}>
-          <Link to="/signIn">Out</Link>
+          <Link to="/signIn">
+            <i class="fas fa-sign-out-alt" />
+          </Link>
         </StyledButton>
       </>
     </NavMainWrapper>
@@ -66,10 +68,9 @@ const NavigationBar = ({ userAuth, signOut }) =>
     <NavMainWrapper>
       <>
         <StyledButton>
-          <Link to="signIn">SignIn</Link>
-        </StyledButton>
-        <StyledButton>
-          <Link to="/signUp">SignUp</Link>
+          <Link to="/signUp">
+            <i className="fas fa-user-plus" />
+          </Link>
         </StyledButton>
       </>
     </NavMainWrapper>

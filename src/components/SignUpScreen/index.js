@@ -1,19 +1,50 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { signUp } from '../../actions/authActions';
 
-const Wraper = styled.div`
-  width: 100vw;
-  height: 80vh;
-  h3 {
-    font-weight: 600;
-  }
+import Button from '../Buttons/Button';
+import AuthForm from '../Forms/AuthForm';
+
+const SignUpWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 900px;
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
 `;
 const Error = styled.p`
   color: ${({ theme }) => theme.colors.$primary};
+`;
+const FormLabel = styled.label`
+  color: ${({ theme }) => theme.colors.$label};
+`;
+const TitleWrapper = styled.div`
+  align-self: flex-start;
+  position: relative;
+  margin: 32px 0 16px 1.5rem;
+`;
+const H2 = styled.h2`
+  font-size: ${({ theme }) => theme.size.$h2};
+  color: ${({ theme }) => theme.colors.$subTitle};
+  ::after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background-color: ${({ theme }) => theme.colors.$white};
+    bottom: 0;
+    left: 0;
+  }
+`;
+const ButtonsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 `;
 
 class SignUp extends Component {
@@ -39,74 +70,69 @@ class SignUp extends Component {
     const { userAuth } = this.props;
     if (userAuth.uid) return <Redirect to="/" />;
     return (
-      <Wraper>
-        <div className="section">
-          <div className="container">
-            <div className="columns">
-              <div className="column is-7">
-                <form onSubmit={this.handleSubmit}>
-                  <h3 className="subtitle">Zarejestruj się</h3>
-                  <div className="field">
-                    <label className="label" htmlFor="password">
-                      Imię
-                    </label>
-                    <input
-                      className="input"
-                      type="text"
-                      id="name"
-                      onChange={this.handleChange}
-                    />
-                  </div>
-
-                  <div className="field">
-                    <label className="label" htmlFor="password">
-                      Nazwisko
-                    </label>
-                    <input
-                      className="input"
-                      type="text"
-                      id="surname"
-                      onChange={this.handleChange}
-                    />
-                  </div>
-
-                  <div className="field">
-                    <label className="label" htmlFor="email">
-                      Email
-                    </label>
-                    <input
-                      className="input"
-                      type="email"
-                      id="email"
-                      placeholder="Podaj poprawny adres email"
-                      onChange={this.handleChange}
-                    />
-                  </div>
-
-                  <div className="field">
-                    <label className="label" htmlFor="password">
-                      Hasło
-                    </label>
-                    <input
-                      className="input"
-                      type="password"
-                      id="password"
-                      placeholder="Hasło musi mieć conajmniej 6 znaków"
-                      onChange={this.handleChange}
-                    />
-                  </div>
-                  <div className="field" />
-                  <div className="field">
-                    <button type="submit" className="button is-success">
-                      Rejestracja
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
+      <SignUpWrapper>
+        <TitleWrapper>
+          <H2>Register</H2>
+        </TitleWrapper>
+        <AuthForm onSubmit={this.handleSubmit}>
+          <div className="field">
+            <FormLabel className="label" htmlFor="password">
+              Name
+            </FormLabel>
+            <input
+              className="input"
+              type="text"
+              id="name"
+              onChange={this.handleChange}
+            />
           </div>
-        </div>
-      </Wraper>
+
+          <div className="field">
+            <FormLabel className="label" htmlFor="password">
+              Last name
+            </FormLabel>
+            <input
+              className="input"
+              type="text"
+              id="surname"
+              onChange={this.handleChange}
+            />
+          </div>
+
+          <div className="field">
+            <FormLabel className="label" htmlFor="email">
+              Email
+            </FormLabel>
+            <input
+              className="input"
+              type="email"
+              id="email"
+              placeholder="Enter valid email"
+              onChange={this.handleChange}
+            />
+          </div>
+
+          <div className="field">
+            <FormLabel className="label" htmlFor="password">
+              Password
+            </FormLabel>
+            <input
+              className="input"
+              type="password"
+              id="password"
+              placeholder="Password need at least 6 characters"
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="field" />
+          <ButtonsContainer>
+            <Button type="submit">Register</Button>
+            <Button secondary type="submit">
+              <Link to="signIn">Back</Link>
+            </Button>
+          </ButtonsContainer>
+        </AuthForm>
+      </SignUpWrapper>
     );
   }
 }

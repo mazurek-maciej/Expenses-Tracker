@@ -1,8 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { signIn } from '../../actions/authActions';
+
+import { device } from '../../theme/theme';
+import Button from '../Buttons/Button';
+import AuthForm from '../Forms/AuthForm';
+
+const SignInWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 900px;
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+`;
+const FormLabel = styled.label`
+  color: ${({ theme }) => theme.colors.$label};
+`;
+const TitleWrapper = styled.div`
+  align-self: flex-start;
+  position: relative;
+  margin: 32px 0 16px 1.5rem;
+`;
+const H2 = styled.h2`
+  font-size: ${({ theme }) => theme.size.$h2};
+  color: ${({ theme }) => theme.colors.$subTitle};
+  ::after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background-color: ${({ theme }) => theme.colors.$white};
+    bottom: 0;
+    left: 0;
+  }
+`;
 
 class LoginScreen extends React.Component {
   state = {
@@ -25,44 +61,40 @@ class LoginScreen extends React.Component {
     const { userAuth } = this.props;
     if (userAuth.uid) return <Redirect to="/" />;
     return (
-      <div className="container">
-        <div className="columns">
-          <div className="column is-7">
-            <form onSubmit={this.handleSubmit}>
-              <h3 className="subtitle">Zaloguj się</h3>
-              <div className="field">
-                <label className="label" htmlFor="email">
-                  Email
-                </label>
-                <input
-                  className="input"
-                  type="email"
-                  id="email"
-                  placeholder="Podaj swój email"
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="field">
-                <label className="label" htmlFor="password">
-                  Hasło
-                </label>
-                <input
-                  className="input"
-                  type="password"
-                  id="password"
-                  placeholder="Podaj swoje hasło"
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="field">
-                <button type="submit" className="button is-success">
-                  Zaloguj
-                </button>
-              </div>
-            </form>
+      <SignInWrapper>
+        <TitleWrapper>
+          <H2>Sign in</H2>
+        </TitleWrapper>
+        <AuthForm onSubmit={this.handleSubmit}>
+          <div className="field">
+            <FormLabel className="label" htmlFor="email">
+              Email
+            </FormLabel>
+            <input
+              className="input"
+              type="email"
+              id="email"
+              placeholder="Enter your email"
+              onChange={this.handleChange}
+            />
           </div>
-        </div>
-      </div>
+          <div className="field">
+            <FormLabel className="label" htmlFor="password">
+              Hasło
+            </FormLabel>
+            <input
+              className="input"
+              type="password"
+              id="password"
+              placeholder="Enter valid password"
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="field">
+            <Button type="submit">Sign In</Button>
+          </div>
+        </AuthForm>
+      </SignInWrapper>
     );
   }
 }

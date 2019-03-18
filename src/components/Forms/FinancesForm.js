@@ -8,6 +8,7 @@ import _ from 'lodash';
 import SelectComponent from './Select';
 import DatePickerComponent from './DatePicker';
 import InputComponent from './Input';
+import Button from '../Buttons/Button';
 import { device } from '../../theme/theme';
 
 const FinancesForm = styled.form`
@@ -16,6 +17,7 @@ const FinancesForm = styled.form`
   justify-content: space-around;
   max-width: 800px;
   width: 100%;
+  padding: 1.5rem;
   @media ${device.mobileM} {
     display: flex;
     align-items: center;
@@ -33,25 +35,12 @@ const DescriptionWrapper = styled.div`
   width: 300px;
   padding: 16px 24px;
   border-radius: 16px;
-  background-color: rgba(51, 51, 51, 0.3);
+  background-color: ${({ theme }) => theme.colors.$grayBg};
 `;
-const SubmitButton = styled.button`
-  align-self: flex-start;
-  margin: 0 16px;
-  width: 100px;
-  height: 36px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
-  border: solid 1px #6ba5b3;
-  background-color: #333333;
-  color: ${({ theme }) => theme.colors.$D12};
-  font-size: ${({ theme }) => theme.size.$normal};
-`;
-const LinkButton = styled(SubmitButton)`
-  border: 1px solid ${({ theme }) => theme.colors.$D4};
-  a {
-    color: ${({ theme }) => theme.colors.$D12};
-  }
+const ButtonsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 `;
 
 class Form extends React.Component {
@@ -140,12 +129,12 @@ class Form extends React.Component {
             component={this.renderDatePicker}
           />
         </DescriptionWrapper>
-        <div>
-          <SubmitButton type="submit">Submit</SubmitButton>
-          <LinkButton>
+        <ButtonsContainer>
+          <Button type="submit">Submit</Button>
+          <Button secondary>
             <Link to="/new-category">Category</Link>
-          </LinkButton>
-        </div>
+          </Button>
+        </ButtonsContainer>
       </FinancesForm>
     );
   }

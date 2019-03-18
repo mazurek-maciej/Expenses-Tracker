@@ -11,17 +11,19 @@ import InputComponent from './Input';
 import Button from '../Buttons/Button';
 import { device } from '../../theme/theme';
 
+const FormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%:
+`;
 const FinancesForm = styled.form`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  max-width: 800px;
-  width: 100%;
+  flex-direction: column;
+  background-color: ${({ theme }) => theme.colors.$grayBg};
   padding: 1.5rem;
+  border-radius: 8px;
   @media ${device.mobileM} {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
     width: 100%;
     margin: 0 8px;
   }
@@ -32,15 +34,15 @@ const DescriptionWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 300px;
-  padding: 16px 24px;
-  border-radius: 16px;
+  padding: 1.5rem;
+  border-radius: 8px;
   background-color: ${({ theme }) => theme.colors.$grayBg};
 `;
 const ButtonsContainer = styled.div`
-  width: 100%;
   display: flex;
   justify-content: space-around;
+  width: 100%;
+  padding: 1.5rem 0;
 `;
 
 class Form extends React.Component {
@@ -91,8 +93,8 @@ class Form extends React.Component {
   render() {
     const { categories } = this.props;
     return (
-      <FinancesForm onSubmit={this.props.handleSubmit(this.onSubmit)}>
-        <DescriptionWrapper>
+      <FormWrapper>
+        <FinancesForm onSubmit={this.props.handleSubmit(this.onSubmit)}>
           <Field
             name="description"
             component={this.renderInputField}
@@ -128,14 +130,14 @@ class Form extends React.Component {
             label="Select date"
             component={this.renderDatePicker}
           />
-        </DescriptionWrapper>
-        <ButtonsContainer>
-          <Button type="submit">Submit</Button>
-          <Button secondary>
-            <Link to="/new-category">Category</Link>
-          </Button>
-        </ButtonsContainer>
-      </FinancesForm>
+          <ButtonsContainer>
+            <Button type="submit">Submit</Button>
+            <Button secondary>
+              <Link to="/new-category">Category</Link>
+            </Button>
+          </ButtonsContainer>
+        </FinancesForm>
+      </FormWrapper>
     );
   }
 }

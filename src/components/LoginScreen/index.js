@@ -15,7 +15,7 @@ const SignInWrapper = styled.div`
   align-items: center;
   max-width: 900px;
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 80px);
   margin: 0 auto;
 `;
 const FormLabel = styled.label`

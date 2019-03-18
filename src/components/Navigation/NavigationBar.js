@@ -9,7 +9,6 @@ import * as ROUTES from '../../constants/routes';
 const NavMainWrapper = styled.div`
   display: flex;
   justify-content: space-around;
-  align-items: center;
   height: 80px;
   position: relative;
   box-shadow: 0 -2px 25px hsla(0, 0%, 90%, 0.1);
@@ -25,6 +24,13 @@ const NavMainWrapper = styled.div`
     border-radius: 50%;
   }
 `;
+const CenteringWrapper = styled.div`
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
 const StyledButton = styled.li`
   list-style: none;
   padding: 16px;
@@ -33,6 +39,24 @@ const StyledButton = styled.li`
   border-radius: 50%;
   background-color: transparent;
   font-size: 16px;
+  position: relative;
+  ::after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    left: 0;
+    border-radius: 50%;
+    box-shadow: 0 0 15px 2px ${({ theme }) => theme.colors.$primary};
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.2s;
+  }
+  :hover::after,
+  :active::after {
+    opacity: 1;
+  }
   a {
     display: flex;
     justify-content: center;
@@ -46,7 +70,7 @@ const StyledButton = styled.li`
 const NavigationBar = ({ userAuth, signOut }) =>
   userAuth.uid ? (
     <NavMainWrapper>
-      <>
+      <CenteringWrapper>
         <StyledButton>
           <Link to="/">
             <i className="fas fa-home" />
@@ -59,20 +83,20 @@ const NavigationBar = ({ userAuth, signOut }) =>
         </StyledButton>
         <StyledButton onClick={signOut}>
           <Link to="/signIn">
-            <i class="fas fa-sign-out-alt" />
+            <i className="fas fa-sign-out-alt" />
           </Link>
         </StyledButton>
-      </>
+      </CenteringWrapper>
     </NavMainWrapper>
   ) : (
     <NavMainWrapper>
-      <>
+      <CenteringWrapper>
         <StyledButton>
           <Link to="/signUp">
             <i className="fas fa-user-plus" />
           </Link>
         </StyledButton>
-      </>
+      </CenteringWrapper>
     </NavMainWrapper>
   );
 

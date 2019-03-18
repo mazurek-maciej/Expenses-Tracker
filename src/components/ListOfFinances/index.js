@@ -6,9 +6,12 @@ import { Redirect } from 'react-router-dom';
 import FinancesList from './FinancesList';
 
 const FinancesListWrapper = styled.div`
-  height: 100vh;
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 80px);
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
 `;
 const TitleWrapper = styled.div`
   align-self: flex-start;

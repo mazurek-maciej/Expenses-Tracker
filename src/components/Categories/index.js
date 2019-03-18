@@ -13,7 +13,7 @@ import {
 import CategoriesForm from '../Forms/CategoriesForm';
 
 const CategoriesWrapper = styled.div`
-  height: 100vh;
+  height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
   justify-content: center;

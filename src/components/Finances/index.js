@@ -12,9 +12,10 @@ const AddFormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 900px;
+  height: calc(100vh - 80px);
+  max-width: 800px;
   width: 100%;
-  height: 100vh;
+  margin: 0 auto;
 `;
 const TitleWrapper = styled.div`
   align-self: flex-start;

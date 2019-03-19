@@ -7,6 +7,7 @@ import { signUp } from '../../actions/authActions';
 
 import Button from '../Buttons/Button';
 import AuthForm from '../Forms/AuthForm';
+import FormField from '../Forms/AuthFormField';
 
 const SignUpWrapper = styled.div`
   display: flex;
@@ -75,56 +76,18 @@ class SignUp extends Component {
           <H2>Register</H2>
         </TitleWrapper>
         <AuthForm onSubmit={this.handleSubmit}>
-          <div className="field">
-            <FormLabel className="label" htmlFor="password">
-              Name
-            </FormLabel>
-            <input
-              className="input"
-              type="text"
-              id="name"
-              onChange={this.handleChange}
-            />
-          </div>
-
-          <div className="field">
-            <FormLabel className="label" htmlFor="password">
-              Last name
-            </FormLabel>
-            <input
-              className="input"
-              type="text"
-              id="surname"
-              onChange={this.handleChange}
-            />
-          </div>
-
-          <div className="field">
-            <FormLabel className="label" htmlFor="email">
-              Email
-            </FormLabel>
-            <input
-              className="input"
-              type="email"
-              id="email"
-              placeholder="Enter valid email"
-              onChange={this.handleChange}
-            />
-          </div>
-
-          <div className="field">
-            <FormLabel className="label" htmlFor="password">
-              Password
-            </FormLabel>
-            <input
-              className="input"
-              type="password"
-              id="password"
-              placeholder="Password need at least 6 characters"
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="field" />
+          <FormField label="name" handleChange={this.handleChange} />
+          <FormField label="surname" handleChange={this.handleChange} />
+          <FormField
+            label="email"
+            handleChange={this.handleChange}
+            placeholder="Enter valid email"
+          />
+          <FormField
+            label="password"
+            handleChange={this.handleChange}
+            placeholder="Password need at least 6 characters"
+          />
           <ButtonsContainer>
             <Button type="submit">Register</Button>
             <Button secondary type="submit">

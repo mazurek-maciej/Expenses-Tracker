@@ -8,6 +8,7 @@ import { signIn } from '../../actions/authActions';
 import { device } from '../../theme/theme';
 import Button from '../Buttons/Button';
 import AuthForm from '../Forms/AuthForm';
+import FormField from '../Forms/AuthFormField';
 
 const SignInWrapper = styled.div`
   display: flex;
@@ -66,30 +67,9 @@ class LoginScreen extends React.Component {
           <H2>Sign in</H2>
         </TitleWrapper>
         <AuthForm onSubmit={this.handleSubmit}>
-          <div className="field">
-            <FormLabel className="label" htmlFor="email">
-              Email
-            </FormLabel>
-            <input
-              className="input"
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="field">
-            <FormLabel className="label" htmlFor="password">
-              Hasło
-            </FormLabel>
-            <input
-              className="input"
-              type="password"
-              id="password"
-              placeholder="Enter valid password"
-              onChange={this.handleChange}
-            />
-          </div>
+          <FormField label="email" handleChange={this.handleChange} />
+          <FormField label="password" handleChange={this.handleChange} />
+
           <div className="field">
             <Button type="submit">Sign In</Button>
           </div>

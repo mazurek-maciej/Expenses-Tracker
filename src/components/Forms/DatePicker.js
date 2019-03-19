@@ -22,6 +22,7 @@ const StyledDateLabel = styled.label`
 
 const DatePickerComponent = ({ props, presentDate }) => {
   const { input, label } = props;
+
   return (
     <StyledDateField>
       <StyledDateLabel>{label}</StyledDateLabel>

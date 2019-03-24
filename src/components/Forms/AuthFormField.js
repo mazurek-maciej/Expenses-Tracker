@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const FormLabel = styled.label`
   color: ${({ theme }) => theme.colors.$label};
 `;
-const AuthFormField = ({ label, handleChange, placeholder }) => (
+const AuthFormField = ({ label, onChange, placeholder }) => (
   <div className="field">
     <FormLabel className="label" htmlFor="password">
       {label}
@@ -15,7 +15,7 @@ const AuthFormField = ({ label, handleChange, placeholder }) => (
         label === 'email' ? 'email' : label === 'password' ? 'password' : 'text'
       }
       id={label}
-      onChange={handleChange}
+      onChange={onChange}
       placeholder={placeholder}
     />
   </div>

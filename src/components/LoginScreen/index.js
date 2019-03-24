@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { signIn } from '../../actions/authActions';
+import { Consumer } from '../../store';
 
 import { device } from '../../theme/theme';
 import Button from '../Buttons/Button';
@@ -41,42 +42,45 @@ const H2 = styled.h2`
   }
 `;
 
-class LoginScreen extends React.Component {
-  state = {
-    email: '',
-    password: '',
-  };
+const LoginScreen = ({ userAuth, signIn }) => {
+  const emailInput = useFormInput('');
+  const passwordInput = useFormInput('');
 
-  handleSubmit = e => {
+  function handleSubmit(e) {
     e.preventDefault();
-    this.props.signIn(this.state);
-  };
-
-  handleChange = e => {
-    this.setState({
-      [e.target.id]: e.target.value,
-    });
-  };
-
-  render() {
-    const { userAuth } = this.props;
-    if (userAuth.uid) return <Redirect to="/" />;
-    return (
-      <SignInWrapper>
-        <TitleWrapper>
-          <H2>Sign in</H2>
-        </TitleWrapper>
-        <AuthForm onSubmit={this.handleSubmit}>
-          <FormField label="email" handleChange={this.handleChange} />
-          <FormField label="password" handleChange={this.handleChange} />
-
-          <div className="field">
-            <Button type="submit">Sign In</Button>
-          </div>
-        </AuthForm>
-      </SignInWrapper>
-    );
+    const { value: email } = emailInput;
+    const { value: password } = passwordInput;
+    signIn({ email, password });
   }
+
+  if (userAuth.uid) return <Redirect to="/" />;
+  return (
+    <SignInWrapper>
+      <TitleWrapper>
+        <H2>Sign in</H2>
+      </TitleWrapper>
+      <AuthForm onSubmit={handleSubmit}>
+        <FormField label="email" {...emailInput} />
+        <FormField label="password" {...passwordInput} />
+        <Consumer>{context => console.log(context)}</Consumer>
+        <div className="field">
+          <Button type="submit">Sign In</Button>
+        </div>
+      </AuthForm>
+    </SignInWrapper>
+  );
+};
+
+function useFormInput(initialValues) {
+  const [value, setValue] = useState(initialValues);
+
+  function handleChange(e) {
+    setValue(e.target.value);
+  }
+  return {
+    value,
+    onChange: handleChange,
+  };
 }
 
 const mapStateToProps = state => ({
@@ -85,6 +89,7 @@ const mapStateToProps = state => ({
 
 LoginScreen.propTypes = {
   userAuth: PropTypes.object.isRequired,
+  signIn: PropTypes.func.isRequired,
 };
 
 export default connect(

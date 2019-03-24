@@ -20,7 +20,7 @@ export const colors = {
   $primary: '#17616b',
   $primaryMinor: '#294e54',
   $activeBorder: '#6ba5b3',
-  $grayBg: 'hsla(187, 5%, 15%, 1)',
+  $grayBg: 'hsla(187, 5%, 15%, .8)',
   $black: 'hsla(187, 20%, 5%, 1)',
   $white: 'hsla(200, 5%, 98%, 1)',
 };

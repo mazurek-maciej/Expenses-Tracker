@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import posed, { PoseGroup } from 'react-pose';
 import history from './routes/history';
+import StoreProvider from './store';
 import LoginScreen from './components/LoginScreen';
 import SignUpScreen from './components/SignUpScreen';
 import Finances from './components/Finances';
@@ -23,29 +24,31 @@ const NavWrapper = styled.div`
 `;
 
 const App = () => (
-  <Router>
-    <>
-      <Route
-        render={({ location }) => (
-          <PoseGroup>
-            <RouteContainer key={location.pathname}>
-              <Switch location={location}>
-                <Route path="/" exact component={FinancesList} />
-                <Route path="/signIn" component={LoginScreen} />
-                <Route path="/signUp" component={SignUpScreen} />
-                <Route path="/new-finance" component={Finances} />
-                <Route path="/new-category" component={Categories} />
-                <Route path="/edit/:id" component={EditFinance} />
-              </Switch>
-            </RouteContainer>
-          </PoseGroup>
-        )}
-      />
-      <NavWrapper>
-        <Navigation />
-      </NavWrapper>
-    </>
-  </Router>
+  <StoreProvider>
+    <Router>
+      <>
+        <Route
+          render={({ location }) => (
+            <PoseGroup>
+              <RouteContainer key={location.pathname}>
+                <Switch location={location}>
+                  <Route path="/" exact component={FinancesList} />
+                  <Route path="/signIn" component={LoginScreen} />
+                  <Route path="/signUp" component={SignUpScreen} />
+                  <Route path="/new-finance" component={Finances} />
+                  <Route path="/new-category" component={Categories} />
+                  <Route path="/edit/:id" component={EditFinance} />
+                </Switch>
+              </RouteContainer>
+            </PoseGroup>
+          )}
+        />
+        <NavWrapper>
+          <Navigation />
+        </NavWrapper>
+      </>
+    </Router>
+  </StoreProvider>
 );
 
 export default App;

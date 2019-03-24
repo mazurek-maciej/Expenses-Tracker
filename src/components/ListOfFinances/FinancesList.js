@@ -1,9 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchFinances } from '../../actions/financeActions';
+
+const Table = styled.table`
+  width: 100%;
+  background: transparent;
+`;
+const RowContainer = styled.div`
+  padding: 8px;
+  display: flex;
+  align-items: baseline;
+  * {
+    color: ${({ theme }) => theme.colors.$text};
+  }
+`;
+const P = styled.p`
+  align-self: flex-start;
+  font-size: ${({ theme }) => theme.size.$h5};
+  margin-left: 1rem;
+`;
+const StyledLink = styled(Link)`
+  margin-left: auto;
+`;
 
 class FinancesList extends React.Component {
   componentDidMount() {
@@ -14,11 +36,13 @@ class FinancesList extends React.Component {
     finances.map(finance => (
       <tr key={finance.id}>
         <th>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <RowContainer>
             <i className="fas fa-dollar-sign" />
-            <p className="subtitle">{finance.description}</p>
-            <Link to={`/edit/${finance.id}`}>Edit</Link>
-          </div>
+            <P className="subtitle">{finance.description}</P>
+            <StyledLink to={`/edit/${finance.id}`}>
+              <i className="fas fa-pen" />
+            </StyledLink>
+          </RowContainer>
         </th>
       </tr>
     ));
@@ -28,12 +52,9 @@ class FinancesList extends React.Component {
     if (finances.length === 0) return <div>You have empty list</div>;
     return (
       <>
-        <table
-          className="table"
-          style={{ backgroundColor: '#1A1A1A', marginTop: '16px' }}
-        >
+        <Table className="table">
           <tbody>{this.renderFinancesList(finances)}</tbody>
-        </table>
+        </Table>
       </>
     );
   }

@@ -6,6 +6,7 @@ export const signIn = credentials => async (
   { getFirebase }
 ) => {
   const firebase = await getFirebase();
+  console.log(credentials);
   await firebase
     .auth()
     .signInWithEmailAndPassword(credentials.email, credentials.password)

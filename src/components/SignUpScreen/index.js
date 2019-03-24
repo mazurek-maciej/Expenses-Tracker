@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -48,57 +48,58 @@ const ButtonsContainer = styled.div`
   justify-content: space-around;
 `;
 
-class SignUp extends Component {
-  state = {
-    email: '',
-    password: '',
-    name: '',
-    surname: '',
-  };
+const SignUp = ({ userAuth, signUp }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
 
-  handleSubmit = e => {
+  function handleSubmit(e) {
     e.preventDefault();
-    this.props.signUp(this.state);
-  };
-
-  handleChange = e => {
-    this.setState({
-      [e.target.id]: e.target.value,
-    });
-  };
-
-  render() {
-    const { userAuth } = this.props;
-    if (userAuth.uid) return <Redirect to="/" />;
-    return (
-      <SignUpWrapper>
-        <TitleWrapper>
-          <H2>Register</H2>
-        </TitleWrapper>
-        <AuthForm onSubmit={this.handleSubmit}>
-          <FormField label="name" handleChange={this.handleChange} />
-          <FormField label="surname" handleChange={this.handleChange} />
-          <FormField
-            label="email"
-            handleChange={this.handleChange}
-            placeholder="Enter valid email"
-          />
-          <FormField
-            label="password"
-            handleChange={this.handleChange}
-            placeholder="Password need at least 6 characters"
-          />
-          <ButtonsContainer>
-            <Button type="submit">Register</Button>
-            <Button secondary type="submit">
-              <Link to="signIn">Back</Link>
-            </Button>
-          </ButtonsContainer>
-        </AuthForm>
-      </SignUpWrapper>
-    );
+    signUp({ email, password, name, surname });
   }
-}
+  function handleEmail(e) {
+    setEmail(e.target.value);
+  }
+  function handlePassword(e) {
+    setPassword(e.target.value);
+  }
+  function handleName(e) {
+    setName(e.target.value);
+  }
+  function handleSurname(e) {
+    setSurname(e.target.value);
+  }
+
+  if (userAuth.uid) return <Redirect to="/" />;
+  return (
+    <SignUpWrapper>
+      <TitleWrapper>
+        <H2>Register</H2>
+      </TitleWrapper>
+      <AuthForm onSubmit={handleSubmit}>
+        <FormField label="name" handleChange={handleName} />
+        <FormField label="surname" handleChange={handleSurname} />
+        <FormField
+          label="email"
+          handleChange={handleEmail}
+          placeholder="Enter valid email"
+        />
+        <FormField
+          label="password"
+          handleChange={handlePassword}
+          placeholder="Password need at least 6 characters"
+        />
+        <ButtonsContainer>
+          <Button type="submit">Register</Button>
+          <Button secondary type="submit">
+            <Link to="signIn">Back</Link>
+          </Button>
+        </ButtonsContainer>
+      </AuthForm>
+    </SignUpWrapper>
+  );
+};
 
 const mapStateToProps = state => ({
   userAuth: state.firebase.auth,

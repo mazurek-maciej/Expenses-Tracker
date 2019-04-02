@@ -11,6 +11,7 @@ import FinancesList from './components/ListOfFinances';
 import Navigation from './components/Navigation';
 import Categories from './components/Categories';
 import EditFinance from './components/EditFinance';
+import AccountManage from './components/AccountManage';
 
 const RouteContainer = posed.div({
   enter: { opacity: 1, beforeChildren: true },
@@ -33,6 +34,7 @@ const App = () => (
               <RouteContainer key={location.pathname}>
                 <Switch location={location}>
                   <Route path="/" exact component={FinancesList} />
+                  <Route path="/account" component={AccountManage} />
                   <Route path="/signIn" component={LoginScreen} />
                   <Route path="/signUp" component={SignUpScreen} />
                   <Route path="/new-finance" component={Finances} />

@@ -1,4 +1,5 @@
 import { SIGN_IN, SIGN_OUT } from './types';
+import account from '../apis/account';
 
 export const signIn = credentials => async (
   dispatch,
@@ -6,7 +7,6 @@ export const signIn = credentials => async (
   { getFirebase }
 ) => {
   const firebase = await getFirebase();
-  console.log(credentials);
   await firebase
     .auth()
     .signInWithEmailAndPassword(credentials.email, credentials.password)

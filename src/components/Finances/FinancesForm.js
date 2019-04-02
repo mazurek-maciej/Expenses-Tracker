@@ -10,11 +10,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 class FinancesForm extends React.Component {
   handleOnSubmit = formValues => {
-    this.props.createFinance(formValues);
+    const { userId } = this.props;
+    this.props.createFinance(formValues, userId);
   };
 
   render() {
-    const { categories } = this.props;
+    const { categories, userId } = this.props;
     return (
       <FinancesFormComponent
         onSubmit={this.handleOnSubmit}
@@ -27,11 +28,16 @@ class FinancesForm extends React.Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ createFinance }, dispatch);
 
+const mapStateToProps = state => ({
+  userId: state.firebase.auth.uid,
+});
+
 FinancesForm.propTypes = {
-  categories: PropTypes.object,
+  categories: PropTypes.object.isRequired,
+  userId: PropTypes.string.isRequired,
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(FinancesForm);

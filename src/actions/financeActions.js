@@ -8,8 +8,7 @@ import {
 } from './types';
 import history from '../routes/history';
 
-export const createFinance = formValues => async (dispatch, getState) => {
-  const { userId } = getState().auth;
+export const createFinance = (formValues, userId) => async dispatch => {
   const response = await account.post('/finances', { ...formValues, userId });
 
   dispatch({ type: CREATE_FINANCE, payload: response.data });

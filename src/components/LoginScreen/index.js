@@ -62,7 +62,6 @@ const LoginScreen = ({ userAuth, signIn }) => {
       <AuthForm onSubmit={handleSubmit}>
         <FormField label="email" {...emailInput} />
         <FormField label="password" {...passwordInput} />
-        <Consumer>{context => console.log(context)}</Consumer>
         <div className="field">
           <Button type="submit">Sign In</Button>
         </div>

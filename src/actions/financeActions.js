@@ -12,6 +12,7 @@ export const createFinance = (formValues, userId) => async dispatch => {
   const response = await account.post('/finances', { ...formValues, userId });
 
   dispatch({ type: CREATE_FINANCE, payload: response.data });
+  history.push('/');
 };
 
 export const fetchFinance = id => async dispatch => {
@@ -36,4 +37,5 @@ export const editFinance = (id, formValues) => async dispatch => {
   const response = await account.patch(`/finances/${id}`, formValues);
 
   dispatch({ type: EDIT_FINANCE, payload: response.data });
+  history.push('/');
 };

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchFinances } from '../../actions/financeActions';
+import { fetchFinances, deleteFinance } from '../../actions/financeActions';
 
 const Table = styled.table`
   width: 100%;
@@ -23,8 +23,13 @@ const P = styled.p`
   font-size: ${({ theme }) => theme.size.$h5};
   margin-left: 1rem;
 `;
-const StyledLink = styled(Link)`
-  margin-left: auto;
+
+const Button = styled.button`
+  border: transparent;
+  background: transparent;
+  padding: 0 8px;
+  cursor: pointer;
+  margin: 0 8px;
 `;
 
 class FinancesList extends React.Component {
@@ -38,10 +43,19 @@ class FinancesList extends React.Component {
         <th>
           <RowContainer>
             <i className="fas fa-dollar-sign" />
+            <P className="subtitle">{finance.money}</P>
             <P className="subtitle">{finance.description}</P>
-            <StyledLink to={`/edit/${finance.id}`}>
-              <i className="fas fa-pen" />
-            </StyledLink>
+            <div style={{ marginLeft: 'auto' }}>
+              <Button
+                onClick={() => this.props.deleteFinance(finance.id)}
+                type="button"
+              >
+                <i className="fas fa-trash-alt" />
+              </Button>
+              <Link to={`/edit/${finance.id}`}>
+                <i className="fas fa-pen" />
+              </Link>
+            </div>
           </RowContainer>
         </th>
       </tr>
@@ -62,15 +76,15 @@ class FinancesList extends React.Component {
 
 const mapStateToProps = state => ({
   finances: Object.values(state.finances),
-  currentUserId: state.auth.userId,
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchFinances }, dispatch);
+  bindActionCreators({ fetchFinances, deleteFinance }, dispatch);
 
 FinancesList.propTypes = {
   finances: PropTypes.array.isRequired,
   fetchFinances: PropTypes.func.isRequired,
+  deleteFinance: PropTypes.func.isRequired,
 };
 
 export default connect(

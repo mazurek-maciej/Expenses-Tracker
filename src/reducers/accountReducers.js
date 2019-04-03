@@ -1,16 +1,22 @@
+import _ from 'lodash';
+
 export default (state = {}, action) => {
   switch (action.type) {
-    case 'CREATE_FINANCE_ACCOUNT':
+    case 'CREATE_WALLET':
       return {
         ...state,
         id: action.userId,
-        valet: action.amount,
+        amount: action.amount,
       };
-    case 'EDIT_FINANCE_ACCOUNT':
+    case 'EDIT_WALLET':
       return {
         ...state,
-        id: action.userId,
-        valet: action.amount,
+        amount: action.amount,
+      };
+    case 'FETCH_WALLET':
+      return {
+        ...state,
+        ..._.mapKeys(action.payload, 'id'),
       };
     default:
       return state;

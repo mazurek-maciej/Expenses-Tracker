@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import FinancesList from './FinancesList';
+import WalletStatus from './WalletStatus';
 
 const FinancesListWrapper = styled.div`
   display: flex;
@@ -32,13 +33,14 @@ const H2 = styled.h2`
   }
 `;
 
-const ListOfFinances = ({ userAuth }) => {
+const ListOfFinances = ({ userAuth, wallet }) => {
   if (!userAuth.uid) return <Redirect to="/signIn" />;
   return (
     <FinancesListWrapper>
       <TitleWrapper>
         <H2>Your finances</H2>
       </TitleWrapper>
+      <WalletStatus />
       <FinancesList />
     </FinancesListWrapper>
   );
@@ -46,6 +48,7 @@ const ListOfFinances = ({ userAuth }) => {
 
 const mapStateToProps = state => ({
   userAuth: state.firebase.auth,
+  wallet: state.account.wallet,
 });
 
 ListOfFinances.propTypes = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import posed, { PoseGroup } from 'react-pose';
 import history from './routes/history';
 import StoreProvider from './store';
@@ -26,7 +26,7 @@ const NavWrapper = styled.div`
 
 const App = () => (
   <StoreProvider>
-    <Router>
+    <Router history={history}>
       <>
         <Route
           render={({ location }) => (

@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { createAccountValet } from '../../actions/accountActions';
+import { createWallet } from '../../actions/accountActions';
 
-function AccountManage({ userId, createAccountValet }) {
+function AccountManage({ userId, createWallet }) {
   const [cash, setCash] = useState(0);
 
   function handleSubmit(e) {
     e.preventDefault();
-    createAccountValet(userId, cash);
+    createWallet(userId, cash);
   }
 
   if (!userId) return <Redirect to="/signIn" />;
@@ -27,7 +27,7 @@ function AccountManage({ userId, createAccountValet }) {
 
 AccountManage.propTypes = {
   userId: PropTypes.string.isRequired,
-  createAccountValet: PropTypes.func.isRequired,
+  createWallet: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -36,5 +36,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { createAccountValet }
+  { createWallet }
 )(AccountManage);

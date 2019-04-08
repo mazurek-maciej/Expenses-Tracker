@@ -10,7 +10,8 @@ import {
 export default (state = {}, action) => {
   switch (action.type) {
     case FETCH_FINANCES:
-      return { ...state, ..._.mapKeys(action.payload, 'id') };
+      console.log(action.payload);
+      return { ...state, ..._.mapKeys(action.payload, '_id') };
     case FETCH_FINANCE:
       return { ...state, [action.payload.id]: action.payload };
     case CREATE_FINANCE:

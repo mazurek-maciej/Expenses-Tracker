@@ -15,20 +15,22 @@ export const createFinance = (formValues, userId) => async dispatch => {
   history.push('/');
 };
 
-export const fetchFinance = id => async dispatch => {
-  const response = await account.get(`/finances/${id}`);
+export const fetchFinance = (firebaseId, id) => async dispatch => {
+  const response = await account.get(`/users/find/${firebaseId}/${id}`);
 
   dispatch({ type: FETCH_FINANCE, payload: response.data });
 };
 
 export const fetchFinances = () => async dispatch => {
-  const response = await account.get('/finances');
+  const response = await account.get(
+    '/users/find/H3iqZo24gyR0QbiZ1LUf658uttB3'
+  );
 
-  dispatch({ type: FETCH_FINANCES, payload: response.data });
+  dispatch({ type: FETCH_FINANCES, payload: response.data.finances });
 };
 
-export const deleteFinance = id => async dispatch => {
-  await account.delete(`/finances/${id}`);
+export const deleteFinance = (firebaseId, id) => async dispatch => {
+  await account.post(`/users/del/${firebaseId}/${id}`);
 
   dispatch({ type: DELETE_FINANCE, payload: id });
 };

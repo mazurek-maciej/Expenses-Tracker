@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { signIn } from '../../actions/authActions';
 import { Consumer } from '../../store';
-
 import { device } from '../../theme/theme';
 import Button from '../Buttons/Button';
 import AuthForm from '../Forms/AuthForm';

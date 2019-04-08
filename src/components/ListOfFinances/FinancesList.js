@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchFinances, deleteFinance } from '../../actions/financeActions';
@@ -39,15 +40,17 @@ class FinancesList extends React.Component {
 
   renderFinancesList = finances =>
     finances.map(finance => (
-      <tr key={finance.id}>
+      <tr key={finance._id}>
         <th>
           <RowContainer>
             <i className="fas fa-dollar-sign" />
-            <P className="subtitle">{finance.money}</P>
+            <P className="subtitle">{finance.value}</P>
             <P className="subtitle">{finance.description}</P>
             <div style={{ marginLeft: 'auto' }}>
               <Button
-                onClick={() => this.props.deleteFinance(finance.id)}
+                onClick={() =>
+                  this.props.deleteFinance(this.props.firebaseId, finance._id)
+                }
                 type="button"
               >
                 <i className="fas fa-trash-alt" />
@@ -76,6 +79,7 @@ class FinancesList extends React.Component {
 
 const mapStateToProps = state => ({
   finances: Object.values(state.finances),
+  firebaseId: state.firebase.auth.uid,
 });
 
 const mapDispatchToProps = dispatch =>
@@ -83,6 +87,7 @@ const mapDispatchToProps = dispatch =>
 
 FinancesList.propTypes = {
   finances: PropTypes.array.isRequired,
+  firebaseId: PropTypes.string.isRequired,
   fetchFinances: PropTypes.func.isRequired,
   deleteFinance: PropTypes.func.isRequired,
 };

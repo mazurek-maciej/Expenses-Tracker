@@ -9,7 +9,7 @@ import {
 export default (state = {}, action) => {
   switch (action.type) {
     case FETCH_CATEGORIES:
-      return { ...state, ..._.mapKeys(action.payload, 'id') };
+      return { ...state, ..._.mapKeys(action.payload.categories, '_id') };
     case FETCH_CATEGORY:
       return { ...state, [action.payload.id]: action.payload };
     case CREATE_CATEGORY:

@@ -40,14 +40,14 @@ class CategoriesForm extends React.Component {
   };
 
   onSubmit = formValues => {
-    this.props.handleSubmit(formValues);
+    this.props.onSubmit(formValues);
   };
 
   render() {
-    const { handleOnSubmit, handleSubmit, categories } = this.props;
+    const { handleSubmit, categories } = this.props;
     return (
       <>
-        <FinancesForm onSubmit={handleSubmit(handleOnSubmit)}>
+        <FinancesForm onSubmit={this.props.handleSubmit(this.onSubmit)}>
           <Field
             name="value"
             label="Create category"
@@ -66,8 +66,8 @@ class CategoriesForm extends React.Component {
 }
 
 CategoriesForm.propTypes = {
-  handleOnSubmit: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  categories: PropTypes.object.isRequired,
 };
 
 export default reduxForm({

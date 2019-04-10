@@ -39,7 +39,6 @@ const DatePickerComponent = ({ props, presentDate }) => {
 DatePickerComponent.propTypes = {
   input: PropTypes.object,
   props: PropTypes.object.isRequired,
-  presentDate: PropTypes.string,
   value: PropTypes.string,
   label: PropTypes.string,
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -33,8 +33,8 @@ const H2 = styled.h2`
   }
 `;
 
-const ListOfFinances = ({ userAuth, wallet }) => {
-  if (!userAuth.uid) return <Redirect to="/signIn" />;
+const ListOfFinances = ({ firebaseId, wallet }) => {
+  if (!firebaseId) return <Redirect to="/signIn" />;
   return (
     <FinancesListWrapper>
       <TitleWrapper>
@@ -47,12 +47,12 @@ const ListOfFinances = ({ userAuth, wallet }) => {
 };
 
 const mapStateToProps = state => ({
-  userAuth: state.firebase.auth,
+  firebaseId: state.firebase.auth.uid,
   wallet: state.account.wallet,
 });
 
 ListOfFinances.propTypes = {
-  userAuth: PropTypes.object.isRequired,
+  firebaseId: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(ListOfFinances);

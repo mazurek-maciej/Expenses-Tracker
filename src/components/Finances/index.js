@@ -38,12 +38,12 @@ const H2 = styled.h2`
 
 class Finances extends React.Component {
   componentDidMount() {
-    this.props.fetchCategories();
+    this.props.fetchCategories(this.props.firebaseId);
   }
 
   render() {
-    const { userAuth, categories } = this.props;
-    if (!userAuth.uid) return <Redirect to="/signIn" />;
+    const { firebaseId, categories } = this.props;
+    if (!firebaseId) return <Redirect to="/signIn" />;
     return (
       <AddFormWrapper>
         <TitleWrapper>
@@ -57,11 +57,11 @@ class Finances extends React.Component {
 
 const mapStateToProps = state => ({
   categories: state.categories,
-  userAuth: state.firebase.auth,
+  firebaseId: state.firebase.auth.uid,
 });
 
 Finances.propTypes = {
-  userAuth: PropTypes.object.isRequired,
+  firebaseId: PropTypes.string.isRequired,
   categories: PropTypes.object,
 };
 

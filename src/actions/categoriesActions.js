@@ -5,11 +5,15 @@ import {
   FETCH_CATEGORY,
   DELETE_CATEGORY,
 } from './types';
+import history from '../routes/history';
 
-export const createCategory = formValues => async dispatch => {
-  const response = await account.post('/categories', { ...formValues });
+export const createCategory = (formValues, firebaseId) => async dispatch => {
+  const response = await account.post(`/users/addCategory/${firebaseId}`, {
+    ...formValues,
+  });
 
   dispatch({ type: CREATE_CATEGORY, payload: response.data });
+  history.push('/');
 };
 
 export const fetchCategory = id => async dispatch => {
@@ -18,8 +22,8 @@ export const fetchCategory = id => async dispatch => {
   dispatch({ type: FETCH_CATEGORY, payload: response.data });
 };
 
-export const fetchCategories = () => async dispatch => {
-  const response = await account.get('/categories');
+export const fetchCategories = firebaseId => async dispatch => {
+  const response = await account.get(`/users/categories/${firebaseId}`);
 
   dispatch({ type: FETCH_CATEGORIES, payload: response.data });
 };

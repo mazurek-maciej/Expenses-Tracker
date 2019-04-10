@@ -91,22 +91,22 @@ class Form extends React.Component {
   };
 
   render() {
-    const { categories } = this.props;
+    const { categories, handleSubmit } = this.props;
     return (
       <FormWrapper>
-        <FinancesForm onSubmit={this.props.handleSubmit(this.onSubmit)}>
+        <FinancesForm onSubmit={handleSubmit(this.onSubmit)}>
           <Field
             name="description"
             component={this.renderInputField}
             label="Enter description"
           />
           <Field
-            name="money"
+            name="value"
             component={this.renderInputField}
             label="Enter value"
           />
           <Field
-            name="financeTypes"
+            name="financeType"
             label="Select finance type"
             types
             component={this.renderSelect}
@@ -147,14 +147,14 @@ const validate = formValues => {
   if (!formValues.description) {
     errors.description = 'You must enter description!';
   }
-  if (isNaN(formValues.money)) {
-    errors.money = 'You must enter a number';
+  if (isNaN(formValues.value)) {
+    errors.value = 'You must enter a number';
   }
   if (!formValues.category) {
     errors.category = 'Select category!';
   }
-  if (!formValues.financeTypes) {
-    errors.financeTypes = 'Select type!';
+  if (!formValues.financeType) {
+    errors.financeType = 'Select type!';
   }
   if (!formValues.date) {
     errors.date = 'Select date!';
@@ -164,6 +164,7 @@ const validate = formValues => {
 
 Form.propTypes = {
   categories: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 };
 
 export default reduxForm({

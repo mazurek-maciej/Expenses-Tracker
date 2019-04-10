@@ -22,11 +22,12 @@ const CategoriesWrapper = styled.div`
 
 class CategoriesIndex extends React.Component {
   componentDidMount() {
-    this.props.fetchCategories();
+    this.props.fetchCategories(this.props.firebaseId);
   }
 
-  onSubmit = formValues => {
-    this.props.createCategory(formValues);
+  handleOnSubmit = formValues => {
+    console.log(formValues, this.props.firebaseId);
+    this.props.createCategory(formValues, this.props.firebaseId);
   };
 
   render() {
@@ -34,7 +35,7 @@ class CategoriesIndex extends React.Component {
     return (
       <CategoriesWrapper>
         <CategoriesForm
-          handleOnSubmit={this.onSubmit}
+          onSubmit={this.handleOnSubmit}
           categories={categories}
         />
       </CategoriesWrapper>
@@ -44,6 +45,7 @@ class CategoriesIndex extends React.Component {
 
 const mapStateToProps = state => ({
   categories: state.categories,
+  firebaseId: state.firebase.auth.uid,
 });
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ createCategory, fetchCategories }, dispatch);

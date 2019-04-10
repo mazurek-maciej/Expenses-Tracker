@@ -35,7 +35,7 @@ const Button = styled.button`
 
 class FinancesList extends React.Component {
   componentDidMount() {
-    this.props.fetchFinances();
+    this.props.fetchFinances(this.props.firebaseId);
   }
 
   renderFinancesList = finances =>
@@ -55,7 +55,7 @@ class FinancesList extends React.Component {
               >
                 <i className="fas fa-trash-alt" />
               </Button>
-              <Link to={`/edit/${finance.id}`}>
+              <Link to={`/edit/${finance._id}`}>
                 <i className="fas fa-pen" />
               </Link>
             </div>

@@ -87,11 +87,22 @@ class Form extends React.Component {
   );
 
   onSubmit = formValues => {
-    this.props.onSubmit(formValues);
+    const { onSubmit, editWallet, firebaseId, wallet } = this.props;
+    let newWalletValue = '';
+    onSubmit(formValues);
+
+    if (formValues.financeType.label === 'Income') {
+      newWalletValue = +wallet + +formValues.value;
+      editWallet(firebaseId, { wallet: newWalletValue });
+    } else {
+      newWalletValue = +wallet - +formValues.value;
+      editWallet(firebaseId, { wallet: newWalletValue });
+    }
   };
 
   render() {
-    const { categories, handleSubmit } = this.props;
+    const { categories, handleSubmit, wallet } = this.props;
+    console.log(wallet);
     return (
       <FormWrapper>
         <FinancesForm onSubmit={handleSubmit(this.onSubmit)}>

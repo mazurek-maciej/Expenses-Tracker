@@ -6,41 +6,50 @@ import DatePicker from 'react-datepicker';
 import FinancesFormComponent from '../Forms/FinancesForm';
 
 import { createFinance } from '../../actions/financeActions';
-import { editWallet } from '../../actions/accountActions';
+import { fetchWallet, editWallet } from '../../actions/accountActions';
 import 'react-datepicker/dist/react-datepicker.css';
 
-// TODO: Przydałoby się pobrać aktualny stan konta od niego odjąć
-// Następnie przesłać zaktualizować z nową wartością.
-
 class FinancesForm extends React.Component {
+  componentDidMount() {
+    const { firebaseId, fetchWallet } = this.props;
+    if (firebaseId) {
+      fetchWallet(firebaseId);
+    }
+  }
+
   handleOnSubmit = formValues => {
-    console.log(formValues);
-    const { firebaseId } = this.props;
-    this.props.createFinance(formValues, firebaseId);
+    const { firebaseId, createFinance } = this.props;
+    createFinance(formValues, firebaseId);
   };
 
   render() {
-    const { categories, firebaseId, walletStatus } = this.props;
+    const { categories, firebaseId, wallet, editWallet } = this.props;
     return (
       <FinancesFormComponent
         onSubmit={this.handleOnSubmit}
         categories={categories}
+        wallet={wallet}
+        editWallet={editWallet}
+        firebaseId={firebaseId}
       />
     );
   }
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ createFinance, editWallet }, dispatch);
+  bindActionCreators({ createFinance, fetchWallet, editWallet }, dispatch);
 
 const mapStateToProps = state => ({
   firebaseId: state.firebase.auth.uid,
   walletStatus: Object.values(state.account),
+  wallet: state.account.wallet,
 });
 
 FinancesForm.propTypes = {
   categories: PropTypes.object.isRequired,
   firebaseId: PropTypes.string.isRequired,
+  wallet: PropTypes.string,
+  fetchWallet: PropTypes.func.isRequired,
 };
 
 export default connect(

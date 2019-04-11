@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { fetchWallet } from '../../actions/accountActions';
+import { fetchWallet, editWallet } from '../../actions/accountActions';
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,37 +21,35 @@ const WalletStatusText = styled.h2`
   color: ${({ theme }) => theme.colors.$text};
 `;
 
-const WalletStatus = ({ userId, fetchWallet, wallet }) => {
-  useEffect(() => {
-    if (userId) {
-      fetchWallet(userId);
+class WalletStatus extends React.Component {
+  componentDidMount() {
+    const { firebaseId, fetchWallet } = this.props;
+    if (firebaseId) {
+      return fetchWallet(firebaseId);
     }
-  }, [fetchWallet, userId]);
+  }
 
-  return (
-    <React.Fragment>
-      {wallet
-        ? wallet.map(el => (
-            <Wrapper key={el.id}>
-              <WalletWrapper>
-                <WalletStatusText>Balance: {el.amount}$</WalletStatusText>
-              </WalletWrapper>
-            </Wrapper>
-          ))
-        : null}
-    </React.Fragment>
-  );
-};
+  render() {
+    const { wallet } = this.props;
+    if (!wallet) return <div>No wallet defined</div>;
+    return (
+      <Wrapper>
+        <WalletWrapper>
+          <WalletStatusText>{wallet}</WalletStatusText>
+        </WalletWrapper>
+      </Wrapper>
+    );
+  }
+}
 
 WalletStatus.propTypes = {
-  userId: PropTypes.string.isRequired,
-  fetchWallet: PropTypes.func.isRequired,
-  wallet: PropTypes.array.isRequired,
+  firebaseId: PropTypes.string.isRequired,
+  wallet: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
-  userId: state.firebase.auth.uid,
-  wallet: Object.values(state.account),
+  wallet: state.account.wallet,
+  firebaseId: state.firebase.auth.uid,
 });
 
 export default connect(

@@ -5,11 +5,12 @@ import {
   FETCH_FINANCES,
   FETCH_FINANCE,
   DELETE_FINANCE,
+  FETCH_WALLET,
 } from './types';
 import history from '../routes/history';
 
 export const createFinance = (formValues, firebaseId) => async dispatch => {
-  const response = await account.post(`/users/add/${firebaseId}`, {
+  const response = await account.post(`/users/finances/add/${firebaseId}`, {
     ...formValues,
   });
 
@@ -18,25 +19,27 @@ export const createFinance = (formValues, firebaseId) => async dispatch => {
 };
 
 export const fetchFinance = (firebaseId, id) => async dispatch => {
-  const response = await account.get(`/users/find/${firebaseId}/${id}`);
+  const response = await account.get(`/users/finances/${firebaseId}/${id}`);
 
   dispatch({ type: FETCH_FINANCE, payload: response.data });
 };
 
 export const fetchFinances = firebaseId => async dispatch => {
-  const response = await account.get(`/users/find/${firebaseId}`);
+  const response = await account.get(`/users/finances/${firebaseId}`);
 
   dispatch({ type: FETCH_FINANCES, payload: response.data.finances });
 };
 
 export const deleteFinance = (firebaseId, id) => async dispatch => {
-  await account.delete(`/users/del/${firebaseId}/${id}`);
+  await account.delete(`/users/finances/del/${firebaseId}/${id}`);
 
   dispatch({ type: DELETE_FINANCE, payload: id });
 };
 
 export const editFinance = (id, formValues) => async dispatch => {
-  const response = await account.patch(`/users/edit/${id}`, { ...formValues });
+  const response = await account.patch(`/users/finances/edit/${id}`, {
+    ...formValues,
+  });
 
   dispatch({ type: EDIT_FINANCE, payload: response.data });
   history.push('/');

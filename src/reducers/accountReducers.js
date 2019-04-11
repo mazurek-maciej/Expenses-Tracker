@@ -17,7 +17,7 @@ export default (state = {}, action) => {
     case FETCH_WALLET:
       return {
         ...state,
-        wallet: action.payload.wallet,
+        wallets: action.payload.wallets,
       };
     default:
       return state;

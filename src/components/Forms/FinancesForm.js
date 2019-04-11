@@ -70,12 +70,30 @@ class Form extends React.Component {
         })
       );
     }
+
     return (
       <SelectComponent
         props={props}
         options={props.types ? this.state.financeType : categoriesArray}
       />
     );
+  };
+
+  renderWallets = props => {
+    const { wallets } = this.props;
+    const walletsArray = [];
+    if (wallets) {
+      const walletsPlaceholder = _.values(wallets);
+      walletsPlaceholder.map(wallet =>
+        walletsArray.push({
+          value: wallet.name,
+          label: wallet.name,
+          id: wallet._id,
+          status: wallet.value,
+        })
+      );
+    }
+    return <SelectComponent props={props} options={walletsArray} />;
   };
 
   renderInputCategory = ({ input, meta, label }) => (
@@ -87,22 +105,28 @@ class Form extends React.Component {
   );
 
   onSubmit = formValues => {
-    const { onSubmit, editWallet, firebaseId, wallet } = this.props;
+    const { onSubmit, editWallet, wallets } = this.props;
+    console.log(formValues);
     let newWalletValue = '';
     onSubmit(formValues);
 
     if (formValues.financeType.label === 'Income') {
-      newWalletValue = +wallet + +formValues.value;
-      editWallet(firebaseId, { wallet: newWalletValue });
+      newWalletValue = +formValues.wallets.status + +formValues.value;
+      editWallet(formValues.wallets.id, {
+        name: formValues.wallets.label,
+        value: newWalletValue,
+      });
     } else {
-      newWalletValue = +wallet - +formValues.value;
-      editWallet(firebaseId, { wallet: newWalletValue });
+      newWalletValue = +formValues.wallets.status - +formValues.value;
+      editWallet(formValues.wallets.id, {
+        name: formValues.wallets.label,
+        value: newWalletValue,
+      });
     }
   };
 
   render() {
-    const { categories, handleSubmit, wallet } = this.props;
-    console.log(wallet);
+    const { categories, handleSubmit } = this.props;
     return (
       <FormWrapper>
         <FinancesForm onSubmit={handleSubmit(this.onSubmit)}>
@@ -121,6 +145,11 @@ class Form extends React.Component {
             label="Select finance type"
             types
             component={this.renderSelect}
+          />
+          <Field
+            name="wallets"
+            label="Select wallet"
+            component={this.renderWallets}
           />
           <Field
             name="category"

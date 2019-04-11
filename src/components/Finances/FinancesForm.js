@@ -10,25 +10,19 @@ import { fetchWallet, editWallet } from '../../actions/accountActions';
 import 'react-datepicker/dist/react-datepicker.css';
 
 class FinancesForm extends React.Component {
-  componentDidMount() {
-    const { firebaseId, fetchWallet } = this.props;
-    if (firebaseId) {
-      fetchWallet(firebaseId);
-    }
-  }
-
   handleOnSubmit = formValues => {
     const { firebaseId, createFinance } = this.props;
     createFinance(formValues, firebaseId);
   };
 
   render() {
-    const { categories, firebaseId, wallet, editWallet } = this.props;
+    const { categories, firebaseId, wallets, editWallet } = this.props;
+    console.log(this.props);
     return (
       <FinancesFormComponent
         onSubmit={this.handleOnSubmit}
         categories={categories}
-        wallet={wallet}
+        wallets={wallets}
         editWallet={editWallet}
         firebaseId={firebaseId}
       />
@@ -41,15 +35,13 @@ const mapDispatchToProps = dispatch =>
 
 const mapStateToProps = state => ({
   firebaseId: state.firebase.auth.uid,
-  walletStatus: Object.values(state.account),
-  wallet: state.account.wallet,
 });
 
 FinancesForm.propTypes = {
   categories: PropTypes.object.isRequired,
   firebaseId: PropTypes.string.isRequired,
-  wallet: PropTypes.string,
-  fetchWallet: PropTypes.func.isRequired,
+  wallets: PropTypes.array,
+  editWallet: PropTypes.func.isRequired,
 };
 
 export default connect(

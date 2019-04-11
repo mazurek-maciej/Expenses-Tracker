@@ -30,13 +30,17 @@ class WalletStatus extends React.Component {
   }
 
   render() {
-    const { wallet } = this.props;
-    if (!wallet) return <div>No wallet defined</div>;
+    const { wallets } = this.props;
+    if (!wallets) return <div>No wallet defined</div>;
     return (
       <Wrapper>
-        <WalletWrapper>
-          <WalletStatusText>{wallet}</WalletStatusText>
-        </WalletWrapper>
+        {wallets.map(wallet => (
+          <WalletWrapper key={wallet._id}>
+            <WalletStatusText>
+              {wallet.name}: {wallet.value}
+            </WalletStatusText>
+          </WalletWrapper>
+        ))}
       </Wrapper>
     );
   }
@@ -44,11 +48,11 @@ class WalletStatus extends React.Component {
 
 WalletStatus.propTypes = {
   firebaseId: PropTypes.string.isRequired,
-  wallet: PropTypes.string.isRequired,
+  wallets: PropTypes.array,
 };
 
 const mapStateToProps = state => ({
-  wallet: state.account.wallet,
+  wallets: state.account.wallets,
   firebaseId: state.firebase.auth.uid,
 });
 

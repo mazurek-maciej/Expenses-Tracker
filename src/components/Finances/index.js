@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 
 import { fetchCategories } from '../../actions/categoriesActions';
+import { fetchWallet } from '../../actions/accountActions';
 import FinancesForm from './FinancesForm';
 
 const AddFormWrapper = styled.div`
@@ -38,18 +39,20 @@ const H2 = styled.h2`
 
 class Finances extends React.Component {
   componentDidMount() {
-    this.props.fetchCategories(this.props.firebaseId);
+    const { fetchCategories, fetchWallet, firebaseId } = this.props;
+    fetchCategories(firebaseId);
+    fetchWallet(firebaseId);
   }
 
   render() {
-    const { firebaseId, categories } = this.props;
+    const { firebaseId, categories, wallets } = this.props;
     if (!firebaseId) return <Redirect to="/signIn" />;
     return (
       <AddFormWrapper>
         <TitleWrapper>
           <H2>Add finance</H2>
         </TitleWrapper>
-        <FinancesForm categories={categories} />
+        <FinancesForm categories={categories} wallets={wallets} />
       </AddFormWrapper>
     );
   }
@@ -58,6 +61,7 @@ class Finances extends React.Component {
 const mapStateToProps = state => ({
   categories: state.categories,
   firebaseId: state.firebase.auth.uid,
+  wallets: state.account.wallets,
 });
 
 Finances.propTypes = {
@@ -67,5 +71,5 @@ Finances.propTypes = {
 
 export default connect(
   mapStateToProps,
-  { fetchCategories }
+  { fetchCategories, fetchWallet }
 )(Finances);

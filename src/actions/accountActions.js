@@ -8,7 +8,7 @@ export const createWallet = (userId, amount) => async dispatch => {
 };
 
 export const editWallet = (firebaseId, value) => async dispatch => {
-  const response = await account.patch(`/users/wallet/edit/${firebaseId}`, {
+  const response = await account.patch(`/users/wallets/edit/${firebaseId}`, {
     ...value,
   });
 
@@ -16,7 +16,7 @@ export const editWallet = (firebaseId, value) => async dispatch => {
 };
 
 export const fetchWallet = firebaseId => async dispatch => {
-  const response = await account.get(`/users/wallet/${firebaseId}`);
+  const response = await account.get(`/users/wallets/${firebaseId}`);
 
   dispatch({ type: FETCH_WALLET, payload: response.data });
 };

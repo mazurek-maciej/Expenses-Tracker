@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 
 import { fetchCategories } from '../../actions/categoriesActions';
-import { fetchWallet } from '../../actions/accountActions';
+import { fetchWallets } from '../../actions/accountActions';
 import FinancesForm from './FinancesForm';
 
 const AddFormWrapper = styled.div`
@@ -39,9 +39,9 @@ const H2 = styled.h2`
 
 class Finances extends React.Component {
   componentDidMount() {
-    const { fetchCategories, fetchWallet, firebaseId } = this.props;
+    const { fetchCategories, fetchWallets, firebaseId } = this.props;
     fetchCategories(firebaseId);
-    fetchWallet(firebaseId);
+    fetchWallets(firebaseId);
   }
 
   render() {
@@ -66,10 +66,13 @@ const mapStateToProps = state => ({
 
 Finances.propTypes = {
   firebaseId: PropTypes.string.isRequired,
+  fetchWallets: PropTypes.func.isRequired,
+  fetchCategories: PropTypes.func.isRequired,
   categories: PropTypes.object,
+  wallets: PropTypes.array,
 };
 
 export default connect(
   mapStateToProps,
-  { fetchCategories, fetchWallet }
+  { fetchCategories, fetchWallets }
 )(Finances);

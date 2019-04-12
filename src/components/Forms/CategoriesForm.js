@@ -10,6 +10,7 @@ import { device } from '../../theme/theme';
 const FinancesForm = styled.form`
   display: flex;
   flex-direction: column;
+  margin: 16px 0;
   @media ${device.mobileM} {
     display: flex;
     align-items: center;

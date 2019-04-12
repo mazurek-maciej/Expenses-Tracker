@@ -10,7 +10,7 @@ export const DELETE_FINANCE = 'DELETE_FINANCE';
 export const EDIT_FINANCE = 'EDIT_FINANCE';
 
 export const CREATE_WALLET = 'CREATE_WALLET';
-export const FETCH_WALLET = 'FETCH_WALLET';
+export const FETCH_WALLETS = 'FETCH_WALLETS';
 export const EDIT_WALLET = 'EDIT_WALLET';
 
 export const CREATE_CATEGORY = 'CREATE_CATEGORY';

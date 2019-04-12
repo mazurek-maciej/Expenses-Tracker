@@ -1,10 +1,14 @@
 import account from '../apis/account';
-import { CREATE_WALLET, FETCH_WALLET, EDIT_WALLET } from './types';
+import { CREATE_WALLET, FETCH_WALLETS, EDIT_WALLET } from './types';
+import history from '../routes/history';
 
-export const createWallet = (userId, amount) => async dispatch => {
-  const response = await account.post('/wallets', { userId, amount });
+export const createWallet = (firebaseId, wallet) => async dispatch => {
+  const response = await account.post(`/users/wallets/new/${firebaseId}`, {
+    ...wallet,
+  });
 
   dispatch({ type: CREATE_WALLET, payload: response.data });
+  history.push('/');
 };
 
 export const editWallet = (firebaseId, value) => async dispatch => {
@@ -15,8 +19,8 @@ export const editWallet = (firebaseId, value) => async dispatch => {
   dispatch({ type: EDIT_WALLET, payload: response.data });
 };
 
-export const fetchWallet = firebaseId => async dispatch => {
+export const fetchWallets = firebaseId => async dispatch => {
   const response = await account.get(`/users/wallets/${firebaseId}`);
 
-  dispatch({ type: FETCH_WALLET, payload: response.data });
+  dispatch({ type: FETCH_WALLETS, payload: response.data });
 };

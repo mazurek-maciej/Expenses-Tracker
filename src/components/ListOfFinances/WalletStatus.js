@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { fetchWallet, editWallet } from '../../actions/accountActions';
+import { fetchWallets } from '../../actions/accountActions';
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
 `;
 const WalletWrapper = styled.div`
@@ -15,6 +16,7 @@ const WalletWrapper = styled.div`
   width: 50%;
   padding: 8px 16px;
   border-radius: 16px;
+  margin: 16px;
 `;
 const WalletStatusText = styled.h2`
   font-size: 2rem;
@@ -23,9 +25,9 @@ const WalletStatusText = styled.h2`
 
 class WalletStatus extends React.Component {
   componentDidMount() {
-    const { firebaseId, fetchWallet } = this.props;
+    const { firebaseId, fetchWallets } = this.props;
     if (firebaseId) {
-      return fetchWallet(firebaseId);
+      return fetchWallets(firebaseId);
     }
   }
 
@@ -58,5 +60,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { fetchWallet }
+  { fetchWallets }
 )(WalletStatus);

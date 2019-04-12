@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { CREATE_WALLET, FETCH_WALLET, EDIT_WALLET } from '../actions/types';
+import { CREATE_WALLET, FETCH_WALLETS, EDIT_WALLET } from '../actions/types';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -14,7 +14,7 @@ export default (state = {}, action) => {
         ...state,
         wallet: action.payload.wallet,
       };
-    case FETCH_WALLET:
+    case FETCH_WALLETS:
       return {
         ...state,
         wallets: action.payload.wallets,

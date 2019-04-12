@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import _ from 'lodash';
 
 import {
   createCategory,
@@ -12,12 +11,37 @@ import {
 
 import CategoriesForm from '../Forms/CategoriesForm';
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 80px);
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+`;
 const CategoriesWrapper = styled.div`
   height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+`;
+const TitleWrapper = styled.div`
+  align-self: flex-start;
+  position: relative;
+  margin: 32px 0 16px 16px;
+`;
+const H2 = styled.h2`
+  font-size: ${({ theme }) => theme.size.$h2};
+  color: ${({ theme }) => theme.colors.$D13};
+  ::after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background-color: ${({ theme }) => theme.colors.$D13};
+    bottom: 0;
+    left: 0;
+  }
 `;
 
 class CategoriesIndex extends React.Component {
@@ -33,12 +57,17 @@ class CategoriesIndex extends React.Component {
   render() {
     const { categories } = this.props;
     return (
-      <CategoriesWrapper>
-        <CategoriesForm
-          onSubmit={this.handleOnSubmit}
-          categories={categories}
-        />
-      </CategoriesWrapper>
+      <Wrapper>
+        <TitleWrapper>
+          <H2>Create new category</H2>
+        </TitleWrapper>
+        <CategoriesWrapper>
+          <CategoriesForm
+            onSubmit={this.handleOnSubmit}
+            categories={categories}
+          />
+        </CategoriesWrapper>
+      </Wrapper>
     );
   }
 }

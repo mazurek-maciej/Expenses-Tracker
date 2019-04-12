@@ -28,16 +28,6 @@ const FinancesForm = styled.form`
     margin: 0 8px;
   }
 `;
-const DescriptionWrapper = styled.div`
-  display: flex;
-  margin: 16px 0;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1.5rem;
-  border-radius: 8px;
-  background-color: ${({ theme }) => theme.colors.$grayBg};
-`;
 const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-around;
@@ -58,42 +48,45 @@ class Form extends React.Component {
     <InputComponent input={input} meta={meta} label={label} />
   );
 
-  renderSelect = props => {
-    const { categories } = this.props;
-    const categoriesArray = [];
-    if (Object.keys(categories).length !== 0) {
-      const categoriesPlaceholder = _.values(categories);
-      categoriesPlaceholder.map(category =>
-        categoriesArray.push({
-          value: category.value,
-          label: category.value,
+  categoryField = (category, array, props) => {
+    if (Object.keys(category).length !== 0) {
+      const categoriesPlaceholder = _.values(category);
+      categoriesPlaceholder.map(element =>
+        array.push({
+          value: element.value,
+          label: element.value,
         })
       );
     }
-
-    return (
-      <SelectComponent
-        props={props}
-        options={props.types ? this.state.financeType : categoriesArray}
-      />
-    );
+    return <SelectComponent props={props} options={array} />;
   };
 
-  renderWallets = props => {
-    const { wallets } = this.props;
-    const walletsArray = [];
-    if (wallets) {
-      const walletsPlaceholder = _.values(wallets);
-      walletsPlaceholder.map(wallet =>
-        walletsArray.push({
-          value: wallet.name,
-          label: wallet.name,
-          id: wallet._id,
-          status: wallet.value,
+  walletField = (wallet, array, props) => {
+    if (wallet) {
+      const walletsPlaceholder = _.values(wallet);
+      walletsPlaceholder.map(element =>
+        array.push({
+          value: element.name,
+          label: element.name,
+          id: element._id,
+          status: element.value,
         })
       );
     }
-    return <SelectComponent props={props} options={walletsArray} />;
+    return <SelectComponent props={props} options={array} />;
+  };
+
+  renderSelect = props => {
+    const { categories, wallets } = this.props;
+    const categoriesArray = [];
+    const walletsArray = [];
+    if (props.category) {
+      return this.categoryField(categories, categoriesArray, props);
+    }
+    if (props.wallet) {
+      return this.walletField(wallets, walletsArray, props);
+    }
+    return <SelectComponent props={props} options={this.state.financeType} />;
   };
 
   renderInputCategory = ({ input, meta, label }) => (
@@ -104,25 +97,21 @@ class Form extends React.Component {
     <DatePickerComponent props={props} presentDate={this.state.presentDate} />
   );
 
-  onSubmit = formValues => {
-    const { onSubmit, editWallet, wallets } = this.props;
-    console.log(formValues);
+  checkFieldToEditWallet = (field, toEditFunc) => {
     let newWalletValue = '';
-    onSubmit(formValues);
+    field.financeType.label === 'Income'
+      ? (newWalletValue = +field.wallets.status + +field.value)
+      : (newWalletValue = +field.wallets.status - +field.value);
+    toEditFunc(field.wallets.id, {
+      name: field.wallets.label,
+      value: newWalletValue,
+    });
+  };
 
-    if (formValues.financeType.label === 'Income') {
-      newWalletValue = +formValues.wallets.status + +formValues.value;
-      editWallet(formValues.wallets.id, {
-        name: formValues.wallets.label,
-        value: newWalletValue,
-      });
-    } else {
-      newWalletValue = +formValues.wallets.status - +formValues.value;
-      editWallet(formValues.wallets.id, {
-        name: formValues.wallets.label,
-        value: newWalletValue,
-      });
-    }
+  onSubmit = formValues => {
+    const { onSubmit, editWallet } = this.props;
+    onSubmit(formValues);
+    this.checkFieldToEditWallet(formValues, editWallet);
   };
 
   render() {
@@ -147,11 +136,13 @@ class Form extends React.Component {
             component={this.renderSelect}
           />
           <Field
+            wallet
             name="wallets"
             label="Select wallet"
-            component={this.renderWallets}
+            component={this.renderSelect}
           />
           <Field
+            category
             name="category"
             label="Select category"
             component={this.renderSelect}
@@ -204,7 +195,10 @@ const validate = formValues => {
 
 Form.propTypes = {
   categories: PropTypes.object.isRequired,
+  wallets: PropTypes.array,
   handleSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  editWallet: PropTypes.func.isRequired,
 };
 
 export default reduxForm({

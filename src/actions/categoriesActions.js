@@ -8,7 +8,7 @@ import {
 import history from '../routes/history';
 
 export const createCategory = (formValues, firebaseId) => async dispatch => {
-  const response = await account.post(`/users/categories/add/${firebaseId}`, {
+  const response = await account.post(`/users/categories/${firebaseId}`, {
     ...formValues,
   });
 

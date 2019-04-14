@@ -77,7 +77,7 @@ const NavigationBar = ({ userAuth, signOut }) =>
           </Link>
         </StyledButton>
         <StyledButton>
-          <Link to="/new-finance">
+          <Link to="/add">
             <i className="fas fa-plus" />
           </Link>
         </StyledButton>

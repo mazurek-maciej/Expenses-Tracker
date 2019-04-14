@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker';
 import FinancesFormComponent from '../Forms/FinancesForm';
 
 import { createFinance } from '../../actions/financeActions';
-import { fetchWallets, editWallet } from '../../actions/accountActions';
+import { editWallet } from '../../actions/accountActions';
 import 'react-datepicker/dist/react-datepicker.css';
 
 class FinancesForm extends React.Component {
@@ -30,7 +30,7 @@ class FinancesForm extends React.Component {
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ createFinance, fetchWallets, editWallet }, dispatch);
+  bindActionCreators({ createFinance, editWallet }, dispatch);
 
 const mapStateToProps = state => ({
   firebaseId: state.firebase.auth.uid,

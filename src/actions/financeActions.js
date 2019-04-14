@@ -5,12 +5,11 @@ import {
   FETCH_FINANCES,
   FETCH_FINANCE,
   DELETE_FINANCE,
-  FETCH_WALLET,
 } from './types';
 import history from '../routes/history';
 
 export const createFinance = (formValues, firebaseId) => async dispatch => {
-  const response = await account.post(`/users/finances/add/${firebaseId}`, {
+  const response = await account.post(`/users/finances/${firebaseId}`, {
     ...formValues,
   });
 
@@ -31,13 +30,13 @@ export const fetchFinances = firebaseId => async dispatch => {
 };
 
 export const deleteFinance = (firebaseId, id) => async dispatch => {
-  await account.delete(`/users/finances/del/${firebaseId}/${id}`);
+  await account.delete(`/users/finances/${firebaseId}/${id}`);
 
   dispatch({ type: DELETE_FINANCE, payload: id });
 };
 
 export const editFinance = (id, formValues) => async dispatch => {
-  const response = await account.patch(`/users/finances/edit/${id}`, {
+  const response = await account.patch(`/users/finances/${id}`, {
     ...formValues,
   });
 

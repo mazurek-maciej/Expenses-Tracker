@@ -32,8 +32,8 @@ class CategoriesForm extends React.Component {
       const categoriesPlaceholder = _.values(categories);
       categoriesPlaceholder.map(category =>
         categoriesArray.push({
-          value: category.value,
-          label: category.value,
+          value: category.name,
+          label: category.name,
         })
       );
     }

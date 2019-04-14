@@ -48,13 +48,21 @@ class Form extends React.Component {
     <InputComponent input={input} meta={meta} label={label} />
   );
 
+  renderInputCategory = ({ input, meta, label }) => (
+    <InputComponent input={input} meta={meta} label={label} />
+  );
+
+  renderDatePicker = props => (
+    <DatePickerComponent props={props} presentDate={this.state.presentDate} />
+  );
+
   categoryField = (category, array, props) => {
     if (Object.keys(category).length !== 0) {
       const categoriesPlaceholder = _.values(category);
       categoriesPlaceholder.map(element =>
         array.push({
-          value: element.value,
-          label: element.value,
+          value: element.name,
+          label: element.name,
         })
       );
     }
@@ -89,14 +97,6 @@ class Form extends React.Component {
     return <SelectComponent props={props} options={this.state.financeType} />;
   };
 
-  renderInputCategory = ({ input, meta, label }) => (
-    <InputComponent input={input} meta={meta} label={label} />
-  );
-
-  renderDatePicker = props => (
-    <DatePickerComponent props={props} presentDate={this.state.presentDate} />
-  );
-
   checkFieldToEditWallet = (field, toEditFunc) => {
     let newWalletValue = '';
     field.financeType.label === 'Income'
@@ -110,7 +110,11 @@ class Form extends React.Component {
 
   onSubmit = formValues => {
     const { onSubmit, editWallet } = this.props;
-    onSubmit(formValues);
+    const values = {
+      ...formValues,
+      walletId: formValues.wallets.id,
+    };
+    onSubmit(values);
     this.checkFieldToEditWallet(formValues, editWallet);
   };
 

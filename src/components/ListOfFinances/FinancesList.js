@@ -11,18 +11,46 @@ const Table = styled.table`
   width: 100%;
   background: transparent;
 `;
-const RowContainer = styled.div`
-  padding: 8px;
+const RowContainer = styled.th`
   display: flex;
-  align-items: baseline;
+  justify-content: space-between;
   * {
     color: ${({ theme }) => theme.colors.$text};
   }
 `;
+const RowLeftContainer = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 2px solid ${({ theme }) => theme.colors.$D3};
+`;
+const RowRightContainer = styled.div`
+  padding: 8px 16px;
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+`;
+const RightTopContainer = styled.div`
+  padding: 4px 0;
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+`;
+const RightBottomContainer = styled.div`
+  padding: 4px 0;
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+`;
 const P = styled.p`
-  align-self: flex-start;
-  font-size: ${({ theme }) => theme.size.$h5};
-  margin-left: 1rem;
+  font-size: 18px;
+`;
+const MoneyP = styled(P)`
+  color: ${props => (props.color === 'Income' ? '#1dd1a1' : '#ff6b6b')};
+`;
+const SubP = styled.p`
+  font-size: 14px;
 `;
 
 const Button = styled.button`
@@ -38,39 +66,48 @@ class FinancesList extends React.Component {
     this.props.fetchFinances(this.props.firebaseId);
   }
 
-  renderFinancesList = finances =>
-    finances.map(finance => (
-      <tr key={finance._id}>
-        <th>
+  renderFinancesList = (finances, selectedWallet) =>
+    finances
+      .filter(finance => finance.walletId === selectedWallet)
+      .map(finance => (
+        <tr key={finance._id}>
           <RowContainer>
-            <i className="fas fa-dollar-sign" />
-            <P className="subtitle">{finance.value}</P>
-            <P className="subtitle">{finance.description}</P>
-            <div style={{ marginLeft: 'auto' }}>
-              <Button
-                onClick={() =>
-                  this.props.deleteFinance(this.props.firebaseId, finance._id)
-                }
-                type="button"
-              >
-                <i className="fas fa-trash-alt" />
-              </Button>
-              <Link to={`/edit/${finance._id}`}>
-                <i className="fas fa-pen" />
-              </Link>
-            </div>
+            <RowLeftContainer>
+              <MoneyP color={finance.financeType.label}>
+                $ {finance.value}
+              </MoneyP>
+            </RowLeftContainer>
+            <RowRightContainer>
+              <RightTopContainer>
+                <P>{finance.description}</P>
+                <Link to={`/edit/${finance._id}`}>
+                  <i className="fas fa-pen" />
+                </Link>
+              </RightTopContainer>
+              <RightBottomContainer>
+                <SubP>{finance.category.label}</SubP>
+                <Button
+                  onClick={() =>
+                    this.props.deleteFinance(this.props.firebaseId, finance._id)
+                  }
+                  type="button"
+                  style={{ fontSize: '16px', margin: '0', padding: '0' }}
+                >
+                  <i className="fas fa-trash-alt" />
+                </Button>
+              </RightBottomContainer>
+            </RowRightContainer>
           </RowContainer>
-        </th>
-      </tr>
-    ));
+        </tr>
+      ));
 
   render() {
-    const { finances } = this.props;
+    const { finances, selectedWallet } = this.props;
     if (finances.length === 0) return <div>You have empty list</div>;
     return (
       <>
         <Table className="table">
-          <tbody>{this.renderFinancesList(finances)}</tbody>
+          <tbody>{this.renderFinancesList(finances, selectedWallet)}</tbody>
         </Table>
       </>
     );
@@ -90,6 +127,7 @@ FinancesList.propTypes = {
   firebaseId: PropTypes.string.isRequired,
   fetchFinances: PropTypes.func.isRequired,
   deleteFinance: PropTypes.func.isRequired,
+  selectedWallet: PropTypes.string,
 };
 
 export default connect(

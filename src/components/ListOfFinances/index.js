@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -34,14 +34,19 @@ const H2 = styled.h2`
 `;
 
 const ListOfFinances = ({ firebaseId, wallet }) => {
+  const [selectedWallet, setSelectedWallet] = useState('');
+
   if (!firebaseId) return <Redirect to="/signIn" />;
   return (
     <FinancesListWrapper>
       <TitleWrapper>
         <H2>Your finances</H2>
       </TitleWrapper>
-      <WalletStatus />
-      <FinancesList />
+      <WalletStatus
+        selectedWallet={selectedWallet}
+        setWallet={setSelectedWallet}
+      />
+      <FinancesList selectedWallet={selectedWallet} />
     </FinancesListWrapper>
   );
 };

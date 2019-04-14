@@ -14,7 +14,6 @@ export default (state = {}, action) => {
     case FETCH_FINANCE:
       return { ...state, [action.payload.id]: action.payload };
     case CREATE_FINANCE:
-      console.log(action.payload);
       return { ...state, [action.payload.id]: action.payload };
     case EDIT_FINANCE:
       return { ...state, [action.payload.id]: action.payload };

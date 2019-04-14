@@ -50,7 +50,6 @@ class CategoriesIndex extends React.Component {
   }
 
   handleOnSubmit = formValues => {
-    console.log(formValues, this.props.firebaseId);
     this.props.createCategory(formValues, this.props.firebaseId);
   };
 

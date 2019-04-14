@@ -3,7 +3,7 @@ import { CREATE_WALLET, FETCH_WALLETS, EDIT_WALLET } from './types';
 import history from '../routes/history';
 
 export const createWallet = (firebaseId, wallet) => async dispatch => {
-  const response = await account.post(`/users/wallets/new/${firebaseId}`, {
+  const response = await account.post(`/users/wallets/${firebaseId}`, {
     ...wallet,
   });
 
@@ -12,7 +12,7 @@ export const createWallet = (firebaseId, wallet) => async dispatch => {
 };
 
 export const editWallet = (firebaseId, value) => async dispatch => {
-  const response = await account.patch(`/users/wallets/edit/${firebaseId}`, {
+  const response = await account.patch(`/users/wallets/${firebaseId}`, {
     ...value,
   });
 
@@ -22,5 +22,5 @@ export const editWallet = (firebaseId, value) => async dispatch => {
 export const fetchWallets = firebaseId => async dispatch => {
   const response = await account.get(`/users/wallets/${firebaseId}`);
 
-  dispatch({ type: FETCH_WALLETS, payload: response.data });
+  dispatch({ type: FETCH_WALLETS, payload: response.data.wallets });
 };

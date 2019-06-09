@@ -49,6 +49,10 @@ export default (state = INITIAL_STATE, action) => {
         passwordError:
           'Sprawdź czy hasło zawiera minimum 6 znaków, oraz czy mail jest poprawnie wpisany',
       };
+    case 'DB_USER':
+      return {
+        ...state,
+      };
     default:
       return state;
   }

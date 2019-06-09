@@ -21,6 +21,7 @@ const WalletWrapper = styled.div`
   padding: 8px 16px;
   color: ${({ theme }) => theme.colors.$text};
   border-radius: 4px;
+  cursor: pointer;
 `;
 const WalletStatusText = styled.h2`
   font-size: 1.8rem;

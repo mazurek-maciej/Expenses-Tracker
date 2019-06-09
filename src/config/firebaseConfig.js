@@ -1,13 +1,14 @@
-import firebase from "firebase/app";
-import "firebase/auth";
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
-let config = {
-  apiKey: "AIzaSyAp31sfu4RcvuBTOJ5JULT-GUsKAxAfHs0",
-  authDomain: "pocketchange-9928b.firebaseapp.com",
-  databaseURL: "https://pocketchange-9928b.firebaseio.com",
-  projectId: "pocketchange-9928b",
-  storageBucket: "",
-  messagingSenderId: "1022825962123"
+const config = {
+  apiKey: 'AIzaSyDr0DluVJphyuXE7xtgsEIFHNl2eOvFSqk',
+  authDomain: 'billexpensestracker.firebaseapp.com',
+  databaseURL: 'https://billexpensestracker.firebaseio.com',
+  projectId: 'billexpensestracker',
+  storageBucket: 'billexpensestracker.appspot.com',
+  messagingSenderId: '404472615258',
+  appId: '1:404472615258:web:edf122341072a6a8',
 };
 firebase.initializeApp(config);
 

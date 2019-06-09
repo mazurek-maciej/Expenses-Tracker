@@ -10,6 +10,7 @@ import Button from '../Buttons/Button';
 import AuthForm from '../Forms/AuthForm';
 import FormField from '../Forms/AuthFormField';
 
+const TestButton = styled.button``;
 const SignInWrapper = styled.div`
   display: flex;
   flex-direction: column;

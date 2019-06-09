@@ -104,6 +104,7 @@ class FinancesList extends React.Component {
   render() {
     const { finances, selectedWallet } = this.props;
     if (finances.length === 0) return <div>You have empty list</div>;
+    console.log(this.props);
     return (
       <>
         <Table className="table">

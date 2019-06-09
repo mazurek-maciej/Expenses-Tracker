@@ -58,18 +58,6 @@ const SignUp = ({ userAuth, signUp }) => {
     e.preventDefault();
     signUp({ email, password, name, surname });
   }
-  function handleEmail(e) {
-    setEmail(e.target.value);
-  }
-  function handlePassword(e) {
-    setPassword(e.target.value);
-  }
-  function handleName(e) {
-    setName(e.target.value);
-  }
-  function handleSurname(e) {
-    setSurname(e.target.value);
-  }
 
   if (userAuth.uid) return <Redirect to="/" />;
   return (
@@ -78,16 +66,16 @@ const SignUp = ({ userAuth, signUp }) => {
         <H2>Register</H2>
       </TitleWrapper>
       <AuthForm onSubmit={handleSubmit}>
-        <FormField label="name" handleChange={handleName} />
-        <FormField label="surname" handleChange={handleSurname} />
+        <FormField label="name" onChange={e => setName(e.target.value)} />
+        <FormField label="surname" onChange={e => setSurname(e.target.value)} />
         <FormField
           label="email"
-          handleChange={handleEmail}
+          onChange={e => setEmail(e.target.value)}
           placeholder="Enter valid email"
         />
         <FormField
           label="password"
-          handleChange={handlePassword}
+          onChange={e => setPassword(e.target.value)}
           placeholder="Password need at least 6 characters"
         />
         <ButtonsContainer>

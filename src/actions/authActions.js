@@ -29,6 +29,11 @@ export const signOut = () => (dispatch, getState, { getFirebase }) => {
     });
 };
 
+export const createDBAcc = firebaseId => async dispatch => {
+  const response = await account.post('/users/newUser', { firebaseId });
+  dispatch({ type: 'DB_USER', payload: response.data });
+};
+
 export const signUp = newUser => (
   dispatch,
   getState,
@@ -36,19 +41,13 @@ export const signUp = newUser => (
 ) => {
   const firebase = getFirebase();
   const firestore = getFirestore();
-
   firebase
     .auth()
     .createUserWithEmailAndPassword(newUser.email, newUser.password)
-    .then(response =>
-      firestore
-        .collection('users')
-        .doc(response.user.uid)
-        .set({
-          name: newUser.name,
-          surname: newUser.surname,
-        })
-    )
+    .then(response => {
+      const firebaseId = response.user.uid;
+      account.post('/users/newUser', { firebaseId });
+    })
     .then(() => {
       dispatch({ type: 'SIGNUP_SUCCESS' });
     })
